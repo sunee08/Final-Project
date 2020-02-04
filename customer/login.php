@@ -70,7 +70,7 @@ if(isset($_GET['error'])){
               </label>
             </div>
           </div>
-          <button  type="submit" name="submit" class="btn btn-block btn-primary ">เข้าสู่ระบบ</button>
+          <button  type="submit" name="submit" class="btn btn-block btn-warning ">เข้าสู่ระบบ</button>
         </form>
         <div class="text-center" >
           <a class="d-block  small mt-3" href="register_customer.php">สมัครสมาชิก</a>

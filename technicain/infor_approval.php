@@ -247,7 +247,7 @@ $sql = "SELECT * FROM customers  WHERE cusStatus  AND techID = '1' ORDER BY cusU
                       <td><?php echo $objResult["descrip"];?></td>
                       <td><?php echo $objResult["hdate"];?></td>
                       <td><?php echo $objResult["ntime"];?></td>
-                      <td align="center"><span class="btn btn-warning"<?php echo $objResult["status"];?> >อนุมัติ</span></td>
+                      <td align="center"><span class="btn btn-warning" <?php echo $objResult["status"];?> >อนุมัติ</span></td>
                       </td>
                   </div>
                 </div>

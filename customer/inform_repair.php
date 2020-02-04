@@ -241,7 +241,7 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                     <td><?php echo $objResult["descrip"];?></td>
                     <td><?php echo $objResult["hdate"];?></td>
                     <td><?php echo $objResult["ntime"];?></td>
-                    <td align="center"><?php echo $objResult["status"];?></td>
+                    <td align="center"><?php echo $objResult["status"];?>td>
 
                     </td>
                 </div>
@@ -310,7 +310,7 @@ $objResult = mysql_fetch_array($objQuery);
                                       </div>
                                       <div class="form-group">
                                         <div class="col-md-10">
-                                          <label for="ntime">เวลา</label>
+                                          <label for="ntime">วลาlabel>
                                           <input type="text" name="ntime" id="ntime" class="form-control"
                                             autocomplete="off" required="required">
                                         </div>
