@@ -5,12 +5,14 @@ $equipment=$_POST['equipment'];
 $descrip=$_POST['descrip'];
 $hdate=$_POST['hdate'];
 $cusID=$_POST['cusID'];
+$techID=$_POST['techID'];
 $ntime=$_POST['ntime'];
+$types=$_POST['types'];
 
 
 
-$sql="INSERT INTO  infor_inform (equipment,descrip,hdate, cusID,ntime)
-		VALUES ('$equipment','$descrip','$hdate','$cusID','$ntime')";
+$sql="INSERT INTO  infor_inform (equipment,descrip,hdate,cusID,techID ,ntime,types)
+		VALUES ('$equipment','$descrip','$hdate','$cusID','$techID','$ntime','$types')";
 
 
 

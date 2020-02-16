@@ -82,7 +82,7 @@ exit();
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#">โปรไฟล์ของฉัน</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">ออกจากระบบ[</a>
+          <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">ออกจากระบบ</a>
         </div>
       </li>
     </ul>
@@ -179,9 +179,9 @@ exit();
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
 
-  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,infor_inform.equipment,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,infor_inform.cusID,infor_inform.id FROM infor_inform
+  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,infor_inform.equipment,infor_inform.hdate,infor_inform.ntime,infor_inform.status,infor_inform.cusID,infor_inform.id ,infor_inform.types FROM infor_inform
             LEFT JOIN customers ON customers.cusID = infor_inform.cusID
-           
+            LEFT JOIN tecnicain ON tecnicain.techID = infor_inform.techID
             WHERE infor_inform.cusID ='".$_SESSION['id']."'";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
@@ -207,8 +207,12 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                           <th>
                             <div align="center">ที่อยู่</div>
                           </th>
+
                           <th>
                             <div align="center">รายการที่ส่งซ่อม</div>
+                          </th>
+                           <th>
+                            <div align="center">Types</div>
                           </th>
                           <th>
                             <div align="center">สาเหตุ</div>
@@ -238,10 +242,10 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                     <td><?php echo $objResult["cusName"];?></td>
                     <td><?php echo $objResult["cusAddress"];?></td>
                     <td><?php echo $objResult["equipment"];?></td>
-                    <td><?php echo $objResult["descrip"];?></td>
+                    <td><?php echo $objResult["types"];?></td>
                     <td><?php echo $objResult["hdate"];?></td>
                     <td><?php echo $objResult["ntime"];?></td>
-                    <td align="center"><?php echo $objResult["status"];?>td>
+                    <td align="center"><?php echo $objResult["status"];?></td>
 
                     </td>
                 </div>
@@ -287,17 +291,25 @@ $objResult = mysql_fetch_array($objQuery);
                         </div>
 
                         <div class="modal-body">
-                          <div class="form-group row">      
+                          <div class="form-group row">
                             <div class="col-md-10">
                               <label for="">รายการที่ส่งซ่อม</label>
                               <textarea name="equipment" id="equipment" class="form-control"
                                 required="required"></textarea>
                             </div>
+
+                            <select name="types" id="types">
+<option value="Electrician">Electrician</option>
+<option value="Plumber">Plumber</option>
+<option value="Electrical_appliances">Electrical appliances</option>
+<option value="Home_renuvate">Home renuvate</option>
+</select>
+
                             <div class="modal-body">
                               <div class="form-group row">
                                 <div class="col-md-10">
                                   <label for="">สาเหตุ</label>
-                               <textarea name="descrip" id="descrip" class="form-control"
+                                  <textarea name="descrip" id="descrip" class="form-control"
                                     required="required"></textarea>
                                 </div>
                                 <div>
@@ -310,14 +322,14 @@ $objResult = mysql_fetch_array($objQuery);
                                       </div>
                                       <div class="form-group">
                                         <div class="col-md-10">
-                                          <label for="ntime">วลาlabel>
+                                          <label for="ntime">เวลา</label>
                                           <input type="text" name="ntime" id="ntime" class="form-control"
                                             autocomplete="off" required="required">
                                         </div>
                                         <div>
                                           <div class="modal-footer">
                                             <div class="col-md-10">
-                                              <button type="submit" name="save" class="btn btn-primary btn-sm">
+                                              <button type="submit" name="save" class="btn btn-warning` btn-sm">
                                                 <i class="fa fa-save fa-fw"></i>บันทึก</button>
                                               <div>
                                               </div>

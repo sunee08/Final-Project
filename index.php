@@ -54,26 +54,25 @@
 						<ul class="navbar-nav ml-auto main-nav ">
 							<li class="nav-item active">
 								<a class="nav-link" href="index.php">หน้าหลัก</a>
-								</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">เกี่ยวกับ</a>
-							</li>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">ข่าวประชาสัมพันธ์</a>
 							</li>
-							<!-- <li class="nav-item dropdown dropdown-slide">
+							<li class="nav-item">
+								<a class="nav-link" href="#">รีวิว</a>
+							</li>
+							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								ประเภทช่าง <span><i class="fa fa-angle-down"></i></span>
-								</a> -->
+								</a>
 								<!-- Dropdown list -->
-								<!-- <div class="dropdown-menu dropdown-menu-right">
+								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item" href="#">การไฟฟ้า</a>
 									<a class="dropdown-item" href="#">เครื่งใช้ไฟฟ้า</a>
 									<a class="dropdown-item" href="#">ช่างต่อเติม</a>
 									<a class="dropdown-item" href="#">ช่างประปาและอื่นๆ</a>
 								</div>
-							</li> -->
+							</li>
 
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
