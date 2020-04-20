@@ -6,22 +6,6 @@ include ('menu2.php');
 
 
 
-
-
-
-<head>
-<title>Insert Repair Invoice</title>
-</head>
-
-<body id="page-top">
-
-
-<div id="wrapper">
-
-
-
-     <div id="content-wrapper">
-
       <div class="container-fluid">
 
         <!-- DataTables Example -->
