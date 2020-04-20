@@ -263,7 +263,6 @@ exit();
                ?>
             </tbody>
             </table>
-
             <?php
 
 include('../db/connect.php');

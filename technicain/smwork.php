@@ -163,21 +163,23 @@ exit();
           </div>
         </div>
 
-    <?php
-    include('../db/connect.php');
-    $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-    $objDB = mysql_select_db("hwrp");
+  <?php
+  include('../db/connect.php');
+  $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+  $objDB = mysql_select_db("hwrp");
 
-    $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
-    infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id  FROM infor_inform
-   
+  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
+    ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
+    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status FROM infor_inform
+    
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-   
-    WHERE  technicain.techID  AND infor_inform.status = 'ซ่อมเสร็จ'  ";
-    $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");?>
-    
+  
+    WHERE  technicain.techID   ";
+  
+  $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
+ 
+  ?>
       <div id="wrapper">
         <div id="content-wrapper">
           <div class="container-fluid">
@@ -189,7 +191,7 @@ exit();
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
                     <thead>
                       <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
-                      <th>
+                              <th>
                                 <div>เลขที่</div>
                               </th>
                               <th>
@@ -202,10 +204,7 @@ exit();
                                 <div>รายการที่ส่งซ่อม</div>
                               </th>
                               <th>
-                                <div>วันที่สะดวก</div>
-                              </th>
-                              <th>
-                                <div >เวลาที่สะดวก</div>
+                                <div>วันที่และวลาที่สะดวก</div>
                               </th>
                               <th>
                                 <div>สถานะ<div>
@@ -215,7 +214,6 @@ exit();
                               </th>
                             </tr>
                           </thead>
-                         </div>
                           <?php
                           $i = 1;
                           $count =1;
@@ -225,17 +223,17 @@ exit();
                           </thead>
                       </div>
                       <tr>
-                        <td><div align="center"><?php echo $count++;?> </td>
-                        <td><?php echo $objResult["cusName"];?></td>
-                        <td><?php echo $objResult["main"];?></td>
-                        <td><?php echo $objResult["sub"];?></td>
-                        <td><?php echo $objResult["hdate"];?></td>
-                        <td><?php echo $objResult["ntime"];?></td>
-                        <td align="center">
-                        <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-                        <td align="center">  
-                        <button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
-                         style="cursor:pointer;">ส่งงานซ่อม&nbsp;</button>   </td> 
+                  <td>
+                    <div align="center"> <?php echo $count++;?>
+                  </td>
+                  <td><?php echo $objResult["cusName"];?></td>
+                  <td><?php echo $objResult["main"];?></td>
+                  <td><?php echo $objResult["sub"];?></td>
+                  <td align="center"><?php echo $objResult["hdate"];?> &nbsp;&nbsp;
+                     <?php echo $objResult["ntime"];?></td>
+                  <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
+                  <td align="center"><button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
+                         style="cursor:pointer;">ส่งงานซ่อม</button>&nbsp;</td>
                            </div>
                            </div>
                            </div>

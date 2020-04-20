@@ -90,50 +90,52 @@ exit();
 
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
-  <li class="nav-item  ">
-    <a class="nav-link" href="tech_home.php">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>&nbsp;หน้าแรก</span>
-    </a>
-  </li>
-  </li>
-  <li class="nav-item ">
-    <a class="nav-link" href="tech_approve.php">
-      <i class="fas fa-fw fa-check-circle"></i>
-      <span>&nbsp;รอการยืนยัน<span></a>
-  </li>
-  <li class="nav-item ">
-    <a class="nav-link" href="infor_approval.php">
-      <i class="fas fa-fw fa-table"></i>
-      <span>&nbsp;รายการแจ้งซ่อมทั้งหมด</span></a>
-
+      <li class="nav-item active ">
+        <a class="nav-link" href="tech_home.php">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>&nbsp;หน้าแรก</span>
+        </a>
+      </li>
+       </li>
       <li class="nav-item ">
+        <a class="nav-link" href="tech_approve.php">
+        <i class="fas fa-fw fa-check-circle"></i>
+          <span>&nbsp;รอการยืนยัน<span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="infor_approval.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>&nbsp;รายการแจ้งซ่อม</span></a>
+
+          <li class="nav-item ">
         <a class="nav-link" href="smwork.php">
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รายการซ่อมเสร็จ</span></a>
       </li>
-
+      <li class="nav-item ">
+        <a class="nav-link" href="infor_approval_view.php">
+          <i class="fas fa-fw fa-file"></i>
+          <span>&nbsp; รายการแจ้งซ่อมทั้งหมด</span></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
           <span>&nbsp;สถานะการเงิน</span></a>
           </li>
-          
-  <li class="nav-item active">
-    <a class="nav-link" href="profile.php">
-      <i class="fas fa-fw fa-user"></i>
-      <span>&nbsp;โปรไฟล์ของฉัน</span></a>
-  </li>
-
- 
-  <li class="nav-item">
-    <a class="nav-link" href="../logout.php" class="dropdown-item" href="#" data-toggle="modal"
-      data-target="#logoutModal">
-      <i class="fas fa-fw fa-times "></i>
-      <span>&nbsp;ออกจากระบบ</span></a>
-  </li>
-</ul>
-</nav>
+          <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-fw fa-user"></i>
+          <span>&nbsp;โปรไฟล์ของฉัน</span></a>
+      </li>
+     
+      <li class="nav-item">
+        <a class="nav-link" href="../logout.php" class="dropdown-item" href="#" data-toggle="modal"
+          data-target="#logoutModal">
+          <i class="fas fa-fw fa-times "></i>
+          <span>&nbsp;ออกจากระบบ</span></a>
+      </li>
+    </ul>
+    </nav>
 <div id="content-wrapper">
   <div class="container-fluid">
   <div class="modal fade" id="logoutModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel"
