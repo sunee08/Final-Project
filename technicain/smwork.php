@@ -103,14 +103,18 @@ exit();
       <li class="nav-item  ">
         <a class="nav-link" href="infor_approval.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>&nbsp;รายการแจ้งซ่อมทั้งหมด</span></a>
+          <span>&nbsp;รายการแจ้งซ่อม</span></a>
 
       <li class="nav-item active">
         <a class="nav-link" href="smwork.php">
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รายการซ่อมเสร็จ</span></a>
       </li>
-
+      <li class="nav-item ">
+        <a class="nav-link" href="infor_approval_view.php">
+          <i class="fas fa-fw fa-file"></i>
+          <span>&nbsp; รายการแจ้งซ่อมทั้งหมด</span></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
