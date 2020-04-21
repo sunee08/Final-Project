@@ -249,9 +249,6 @@ $count =1;
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?> </span>
-
-                  <td align="center"><span class="btn btn-info" ><?php echo $objResult["status"];?></span>
-
                   </td>
                   </td>    
                   </div>
