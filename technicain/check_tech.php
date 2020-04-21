@@ -8,12 +8,12 @@ $techPhone=$_POST['techPhone'];
 $techEmail=$_POST['techEmail'];
 $techAddress=$_POST['techAddress'];
 $techStatus=$_POST['techStatus'];
-$techTypes=$_POST['techTypes'];
+$main=$_POST['main'];
 
 
 
-$sql="INSERT INTO technicain (techUsername,techPassword,techName,techStatus,techPhone,techEmail,techAddress,techTypes)
-		VALUES ('$techUsername','$techPassword','$techName','$techStatus','$techPhone','$techEmail','$techAddress','$techTypes')";
+$sql="INSERT INTO technicain (techUsername,techPassword,techName,techStatus,techPhone,techEmail,techAddress,main)
+		VALUES ('$techUsername','$techPassword','$techName','$techStatus','$techPhone','$techEmail','$techAddress','$main')";
 
 
 
@@ -21,8 +21,8 @@ $sql="INSERT INTO technicain (techUsername,techPassword,techName,techStatus,tech
 if(mysql_query($sql)){
 	
 		 echo "<script>alert('Waiting Confirm By Admin!' )</script>";
+echo "<script>window.open('register.php','_self')</script>";
 
-				echo "<script>window.open('','_self') </script>";
 				
 	}
 	else{

@@ -170,7 +170,7 @@ exit();
 
   $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
     ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
-    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status FROM infor_inform
+    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status,infor_inform.main FROM infor_inform
     
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 

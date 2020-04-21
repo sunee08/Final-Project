@@ -76,12 +76,16 @@ session_destroy();
                 </div>
                 </div>
                 </div>
-                <div class="form-group row">
-                <div class="col-md-12">
-                <div class="name" >หมวดหมู่</div>
-                <?php include "tech_type.php" ?>
-                </div>
-                </div>
+
+                  <div class="form-group row">
+                                            <div class="col-md-12">
+                                            <label for="typestech">ประเภท</label>
+                                            <select class="form-control" id="typestech" name="main">
+                                            <option value="no">-เลือกประเภท-</option>
+                                            </select>
+                                            </div></div>
+
+
                 <div class="form-group row">
                  <div class="col-md-12">
                   <div class="techPassword">รหัสผ่าน</div>
@@ -101,7 +105,8 @@ session_destroy();
                 จำรหัสผ่าน
               </label>
             </div>
-         
+                         <input  type="hidden" name="techStatus" id="techStatus" value="technician">
+
           <button  type="submit" name="submit" class="btn btn-block btn-warning ">สมัครสมาชิก</button>
         </form>
         <div class="text-center" >
@@ -120,6 +125,7 @@ session_destroy();
   <!-- Core plugin JavaScript-->
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../js/global.js"></script>
+            <script src="sub_types.js"></script>
 
 
   <script type="text/javascript">
