@@ -308,6 +308,91 @@ exit();
        </div>
      </div>
     </div>
+
+
+<div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <form method="post" enctype="multipart/form-data" action="check_pay.php">
+                  <div class="modal-dialog">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                  <h4 class="modal-title" id="myModalLabel">ข้อมูลยอดชำระ</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="form-group">
+                  <label for="card_code">รหัสการส่งซ่อม/เคลม</label>
+                  <input type="text" class="form-control" readonly value="<?php echo $objResult["cusName"];?>" class="form-control">
+                  <div> &nbsp;                 
+                  <div class="form-group">
+                  <div class="col-md-20">
+                  <div class="name">ยอดเงินชำระทั้งหมด</div><br>
+                  <input type="text" class="form-control" readonly value="<?php echo $objResult["price_re"];?>  บาท" >
+                   <br></div>
+                   <div class="form-group">
+                  <div class="col-md-20">
+                  <div class="name">อัพโหลดหลักฐานการชำระเงิน</div><br>
+                  <input type="file" name="image" id="image" class="form-control" >
+                   <br></div>
+                   <input type="hidden" name="status" id="status" value="รออนุมัติ" >
+                  <input type="text" name="id" value="<?php echo $objResult['id']; ?>">
+
+                  <input type="hidden" name="cusID" value="<?php echo $objResult['cusID']; ?>">
+
+                   <center>   <button ype="submit" class="btn btn-primary ">Create</button>
+</center>
+</br>
+                  <div class="modal-footer">
+                  <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
+                  <p><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยังไม่มีหลักฐาน อัพโหลดทีหลัง</button>
+                  </div>
+                  </form>
+                    </div>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+
+
+ <?php       
+                          }
+                        }
+                        ?>  
+
+       <?php
+                     require '../db/connect.php';
+                   
+                     $id = $_SESSION['id'];
+
+
+                    
+
+                      $strSQL = "SELECT payment.*,payment.image,payment.cusID,customers.cusID,infor_inform.cusID,infor_inform.id   
+                          FROM payment
+                     LEFT JOIN customers ON payment.cusID = customers.cusID 
+                     LEFT JOIN infor_inform ON payment.id = infor_inform.id
+
+                     WHERE  payment.cusID = '$id' ";
+
+                       $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
+                      //  $i = 1;
+                      //  $count =1;
+                       while($objResult = mysql_fetch_array($objQuery)){
+                       
+                       ?>
+
+<img src="payment/<?php echo $objResult["image"];?>" width="250" height="250"></a><br>
+  
+ <?php       
+                          
+                        }
+                        ?>  
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -331,41 +416,8 @@ exit();
       </div>
       </div>
 
-<div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <form method="post" enctype="multipart/form-data" action="credit.php">
-                  <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
-                  <div class="modal-dialog">
-                  <div class="modal-content">
-                  <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">ข้อมูลยอดชำระ</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                  <div class="form-group">
-                  <label for="card_code">รหัสการส่งซ่อม/เคลม</label>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly value="<?php echo $objResult["cusName"];?>" class="form-control">
-                  <div> &nbsp;                 
-                  <div class="form-group">
-                  <div class="col-md-20">
-                  <div class="name">ยอดเงินชำระทั้งหมด</div><br>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly value="<?php echo $objResult["price_re"];?>  บาท" class="form-control">
-                   <br></div>
-                   <div class="form-group">
-                  <div class="col-md-20">
-                  <div class="name">อัพโหลดหลักฐานการชำระเงิน</div><br>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly>
-                   <br></div>
-                  <div class="modal-footer">
-                  <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
-                  <p><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยังไม่มีหลักฐาน อัพโหลดทีหลัง</button>
-                  </div>
-                  </form>
-                    </div>
       <!-- Login Modal-->
-                        <?php       
-                          }
-                        }
-                        ?>   
+                        
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

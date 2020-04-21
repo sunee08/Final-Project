@@ -7,35 +7,39 @@ exit();
 } 
   $sessionlifetime = 30; //กำหนดเป็นนาที
   if(isset($_SESSION["timeLasetdActive"])){
-  $seclogin = (time()-$_SESSION["timeLasetdActive"])/60;
+    $seclogin = (time()-$_SESSION["timeLasetdActive"])/60;
     //หากไม่ได้ Active ในเวลาที่กำหนด
-  if($seclogin>$sessionlifetime){
-  //goto logout page
-  header("location:logout.php");
-  exit;
-  }else{
-  $_SESSION["timeLasetdActive"] = time();
-  }
+    if($seclogin>$sessionlifetime){
+      //goto logout page
+      header("location:logout.php");
+      exit;
+    }else{
+      $_SESSION["timeLasetdActive"] = time();
+    }
   }else{
     $_SESSION["timeLasetdActive"] = time();
   }
   //
-	//*** Get User Login
-  require '../db/connect.php';
+  include('../db/connect.php');
   $strSQL = "SELECT * FROM technicain WHERE techID = '".$_SESSION['id']."' ";
   $objQuery = mysql_query($strSQL);
   $objResult = mysql_fetch_array($objQuery); 
 ?>
 <!DOCTYPE html>
+
+
+
 <html>
+
 <head>
 
-   <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Housewares Repairing | Admin Home </title>
+
+  <title>HOUSEWARE REPAIRING</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,14 +49,14 @@ exit();
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="admin_home.php">HOUSEWARE REPAIRING </a>
-
- <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-    <i class="fas fa-bars"></i>
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <a class="navbar-brand mr-1" href="admin_home.php"> HOUSEWARE REPAIRING </a>
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
     </button>
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -99,23 +103,19 @@ exit();
       <li class="nav-item  ">
         <a class="nav-link" href="infor_approval.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>&nbsp;รายการแจ้งซ่อม</span></a>
+          <span>&nbsp;รายการแจ้งซ่อมทั้งหมด</span></a>
 
-      <li class="nav-item active ">
+      <li class="nav-item active">
         <a class="nav-link" href="smwork.php">
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รายการซ่อมเสร็จ</span></a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="infor_approval_view.php">
-          <i class="fas fa-fw fa-file"></i>
-          <span>&nbsp; รายการแจ้งซ่อมทั้งหมด</span></a>
-      </li>
-      <li class="nav-item ">
+
+      <li class="nav-item">
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
           <span>&nbsp;สถานะการเงิน</span></a>
-          </li>
+
       <li class="nav-item">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-fw fa-user"></i>
@@ -135,9 +135,9 @@ exit();
         <br>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="admin_home.php">หน้าแรก</a>
+            <a href="">หน้าแรก</a>
           </li>
-          <li class="breadcrumb-item active">ติดตามสถานะ</li>
+          <li class="breadcrumb-item active">รายงานการซ่อม</li>
         </ol>
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
@@ -162,25 +162,26 @@ exit();
             </div>
           </div>
         </div>
+      
+            <br>
+            <?php
+            include('../db/connect.php');
+            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+            $objDB = mysql_select_db("hwrp");
+  
+    $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+    infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id  FROM infor_inform
 
-  <?php
-  include('../db/connect.php');
-  $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-  $objDB = mysql_select_db("hwrp");
-
-  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
-    ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
-    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status FROM infor_inform
-    
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
   
-    WHERE  technicain.techID   ";
+    WHERE  technicain.techID  AND infor_inform.status = 'ซ่อมเสร็จ'  ";
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
- 
   ?>
-      <div id="wrapper">
+
+<div id="wrapper">
         <div id="content-wrapper">
           <div class="container-fluid">
             <div class="card mb-3">
@@ -204,7 +205,10 @@ exit();
                                 <div>รายการที่ส่งซ่อม</div>
                               </th>
                               <th>
-                                <div>วันที่และวลาที่สะดวก</div>
+                                <div>วันที่สะดวก</div>
+                              </th>
+                              <th>
+                                <div >เวลาที่สะดวก</div>
                               </th>
                               <th>
                                 <div>สถานะ<div>
@@ -221,34 +225,37 @@ exit();
                           {
                           ?>
                           </thead>
-                      </div>
+                          </div>
                       <tr>
-                  <td>
-                    <div align="center"> <?php echo $count++;?>
-                  </td>
-                  <td><?php echo $objResult["cusName"];?></td>
-                  <td><?php echo $objResult["main"];?></td>
-                  <td><?php echo $objResult["sub"];?></td>
-                  <td align="center"><?php echo $objResult["hdate"];?> &nbsp;&nbsp;
-                     <?php echo $objResult["ntime"];?></td>
-                  <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-                  <td align="center"><button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
-                         style="cursor:pointer;">ส่งงานซ่อม</button>&nbsp;</td>
-                           </div>
-                           </div>
+                        <td> <div align="center"><?php echo $count++;?>   </td>
+                        <td><?php echo $objResult["cusName"];?></td>
+                        <td><?php echo $objResult["main"];?></td>
+                        <td><?php echo $objResult["sub"];?></td>
+                        <td><?php echo $objResult["hdate"];?></td>
+                        <td><?php echo $objResult["ntime"];?></td>
+                        <td align="center">
+                        <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
+                        <td align="center">  
+                        <button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
+                         style="cursor:pointer;">ส่งงานซ่อม</a>&nbsp;</td>
+                           </button>&nbsp;                       
+                           </td>
                            </div>
                            </div>
                            </div>
                            </td>
                            </tr>
-                      <div class="modal fade" id="uuu<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                   <form action="save_report.php" name="add" method="post">
-                   <div class="modal-dialog">
-                    <div class="modal-content">
-                     <div class="modal-header">
+             
+                <!--form alert add topic-->
+               
+            <div class="modal fade" id="uuu<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+              aria-hidden="true">
+              <form action="save_report.php" name="add" method="post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
                       <h5 class="modal-title" id="myModalLabel">ส่งงานซ่อม</h5>
-                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                       <div class="form-group row">
@@ -285,7 +292,7 @@ exit();
                         </div>
                         <div class="col-md-6">
                           <label for="">วันที่รับงาน</label>
-                          <input type="date" name="date_re" id="date_re" class="form-control" value="<?php echo $objResult["date_re"];?>" autofocus required="required">
+                          <input type="date" name="date_re" id="date_re" class="form-control" autofocus required="required">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -299,43 +306,45 @@ exit();
                         <div class="col-md-12">
                           <label for="">ราคา</label>
                           <input type="text" name="price_re" id="price_re" class="form-control" required></textarea>
-                          <input type="hidden" name="cusID" value="  <?php echo $objResult['cusID'] ?>">
+                          <input type="hidden" name="cusID" value=" <?php echo $objResult['cusID'] ?>">
+
+                   <input type="hidden" name="id" value=" <?php echo $objResult["id"] ?>">
+
                         </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i
                             class="glyphicon glyphicon-remove"></i>ยกเลิก</button>
-                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>บันทึก</button>
-                         </div>
-                         </form>
-                         </div>
-                         </div>
-                         <?php    
-                         $i++;   
-                         }
-                         ?>
-                         </tbody>
-                         </table>
-                  
+                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
+                          บันทึก</button>
+                      </div>
+                 </form>
+                 </div>
+                 </div>
+                 <?php    
+                 $i++;   
+                 }
+                 ?>
+            
+                </tbody>
+                </table>
+                  <!-- Bootstrap core JavaScript-->
+                  <script src="../vendor/jquery/jquery.min.js"></script>
+                  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-          <!-- Bootstrap core JavaScript-->
-            <script src="../vendor/jquery/jquery.min.js"></script>
-            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                  <!-- Core plugin JavaScript-->
+                  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+                  <!-- Page level plugin JavaScript-->
+                  <script src="../vendor/chart.js/Chart.min.js"></script>
 
-            <!-- Page level plugin JavaScript-->
-            <script src="../vendor/chart.js/Chart.min.js"></script>
-            <script src="../vendor/datatables/jquery.dataTables.js"></script>
-            <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+                  <!-- Custom scripts for all pages-->
+                  <script src="../js/sb-admin.min.js"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="../js/sb-admin.min.js"></script>
-
-            <!-- Demo scripts for this page-->
-            <script src="../js/demo/datatables-demo.js"></script>
-            <script src="../js/demo/chart-area-demo.js"></script>
+                  <!-- Demo scripts for this page-->
+                  <script src="../js/demo/chart-area-demo.js"></script>
+                  <script src="../js/demo/chart-bar-demo.js"></script>
+                  <script src="../js/demo/chart-pie-demo.js"></script>
 
 </body>
 
