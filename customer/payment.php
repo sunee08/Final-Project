@@ -44,7 +44,7 @@ exit();
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Housewares Repairing | Customer Home</title>
+  <title>Housewares Repairing | Payment</title>
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
