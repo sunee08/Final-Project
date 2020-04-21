@@ -92,7 +92,6 @@ exit();
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item ">
@@ -117,6 +116,11 @@ exit();
           <i class="fas fa-fw fa-clone"></i>
           <span>&nbsp;การชำระเงิน</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="review.php">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>&nbsp; รีวิว</span></a>
+          </li>
       <li class="nav-item ">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-fw fa-user"></i>
@@ -135,11 +139,6 @@ exit();
           <div class="dropdown-divider"></div>
         </div>
       </li>
-   <!--   <li class="nav-item ">
-        <a class="nav-link" href="review.php">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>&nbsp; รีวิว</span></a>
-      </li> -->
       <li class="nav-item ">
         <a class="nav-link" href="logout.php" class="dropdown-item" href="#" data-toggle="modal"
           data-target="#logoutModal">

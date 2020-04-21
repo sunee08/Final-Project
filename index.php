@@ -354,26 +354,6 @@ $objResult = mysql_fetch_array($objQuery);
         </div>
       </div>
     </div>
-
-  <?php
-  include('db/connect.php');
-  $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-  $objDB = mysql_select_db("hwrp");
-  
-  $strSQL = "SELECT news.*,admin.adminID,admin.adminName,news.id_news,news.topic_n
-  ,news.info_n,infor_inform.main,infor_inform.sub,infor_inform.status,infor_inform.cusID
-  ,infor_inform.id,infor_inform.techID
-  
-  FROM infor_inform
-
-  LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
-  LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-
-  WHERE infor_inform.cusID  AND  infor_inform.techID = '0' ORDER BY cusName AND infor_inform.status = 'กำลังดำเนินการ'  ";
-
-  $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-  
-  ?>
     <div id="pop">
     <div class="site-section">
       <div class="container">
@@ -394,13 +374,12 @@ $objResult = mysql_fetch_array($objQuery);
                   <img src="images/person_1.jpg" alt="Image" class="img-fluid">
                 </div>
                 <div>
-                <blockquote><?php echo $objResult["topic_n"]; ?></blockquote>
-                <blockquote><?php echo $objResult["info_n"]; ?></blockquote>
+                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
                 <p>&mdash;<?php echo $objResult["adminName"]; ?></p>
                 </div>
               </div>    
             </div>
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
               <div class="testimonial-39191 d-flex">
                 <div class="mr-4">
                   <img src="images/person_2.jpg" alt="Image" class="img-fluid">
@@ -431,11 +410,11 @@ $objResult = mysql_fetch_array($objQuery);
                 </div>
                 <div>
                 <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash; John Doe</p> 
+                <p>&mdash; John Doe</p>
                 </div>
               </div>    
             </div>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
