@@ -170,17 +170,22 @@ exit();
             <br>
             <?php
             include('../db/connect.php');
+              $my_id = $_SESSION['id'];
+
             $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
             $objDB = mysql_select_db("hwrp");
   
     $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
     infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id  FROM infor_inform
+    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id,report_tech.id_re,report_tech.status_tech  FROM infor_inform
 
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-  
-    WHERE  technicain.techID  AND infor_inform.status = 'ซ่อมเสร็จ'  ";
+      LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
+ 
+    WHERE  infor_inform.techID='$my_id'   AND infor_inform.status ='ซ่อมเสร็จ'
+     ";
+
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
   ?>
@@ -240,14 +245,23 @@ exit();
                         <td align="center">
                         <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
                         <td align="center">  
-                        <button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
-                         style="cursor:pointer;">ส่งงานซ่อม</a>&nbsp;</td>
+
+   <?php if ($objResult["status_tech"] != "") {?>
+                        <button class="btn btn-warning disabled btn-sm" disabled="disabled" >ส่งงานซ่อม</button>
+
+                      <?php } else {?>
+                      <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uuu<?php echo $i;?>"> ส่งงานซ่อม</button>
+                       <?php }?>
+
+
+
+
                            </button>&nbsp;                       
-                           </td>
+                     
                            </div>
                            </div>
                            </div>
-                           </td>
+                        
                            </tr>
              
                 <!--form alert add topic-->
@@ -312,6 +326,8 @@ exit();
                           <input type="text" name="price_re" id="price_re" class="form-control" required></textarea>
                           <input type="hidden" name="cusID" value=" <?php echo $objResult['cusID'] ?>">
 
+                   <input type="hidden" name="status_tech"  value="สำเร็จ">
+
                    <input type="hidden" name="id" value=" <?php echo $objResult["id"] ?>">
 
                         </div>
@@ -325,6 +341,7 @@ exit();
                  </form>
                  </div>
                  </div>
+                    </td>
                  <?php    
                  $i++;   
                  }

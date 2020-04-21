@@ -16,7 +16,7 @@ $sql = "UPDATE  infor_inform  SET status = '$status', id = '$id'
 // 
 if(mysql_query($sql)){
 	
-    echo "<script>window.open('smwork.php','_self')</script>";
+    echo "<script>window.open('infor_approval.php','_self')</script>";
 }
 else{
 echo "<script>alert('fail')</script>";

@@ -165,6 +165,8 @@ exit();
 
   <?php
   include('../db/connect.php');
+  $my_id = $_SESSION['id'];
+
   $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
   $objDB = mysql_select_db("hwrp");
 
@@ -175,7 +177,7 @@ exit();
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
   
-    WHERE  technicain.techID  AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก' ";
+    WHERE  technicain.techID='$my_id' AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก' ";
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
  
