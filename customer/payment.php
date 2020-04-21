@@ -154,32 +154,30 @@ exit();
           <li class="breadcrumb-item">
           <a href="cus_home.php">Payment</a>
           </li>
-          <li class="breadcrumb-item active">การชำระเงิน</li>
+           <li class="breadcrumb-item active">การชำระเงิน</li>
           </ol>
   <!-- /#wrapper -->
-                     <?php
-                     require '../db/connect.php';
-                   
-                     $id = $_SESSION['id'];
-                 
-                     $strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
-                     infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-                     infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techname,report_tech.id,report_tech.date_re,
-                     report_tech.detail_re,report_tech.id_re
-                     
-                     FROM report_tech
-                     
-                     LEFT JOIN customers ON customers.cusID = report_tech.cusID 
-                     LEFT JOIN technicain ON technicain.techID = report_tech.techID 
-                     LEFT JOIN infor_inform ON technicain.techID = report_tech.id 
+                      <?php
+                      include('../db/connect.php');
+                                               $my_id = $_SESSION['id'];
 
-                     WHERE  report_tech.techID = $id AND infor_inform.status = 'ซ่อมเสร็จ'  ";
-                       
-                       $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-                      //  $i = 1;
-                      //  $count =1;
-                       while($objResult = mysql_fetch_array($objQuery)){
-                       ?>
+            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+            $objDB = mysql_select_db("hwrp");
+  
+    $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+    infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+                     report_tech.detail_re,report_tech.cusID,report_tech.price_re FROM infor_inform
+
+    LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
+    LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
+      LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
+ 
+    WHERE  report_tech.cusID='$my_id' ";
+
+                      $objQuery = mysql_query($strSQL);
+                      $objResult = mysql_fetch_array($objQuery);
+                      ?>
                         <div id="wrapper">
                         <div id="content-wrapper">
                         <div class="container-fluid">
@@ -196,9 +194,6 @@ exit();
                         </th>
                         <th>
                         <div align="center">วันที่ส่งงาน</div>
-                        </th>
-                        <th>
-                        <div align="center">อุปกรณ์</div>
                         </th>
                         <th>
                         <div align="center">รายละเอียดการซ่อม</div>
@@ -220,7 +215,6 @@ exit();
                         <tr>
                         <td><div align="center"><?php echo $objResult["id_re"];?></td>
                         <td align="center"><?php echo $objResult["date_re"];?></td>
-                        <td align="center"><?php echo $objResult["sub"];?></td>
                         <td align="center"><?php echo $objResult["detail_re"];?></td>
                         <td align="center"><?php echo $objResult["price_re"];?></td>
                         <td align="center"><?php echo $objResult["status"];?></td>
@@ -230,12 +224,14 @@ exit();
                         </div>
                         </td>
                         </tr>
-                        </div>
-                        </div>
-                        </div> 
-                         </td>
-                        </tbody>
-                        </table>
+                      
+                      </tbody>
+                      </table>
+                      </td>
+                      </div>
+                      </div>
+                      </div>
+
                         <br>
                         <div id="wrapper">
                         <div id="content-wrapper">
@@ -362,7 +358,7 @@ exit();
 
 
  <?php       
-                          }
+                          
                         }
                         ?>  
 

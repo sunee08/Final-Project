@@ -176,24 +176,25 @@ exit();
 <?php
 
 include('../db/connect.php');
+  $my_id = $_SESSION['id'];
 
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
 
   $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
   ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
-  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status
+  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status,report_tech.id_re,report_tech.cusID,report_tech.id
   
   FROM infor_inform
   
   LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
   LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
+   LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
 
-  WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.status ='ซ่อมเสร็จ' ";
+ WHERE  report_tech.cusID='$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-$i = 1;
-$count =1;
+
 ?>
       <div id="wrapper">
         <div id="content-wrapper">
@@ -206,7 +207,7 @@ $count =1;
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
                     <thead>
                       <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
-                        <th>
+                 <th>
                           <div>เลขที่</div>
                         </th>
                         <th>
@@ -240,25 +241,23 @@ $count =1;
                     </thead>
                 </div>
                 <tr>
-                  <td>
-                    <div align="center"> <?php echo $count++;?></td>
-                  <td><?php echo $objResult["techName"];?></td>
+<td><?php echo $objResult["id_re"];?></td>                
+  <td><?php echo $objResult["techName"];?></td>
                   <td><?php echo $objResult["main"];?></td>
                   <td><?php echo $objResult["sub"];?></td>
                   <td><?php echo $objResult["descrip"];?></td>
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-                  <td align="center"><a href="../customer/payment.php?id=<?php echo $objResult["id"];?>" class="btn btn-success">ทำการชำระเงิน</a>
-                  </td>
-                  </td>    
-                  </div>
-                  </div>
-                  </div>
-                  </td>
+
+                  <td align="center"><a href="payment.php?id=<?php echo $objResult["id_re"];?>" class="btn btn-success">ทำการชำระเงิน</a>    </td>
+
+
+
+             
+              
                   </tr>
                   <?php
-                  $i++;
                   }
                   ?>
                   </tbody>

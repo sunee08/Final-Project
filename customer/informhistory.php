@@ -176,6 +176,7 @@ exit();
 <?php
 
 include('../db/connect.php');
+  $my_id = $_SESSION['id'];
 
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
@@ -190,7 +191,7 @@ $objDB = mysql_select_db("hwrp");
   LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
 
 
-  WHERE  technicain.techID  AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก' or infor_inform.status= 'ซ่อมเสร็จ' ";
+   WHERE  customers.cusID='$my_id'  AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก'  ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
 $i = 1;
@@ -250,7 +251,7 @@ $count =1;
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?> </span>
 
-                  <td align="center"><span class="btn btn-info" ><?php echo $objResult["status"];?></span>
+           
 
                   </td>
                   </td>    
