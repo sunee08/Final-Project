@@ -184,7 +184,7 @@ $objDB = mysql_select_db("hwrp");
   LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
   LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
 
-  WHERE  customers.cusID ='".$_SESSION["id"]."' AND  technicain.techID ";
+  WHERE  technicain.techID  AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก' or infor_inform.status= 'ซ่อมเสร็จ' ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
 $i = 1;
@@ -222,6 +222,7 @@ $count =1;
                         <th>
                           <div>สถานะ<div>
                         </th>
+                        
                       </tr>
                     </thead>
 
@@ -240,7 +241,7 @@ $count =1;
                   <td><?php echo $objResult["descrip"];?></td>
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
                       <?php echo $objResult["ntime"];?></td>
-                  <td align="center"><span class="btn btn-info" <?php echo $objResult["status"];?>>กำลังดำเนินการ</span>
+                  <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?> </span>
                   </td>
                   </td>    
                   </div>

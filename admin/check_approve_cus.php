@@ -11,7 +11,7 @@ if(mysql_query($sql)){
 	
 	echo "<script>alert('Confirm By Admin!' )</script>";
 
-		   echo "<script>window.open('admin_home.php','_self') </script>";
+		   echo "<script>window.open('admin_approve.php','_self') </script>";
 		   
 }
 else{

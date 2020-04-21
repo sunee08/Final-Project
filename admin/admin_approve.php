@@ -174,7 +174,12 @@ exit();
         <?php
         include('../db/connect.php');
         $sql = "SELECT * FROM technicain  WHERE techStatus  AND adminID = '0' ORDER BY techUsername";
+
+        $i = 1;
+$count = 1;
+
         $objQuery = mysql_query($sql) or die("Error Query[".$sql."]");
+
         ?>
         <tbody>
           <div id="wrapper">
@@ -213,7 +218,8 @@ exit();
                         {
                         ?>
                         <tr>
-                          <td align="center"> <?php echo $row["techID"];?></td>
+
+                          <td align="center">  <?php echo $count++; ?></td>
                           <td> <?php echo $row["techName"];?></td>
                           <td> <?php echo $row["techAddress"];?></td>
                           <td> <?php echo $row["techPhone"];?></td>
@@ -230,15 +236,27 @@ exit();
                           </td>
                     </div>
                     </td>
-                    <?php         
+                    
+                    <?php      
+$i++;
+
                     }
                     ?>
                 </tbody>
                 </table>
+</tr>
+</div>
+</div>
+</th>
+</div>
+</div>
 
-        <?php
+
+ <?php
         include('../db/connect.php');
         $sql = "SELECT * FROM customers  WHERE cusStatus  AND adminID = '0' ORDER BY cusUsername";
+            $i = 1;
+$count = 1;
         $objQuery = mysql_query($sql) or die("Error Query[".$sql."]");
         ?>
         <tbody>
@@ -278,7 +296,7 @@ exit();
                         {
                         ?>
                         <tr>
-                          <td align="center"> <?php echo $row["cusID"];?></td>
+                          <td align="center">  <?php echo $count++; ?></td>
                           <td> <?php echo $row["cusName"];?></td>
                           <td> <?php echo $row["cusAddress"];?></td>
                           <td> <?php echo $row["cusPhone"];?></td>
@@ -295,11 +313,19 @@ exit();
                       </td>
                       </div>
                       </td>
-                      <?php         
+                      <?php   
+                      $i++;
+      
                         }
                         ?>
                       </tbody>
                       </table>
+       </tr></div></div>
+     </th>
+   </div>
+ </div>
+</th>
+
           
             <!-- Bootstrap core JavaScript-->
             <script src="../vendor/jquery/jquery.min.js"></script>
@@ -319,5 +345,7 @@ exit();
             <!-- Demo scripts for this page-->
             <script src="../js/demo/datatables-demo.js"></script>
             <script src="../js/demo/chart-area-demo.js"></script>
+
+
 </body>
 </html
