@@ -106,6 +106,11 @@ exit();
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="informfinish.php">
+          <i class="fas fa-fw fa-info"></i>
+          <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" href="payment.php">
           <i class="fas fa-fw fa-clone"></i>
@@ -160,7 +165,7 @@ exit();
                      $strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
                      infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
                      infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techname,report_tech.id,report_tech.date_re,
-                     report_tech.detail_re
+                     report_tech.detail_re,report_tech.id_re
                      
                      FROM report_tech
                      
@@ -174,7 +179,6 @@ exit();
                       //  $i = 1;
                       //  $count =1;
                        while($objResult = mysql_fetch_array($objQuery)){
-                       
                        ?>
                         <div id="wrapper">
                         <div id="content-wrapper">
@@ -240,10 +244,10 @@ exit();
                         <div class="card-header">
                         <div class="container">
                         <div class="row">
-                         <p>1. เพื่อความรวดเร็วในการยืนยันการชำระเงิน ทางเรา แนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น
-                         ซึ่งอาจทำให้ล่าช้าในการตรวจสอบ</p>
-                         </div> </div> </div> </div>
-                         <div id="wrapper">
+                        <p>1. เพื่อความรวดเร็วในการยืนยันการชำระเงิน ทางเรา แนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น
+                        ซึ่งอาจทำให้ล่าช้าในการตรวจสอบ</p>
+                        </div> </div> </div> </div>
+                        <div id="wrapper">
                         <div id="content-wrapper">
                         <div class="card mb-3">
                         <div class="card-header">
@@ -254,7 +258,6 @@ exit();
              <div id="wrapper">
              <div id="content-wrapper">
              <div class="container-fluid">
-            
              <div class="card-header">
              <div class="container">
              <div class="row">
@@ -289,28 +292,26 @@ exit();
                         </tr>
                         <tr>
                         </tr> 
-                         <tr>
+                        <tr>
                             <td>   </td>
                             <td class="text-right"><strong> </strong></td>
                             <td class="text-center text-danger"><strong></strong></td>
                         </tr>
                     </tbody>
-                </table>
-                
+                   </table>
                  <div class="col-xs-12 col-sm-12 col-md-12 text-right">
                        <p> <a class="btn btn-success" data-toggle="modal" data-target="#pay"
                    style="cursor:pointer;"> ชำระเงินตอนนี้</a></p>
                        <a href="inform_repair.php" class="btn btn-warning" > เพิ่มการแจ้งซ่อม</a>
-            </div>
-         </div>
-        </div>
-       </div>
-       </div>
-     </div>
-    </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
 
-
-<div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <form method="post" enctype="multipart/form-data" action="check_pay.php">
                   <div class="modal-dialog">
                   <div class="modal-content">
@@ -327,26 +328,26 @@ exit();
                   <div class="col-md-20">
                   <div class="name">ยอดเงินชำระทั้งหมด</div><br>
                   <input type="text" class="form-control" readonly value="<?php echo $objResult["price_re"];?>  บาท" >
-                   <br></div>
-                   <div class="form-group">
+                  <br></div>
+                  <div class="form-group">
                   <div class="col-md-20">
                   <div class="name">อัพโหลดหลักฐานการชำระเงิน</div><br>
                   <input type="file" name="image" id="image" class="form-control" >
-                   <br></div>
-                   <input type="hidden" name="status" id="status" value="รออนุมัติ" >
+                  <br></div>
+                  <input type="hidden" name="status" id="status" value="รออนุมัติ" >
                   <input type="text" name="id" value="<?php echo $objResult['id']; ?>">
 
                   <input type="hidden" name="cusID" value="<?php echo $objResult['cusID']; ?>">
-
-                   <center>   <button ype="submit" class="btn btn-primary ">Create</button>
-</center>
-</br>
+                 
+                   <center><button type="submit" class="btn btn-primary ">Create</button> </center>
+                  
+                  </br>
                   <div class="modal-footer">
                   <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
                   <p><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยังไม่มีหลักฐาน อัพโหลดทีหลัง</button>
                   </div>
                   </form>
-                    </div>
+                  </div>
 </p>
 </div>
 </div>

@@ -110,7 +110,11 @@ exit();
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="informfinish.php">
+          <i class="fas fa-fw fa-info"></i>
+          <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
+      </li>
       <li class="nav-item ">
         <a class="nav-link" href="payment.php">
           <i class="fas fa-fw fa-clone"></i>
@@ -195,7 +199,7 @@ exit();
             LEFT JOIN customers ON customers.cusID = infor_inform.cusID
             LEFT JOIN technicain ON technicain.techID = infor_inform.techID
            
-            WHERE infor_inform.cusID ='".$_SESSION['id']."' and status='รอการยืนยัน' ";
+            WHERE infor_inform.cusID ='".$_SESSION['id']."' and infor_inform.status='รอการยืนยัน' ";
 
                         $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                         ?>

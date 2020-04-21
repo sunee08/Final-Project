@@ -99,6 +99,11 @@ exit();
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="informfinish.php">
+          <i class="fas fa-fw fa-info"></i>
+          <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
+      </li>
       <li class="nav-item ">
         <a class="nav-link" href="payment.php">
           <i class="fas fa-fw fa-clone"></i>

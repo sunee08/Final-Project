@@ -89,7 +89,7 @@ exit();
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="cus_home.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>&nbsp;หน้าแรก</span></a>
@@ -104,6 +104,11 @@ exit();
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="informfinish.php">
+          <i class="fas fa-fw fa-info"></i>
+          <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
+      </li>
       <li class="nav-item ">
         <a class="nav-link" href="payment.php">
           <i class="fas fa-fw fa-clone"></i>
@@ -114,7 +119,7 @@ exit();
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รีวิว</span></a>
           </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-fw fa-user"></i>
           <span>&nbsp;โปรไฟล์ของฉัน</span></a>
