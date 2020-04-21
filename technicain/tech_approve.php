@@ -175,7 +175,7 @@ exit();
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
   
-    WHERE  technicain.techID  AND infor_inform.status ='ซ่อมเสร็จ'  ";
+    WHERE  infor_inform.id  AND infor_inform.status ='รอการยืนยัน'  ";
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
  

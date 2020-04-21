@@ -115,7 +115,11 @@ exit();
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
-
+      <li class="nav-item ">
+        <a class="nav-link" href="informfinish.php">
+          <i class="fas fa-fw fa-info"></i>
+          <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
+      </li>
       <li class="nav-item ">
         <a class="nav-link" href="payment.php">
           <i class="fas fa-fw fa-clone"></i>
@@ -126,10 +130,6 @@ exit();
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รีวิว</span></a>
           </li>
-    
-        <!-- <a class="nav-link" href="admin_infotech.php">
-          <i class="fas fa-fw fa-user"></i>
-          <span>ข้อมูลช่างซ่อม</span></a> -->
           <li class="nav-item">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-fw fa-user"></i>

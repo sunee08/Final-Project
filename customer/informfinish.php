@@ -94,12 +94,12 @@ exit();
           <i class="fas fa-fw fa-clock"></i>
           <span>แจ้งซ่อม</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="informhistory.php">
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item active">
         <a class="nav-link" href="informfinish.php">
           <i class="fas fa-fw fa-info"></i>
           <span>&nbsp;ประวัติการซ่อมเสร็จ</span></a>
@@ -189,13 +189,11 @@ $objDB = mysql_select_db("hwrp");
   LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
   LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
 
-
-  WHERE  technicain.techID  AND infor_inform.status = 'กำลังดำเนินการ' OR infor_inform.status= 'ยกเลิก' or infor_inform.status= 'ซ่อมเสร็จ' ";
+  WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.status ='ซ่อมเสร็จ' ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
 $i = 1;
 $count =1;
-
 ?>
       <div id="wrapper">
         <div id="content-wrapper">
@@ -229,7 +227,9 @@ $count =1;
                         <th>
                           <div>สถานะ<div>
                         </th>
-
+                        <th>
+                          <div>การชำระเงิน<div>
+                        </th>
                       </tr>
                     </thead>
 
@@ -248,10 +248,8 @@ $count =1;
                   <td><?php echo $objResult["descrip"];?></td>
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
                       <?php echo $objResult["ntime"];?></td>
-                  <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?> </span>
-
-                  <td align="center"><span class="btn btn-info" ><?php echo $objResult["status"];?></span>
-
+                  <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
+                  <td align="center"><a href="../customer/payment.php?id=<?php echo $objResult["id"];?>" class="btn btn-success">ทำการชำระเงิน</a>
                   </td>
                   </td>    
                   </div>
