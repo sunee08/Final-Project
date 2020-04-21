@@ -121,6 +121,11 @@ exit();
           <i class="fas fa-fw fa-clone"></i>
           <span>&nbsp;การชำระเงิน</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="review.php">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>&nbsp; รีวิว</span></a>
+          </li>
     
         <!-- <a class="nav-link" href="admin_infotech.php">
           <i class="fas fa-fw fa-user"></i>

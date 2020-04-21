@@ -114,7 +114,12 @@ exit();
       <li class="nav-item ">
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
-          <span>&nbsp;สถานะการเงิน</span></a>
+          <span>&nbsp;การชำระเงิน</span></a>
+          </li>
+          <li class="nav-item">
+        <a class="nav-link" href="review.php">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>&nbsp; รีวิว</span></a>
           </li>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">
@@ -175,7 +180,7 @@ exit();
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
   
-    WHERE  technicain.techID   ";
+    WHERE  technicain.techID  AND infor_inform.status ='ซ่อมเสร็จ'  ";
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
  
@@ -234,6 +239,7 @@ exit();
                   <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
                   <td align="center"><button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
                          style="cursor:pointer;">ส่งงานซ่อม</button>&nbsp;</td>
+                  
                            </div>
                            </div>
                            </div>
@@ -300,6 +306,7 @@ exit();
                           <label for="">ราคา</label>
                           <input type="text" name="price_re" id="price_re" class="form-control" required></textarea>
                           <input type="hidden" name="cusID" value="  <?php echo $objResult['cusID'] ?>">
+                          <input type="hidden" name="cusID" value="  <?php echo $objResult['id'] ?>">
                         </div>
                       </div>
                       <div class="modal-footer">

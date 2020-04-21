@@ -219,20 +219,18 @@ exit();
                         <td align="center"><?php echo $objResult["sub"];?></td>
                         <td align="center"><?php echo $objResult["detail_re"];?></td>
                         <td align="center"><?php echo $objResult["price_re"];?></td>
-                        <td align="center"><?php echo $objResult["status"];?></td>
+                        <td align="center"><button class="btn btn-success"><?php echo $objResult["status"];?></td>
                         </td>
                         </div>
-                        </div>
-                        </div>
-                        </td>
                         </tr>
                         </div>
                         </div>
-                        </div> 
-                         </td>
+                        </div>
                         </tbody>
                         </table>
-                        <br>
+                        </div>
+                        </div>
+
                         <div id="wrapper">
                         <div id="content-wrapper">
                         <div class="container-fluid">
@@ -242,26 +240,15 @@ exit();
                         <div class="row">
                          <p>1. เพื่อความรวดเร็วในการยืนยันการชำระเงิน ทางเรา แนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น
                          ซึ่งอาจทำให้ล่าช้าในการตรวจสอบ</p>
-                         </div> </div> </div> </div>
-                         <div id="wrapper">
-                        <div id="content-wrapper">
-                        <div class="card mb-3">
-                        <div class="card-header">
-                        <div class="container">
-                        <div class="row">
                          <p>สามารถชำระได้ผ่าน <strong> ไทยพาณิชย์ (SCB) </strong> <br> ชื่อบัญชี : Sunee  Kasem <br> เลขบัญชี : 4390295636</p>
-                         </div> </div> </div> </div>
-             <div id="wrapper">
-             <div id="content-wrapper">
-             <div class="container-fluid">
-            
-             <div class="card-header">
-             <div class="container">
-             <div class="row">
-             <div class="well col-xs-20 col-sm-20 col-md-12 col-xs-offset-2 col-sm-offset-2 col-md-offset-6">
-             <div class="row">
-             <div class="col-xs-20 col-sm-20 col-md-20">
-             </div>
+                         </div>
+                         </div> 
+                        
+                    <div class="row">
+                  <div class="well col-xs-20 col-sm-20 col-md-12 col-xs-offset-2 col-sm-offset-2 col-md-offset-6">
+                 <div class="row">
+                <div class="col-xs-20 col-sm-20 col-md-20">
+              </div>
                 <div class="col-xs-20col-sm-20 col-md-20 text-right">
                     <p> 
                     <p>
@@ -294,20 +281,15 @@ exit();
                             <td class="text-right"><strong> </strong></td>
                             <td class="text-center text-danger"><strong></strong></td>
                         </tr>
+                        </div>
+                        
                     </tbody>
                 </table>
-                
                  <div class="col-xs-12 col-sm-12 col-md-12 text-right">
                        <p> <a class="btn btn-success" data-toggle="modal" data-target="#pay"
-                   style="cursor:pointer;"> ชำระเงินตอนนี้</a></p>
-                       <a href="inform_repair.php" class="btn btn-warning" > เพิ่มการแจ้งซ่อม</a>
-            </div>
-         </div>
-        </div>
-       </div>
-       </div>
-     </div>
-    </div>
+                   style="cursor:pointer;"> ชำระเงินตอนนี้</a></p> 
+                     <a href="inform_repair.php" class="btn btn-warning" > เพิ่มการแจ้งซ่อม</a></div>           
+           
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -330,9 +312,9 @@ exit();
       </div>
       </div>
       </div>
-
-<div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <form method="post" enctype="multipart/form-data" action="credit.php">
+  
+                  <div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <form method="post" enctype="multipart/form-data" action="sql_payment.php">
                   <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
                   <div class="modal-dialog">
                   <div class="modal-content">
@@ -343,24 +325,33 @@ exit();
                   <div class="modal-body">
                   <div class="form-group">
                   <label for="card_code">รหัสการส่งซ่อม/เคลม</label>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly value="<?php echo $objResult["cusName"];?>" class="form-control">
+                  <input type="text" name="" id="" class="form-control" readonly value="<?php echo $objResult["cusName"];?>" class="form-control">
                   <div> &nbsp;                 
                   <div class="form-group">
                   <div class="col-md-20">
                   <div class="name">ยอดเงินชำระทั้งหมด</div><br>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly value="<?php echo $objResult["price_re"];?>  บาท" class="form-control">
+                  <input type="text" name="" id="csID" class="form-control" readonly value="<?php echo $objResult["price_re"];?>  บาท" class="form-control">
                    <br></div>
                    <div class="form-group">
                   <div class="col-md-20">
                   <div class="name">อัพโหลดหลักฐานการชำระเงิน</div><br>
-                  <input type="text" name="cusID" id="cusID" class="form-control" readonly>
+                  <input type="file" name="photo_credit" id="photo_credit" class="form-control" required>
                    <br></div>
                   <div class="modal-footer">
                   <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
                   <p><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยังไม่มีหลักฐาน อัพโหลดทีหลัง</button>
                   </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
                   </form>
-                    </div>
+                  </div>
+                  </div>
+                  </div>
+                
+                 
+                  
       <!-- Login Modal-->
                         <?php       
                           }

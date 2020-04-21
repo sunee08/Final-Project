@@ -120,7 +120,7 @@ exit();
       <li class="nav-item">
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
-          <span>&nbsp;สถานะการเงิน</span></a>
+          <span>&nbsp;การชำระเงิน</span></a>
           </li>
           <li class="nav-item">
         <a class="nav-link" href="profile.php">
