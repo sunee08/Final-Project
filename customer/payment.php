@@ -166,7 +166,7 @@ exit();
   
     $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
     infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-    infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+    infor_inform.cusID,infor_inform.id,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
                      report_tech.detail_re,report_tech.cusID,report_tech.price_re FROM infor_inform
 
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
