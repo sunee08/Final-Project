@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('db/connect.php');
-$strSQL = "SELECT * FROM admin WHERE adminID  ";
+$strSQL = "SELECT * FROM news WHERE adminID  ";
 $objQuery = mysql_query($strSQL);
 $objResult = mysql_fetch_array($objQuery); 
 ?>
@@ -374,8 +374,8 @@ $objResult = mysql_fetch_array($objQuery);
                   <img src="images/person_1.jpg" alt="Image" class="img-fluid">
                 </div>
                 <div>
-                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash;<?php echo $objResult["adminName"]; ?></p>
+                <blockquote>&ldquo;<?php echo $objResult["topic_n"]; ?> &rdquo;</blockquote>
+                <p>&mdash;<?php echo $objResult["adminID"]; ?></p>
                 </div>
               </div>    
             </div>

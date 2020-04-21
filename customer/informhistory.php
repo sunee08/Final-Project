@@ -251,8 +251,6 @@ $count =1;
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?> </span>
 
-           
-
                   </td>
                   </td>    
                   </div>
