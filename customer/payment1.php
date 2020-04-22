@@ -157,9 +157,11 @@ exit();
            <li class="breadcrumb-item active">การชำระเงิน</li>
           </ol>
   <!-- /#wrapper -->
+
+
+
                       <?php
                       include('../db/connect.php');
-                                               $my_id = $_SESSION['id'];
 
             $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
             $objDB = mysql_select_db("hwrp");
@@ -169,14 +171,13 @@ exit();
     infor_inform.cusID,infor_inform.id,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
                      report_tech.detail_re,report_tech.cusID,report_tech.price_re FROM infor_inform
 
-    LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
-    LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-      LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
+  LEFT JOIN customers ON infor_inform.cusID = customers.cusID
+  LEFT JOIN technicain ON infor_inform.techID = technicain.techID
+   LEFT JOIN report_tech ON infor_inform.id = report_tech.id
  
-    WHERE  report_tech.cusID='$my_id' ";
-
-                      $objQuery = mysql_query($strSQL);
-                      $objResult = mysql_fetch_array($objQuery);
+    WHERE  report_tech.id_re ='" . $_GET['id'] . "' ";
+if ($objQuery = mysql_query($strSQL)) {
+    while ($objResult = mysql_fetch_array($objQuery)) {
                       ?>
                         <div id="wrapper">
                         <div id="content-wrapper">
@@ -206,10 +207,7 @@ exit();
                         </th>
                         </tr>
                         </thead>
-                        <?php
-                        while($objResult = mysql_fetch_array($objQuery))
-                        {
-                        ?>
+                      
                         </thead>
                         </div>
                         <tr>
@@ -331,7 +329,8 @@ exit();
                   <input type="file" name="image" id="image" class="form-control" >
                   <br></div>
                   <input type="hidden" name="status" id="status" value="รออนุมัติ" >
-                  <input type="text" name="id" value="<?php echo $objResult['id']; ?>">
+                  <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
+                  <input type="hidden" name="id_re" value="<?php echo $objResult['id_re']; ?>">
 
                   <input type="hidden" name="cusID" value="<?php echo $objResult['cusID']; ?>">
                  
@@ -357,36 +356,33 @@ exit();
 </div>
 
 
- <?php       
-                          
-                        }
-                        ?>  
+              <?php
+}
+}
 
-       <?php
-                     require '../db/connect.php';
-                   
-                     $id = $_SESSION['id'];
+?>
 
+          <?php
+                      include('../db/connect.php');
 
-                    
+            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+            $objDB = mysql_select_db("hwrp");
 
-                      $strSQL = "SELECT payment.*,payment.image,payment.cusID,customers.cusID,infor_inform.cusID,infor_inform.id   
+                      $strSQL = "SELECT payment.*,payment.image,payment.cusID,customers.cusID,infor_inform.cusID,infor_inform.id,payment.cusID,payment.id
                           FROM payment
                      LEFT JOIN customers ON payment.cusID = customers.cusID 
                      LEFT JOIN infor_inform ON payment.id = infor_inform.id
 
-                     WHERE  payment.cusID = '$id' ";
+                     WHERE  payment.id_re  ='" . $_GET['id'] . "' ";
 
-                       $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-                      //  $i = 1;
-                      //  $count =1;
-                       while($objResult = mysql_fetch_array($objQuery)){
+                     if ($objQuery = mysql_query($strSQL)) {
+    while ($objResult = mysql_fetch_array($objQuery)) {
                        
                        ?>
 
 <img src="payment/<?php echo $objResult["image"];?>" width="250" height="250"></a><br>
   
- <?php       
+ <?php       }
                           
                         }
                         ?>  

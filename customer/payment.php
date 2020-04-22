@@ -181,17 +181,21 @@ include('../db/connect.php');
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
 
-  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
-  ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
-  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status,report_tech.id_re,report_tech.cusID,report_tech.id
-  
-  FROM infor_inform
-  
-  LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
-  LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-   LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
 
- WHERE  report_tech.cusID='$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' ";
+
+
+
+  $strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+    infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+    infor_inform.cusID,infor_inform.id,technicain.techName,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+                     report_tech.detail_re,report_tech.cusID,report_tech.price_re  FROM report_tech
+
+  LEFT JOIN customers ON report_tech.cusID = customers.cusID
+  LEFT JOIN technicain ON report_tech.techID = technicain.techID
+   LEFT JOIN infor_inform ON report_tech.id = infor_inform.id  
+ 
+    WHERE  report_tech.cusID= '$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' ";
+
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
 
@@ -241,7 +245,8 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                     </thead>
                 </div>
                 <tr>
-<td><?php echo $objResult["id_re"];?></td>                
+
+     <td><?php echo $objResult["id_re"];?></td>                
   <td><?php echo $objResult["techName"];?></td>
                   <td><?php echo $objResult["main"];?></td>
                   <td><?php echo $objResult["sub"];?></td>
@@ -250,7 +255,7 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
 
-                  <td align="center"><a href="payment1.php?id=<?php echo $objResult["id"];?>" class="btn btn-success">ทำการชำระเงิน</a>    </td>
+                  <td align="center"><a href="payment1.php?id=<?php echo $objResult["id_re"];?>" class="btn btn-success">ทำการชำระเงิน</a>    </td>
 
 
 
