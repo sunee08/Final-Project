@@ -213,11 +213,9 @@ exit();
                                 <div>รายการที่ส่งซ่อม</div>
                               </th>
                               <th>
-                                <div>วันที่สะดวก</div>
+                                <div>วันที่และเวลาสะดวก</div>
                               </th>
-                              <th>
-                                <div >เวลาที่สะดวก</div>
-                              </th>
+                              
                               <th>
                                 <div>สถานะ<div>
                               </th>
@@ -241,8 +239,8 @@ exit();
                         <td><?php echo $objResult["cusName"];?></td>
                         <td><?php echo $objResult["main"];?></td>
                         <td><?php echo $objResult["sub"];?></td>
-                        <td><?php echo $objResult["hdate"];?></td>
-                        <td><?php echo $objResult["ntime"];?></td>
+                        <td><?php echo $objResult["hdate"];?>
+                        <?php echo $objResult["ntime"];?></td>
 
                         <td align="center">
                         <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>

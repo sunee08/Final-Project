@@ -247,10 +247,10 @@ exit();
                         <td align="center">  
 
    <?php if ($objResult["status_tech"] != "") {?>
-                        <button class="btn btn-warning disabled btn-sm" disabled="disabled" >ส่งงานซ่อม</button>
+                        <button class="btn btn-warning disabled " disabled="disabled" >ส่งงานซ่อม</button>
 
                       <?php } else {?>
-                      <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uuu<?php echo $i;?>"> ส่งงานซ่อม</button>
+                      <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#uuu<?php echo $i;?>"> ส่งงานซ่อม</button>
                        <?php }?>
 
 

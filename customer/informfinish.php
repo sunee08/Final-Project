@@ -228,9 +228,6 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                         <th>
                           <div>สถานะ<div>
                         </th>
-                        <th>
-                          <div>การชำระเงิน<div>
-                        </th>
                       </tr>
                     </thead>
 
@@ -249,13 +246,6 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
                       <?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-
-                  <td align="center"><a href="payment.php?id=<?php echo $objResult["id_re"];?>" class="btn btn-success">ทำการชำระเงิน</a>    </td>
-
-
-
-             
-              
                   </tr>
                   <?php
                   }
