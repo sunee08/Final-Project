@@ -119,12 +119,10 @@ exit();
         <a class="nav-link" href="reciept_tech.php">
           <i class="fas fa-fw fa-check"></i>
           <span>&nbsp;สถานะการเงิน</span></a>
-
       <li class="nav-item">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-fw fa-user"></i>
           <span>&nbsp;โปรไฟล์ของฉัน</span></a>
-
       <li class="nav-item">
         <a class="nav-link" href="../logout.php" class="dropdown-item" href="#" data-toggle="modal"
           data-target="#logoutModal">
@@ -166,14 +164,13 @@ exit();
             </div>
           </div>
         </div>
-      
-            <br>
-            <?php
-            include('../db/connect.php');
-              $my_id = $_SESSION['id'];
+    <br>
+    <?php
+    include('../db/connect.php');
+    $my_id = $_SESSION['id'];
 
-            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-            $objDB = mysql_select_db("hwrp");
+    $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+    $objDB = mysql_select_db("hwrp");
   
     $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
     infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
@@ -181,16 +178,14 @@ exit();
 
     LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
     LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-      LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
+    LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
  
-    WHERE  infor_inform.techID='$my_id'   AND infor_inform.status ='ซ่อมเสร็จ'
-     ";
+    WHERE  infor_inform.techID='$my_id'   AND infor_inform.status ='ซ่อมเสร็จ'";
 
-  
-  $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-  ?>
+    $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
+    ?>
 
-<div id="wrapper">
+    <div id="wrapper">
         <div id="content-wrapper">
           <div class="container-fluid">
             <div class="card mb-3">
@@ -235,37 +230,29 @@ exit();
                           ?>
                           </thead>
                           </div>
-                      <tr>
-                        <td> <div align="center"><?php echo $count++;?>   </td>
-                        <td><?php echo $objResult["cusName"];?></td>
-                        <td><?php echo $objResult["main"];?></td>
-                        <td><?php echo $objResult["sub"];?></td>
-                        <td><?php echo $objResult["hdate"];?></td>
-                        <td><?php echo $objResult["ntime"];?></td>
-                        <td align="center">
-                        <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-                        <td align="center">  
+                          <tr>
+                          <td> <div align="center"><?php echo $count++;?></td>
+                          <td><?php echo $objResult["cusName"];?></td>
+                          <td><?php echo $objResult["main"];?></td>
+                          <td><?php echo $objResult["sub"];?></td>
+                          <td><?php echo $objResult["hdate"];?></td>
+                          <td><?php echo $objResult["ntime"];?></td>
+                          <td align="center">
+                          <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
+                          <td align="center">  
 
-   <?php if ($objResult["status_tech"] != "") {?>
-                        <button class="btn btn-warning disabled " disabled="disabled" >ส่งงานซ่อม</button>
+                          <?php if ($objResult["status_tech"] != "") {?>
+                          <button class="btn btn-warning disabled " disabled="disabled" >ส่งงานซ่อม</button>
 
-                      <?php } else {?>
-                      <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#uuu<?php echo $i;?>"> ส่งงานซ่อม</button>
-                       <?php }?>
-
-
-
-
+                          <?php } else {?>
+                          <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#uuu<?php echo $i;?>"> ส่งงานซ่อม</button>
+                          <?php }?>
                            </button>&nbsp;                       
-                     
                            </div>
                            </div>
                            </div>
-                        
                            </tr>
-             
                 <!--form alert add topic-->
-               
             <div class="modal fade" id="uuu<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
               aria-hidden="true">
               <form action="save_report.php" name="add" method="post">

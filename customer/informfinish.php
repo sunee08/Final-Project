@@ -94,7 +94,7 @@ exit();
           <i class="fas fa-fw fa-clock"></i>
           <span>แจ้งซ่อม</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="informhistory.php">
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
@@ -109,7 +109,7 @@ exit();
           <i class="fas fa-fw fa-clone"></i>
           <span>&nbsp;การชำระเงิน</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="review.php">
           <i class="fas fa-fw fa-wrench"></i>
           <span>&nbsp; รีวิว</span></a>
@@ -132,11 +132,6 @@ exit();
           <div class="dropdown-divider"></div>
         </div>
       </li>
-      <!-- <li class="nav-item ">
-        <a class="nav-link" href="review.php">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>&nbsp;รีวิว</span></a>
-      </li> -->
       <li class="nav-item ">
         <a class="nav-link" href="../logout.php" class="dropdown-item" href="#" data-toggle="modal"
           data-target="#logoutModal">
@@ -150,7 +145,7 @@ exit();
         <!-- Breadcrumbs-->
         <br>
         <ol class="breadcrumb">
-          <li>ติดตามสถานะ </a></li>
+          <li>สถานะ</a></li>
         </ol>
         <br>
         <!-- Scroll to Top Button-->
@@ -176,38 +171,37 @@ exit();
 <?php
 
 include('../db/connect.php');
-  $my_id = $_SESSION['id'];
 
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
 
   $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
-  ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,
-  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName,infor_inform.status,report_tech.id_re,report_tech.cusID,report_tech.id
+  ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,infor_inform.status,
+  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName
   
   FROM infor_inform
   
   LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
   LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-   LEFT JOIN report_tech ON report_tech.id = infor_inform.id 
 
- WHERE  report_tech.cusID='$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' ";
+  WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.status = 'ซ่อมเสร็จ' ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-
+$i = 1;
+$count =1;
 ?>
-      <div id="wrapper">
-        <div id="content-wrapper">
-          <div class="container-fluid">
-            <div class="card mb-3">
-              <div class="card-header">
-                <i class="fas fa-table"></i> &nbsp; ข้อมูลลูกค้า </div>
-                <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
+                    <div id="wrapper">
+                    <div id="content-wrapper">
+                    <div class="container-fluid">
+                    <div class="card mb-3">
+                    <div class="card-header">
+                    <i class="fas fa-table"></i> &nbsp; ข้อมูลลูกค้า </div>
+                    <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
                     <thead>
                       <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
-                 <th>
+                        <th>
                           <div>เลขที่</div>
                         </th>
                         <th>
@@ -230,112 +224,48 @@ $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
                         </th>
                       </tr>
                     </thead>
-
                     <?php
-              while($objResult = mysql_fetch_array($objQuery))
-                  {
-                  ?>
+                    while($objResult = mysql_fetch_array($objQuery))
+                    {
+                    ?>
                     </thead>
-                </div>
-                <tr>
-<td><?php echo $objResult["id_re"];?></td>                
-  <td><?php echo $objResult["techName"];?></td>
-                  <td><?php echo $objResult["main"];?></td>
-                  <td><?php echo $objResult["sub"];?></td>
-                  <td><?php echo $objResult["descrip"];?></td>
-                  <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
-                      <?php echo $objResult["ntime"];?></td>
-                  <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
+                    </div>
+                    <tr>
+                    <td>
+                    <div align="center"> <?php echo $count++;?></td>
+                    <td><?php echo $objResult["techName"];?></td>
+                    <td><?php echo $objResult["main"];?></td>
+                    <td><?php echo $objResult["sub"];?></td>
+                    <td><?php echo $objResult["descrip"];?></td>
+                  <td align="center"><?php echo $objResult["hdate"];?>
+                      &nbsp;<?php echo $objResult["ntime"];?></td>
+                  <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?></span></td>
+                  </td>    
+                  </div>
+                  </div>
+                  </div>
+                  </td>
                   </tr>
                   <?php
+                  $i++;
                   }
                   ?>
                   </tbody>
                   </table>
-            <?php
-              include('../db/connect.php');
-              $strSQL = "SELECT * FROM customers WHERE cusID='".$_SESSION["id"]."'"; 
-              $objQuery = mysql_query($strSQL);
-              $objResult = mysql_fetch_array($objQuery);
-            ?>
-            <!--form alert add topic-->
-            <div class="modal fade" id="inform <?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-              aria-hidden="true">
-              <form method="post" enctype="multipart/form-data" action="save_inform.php">
-              <div class="modal-dialog">
-              <div class="modal-content">
-              <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel">เพิ่มใบส่งซ่อม/เคลม</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
-              <div class="modal-body">
-              <div class="form-group">
-              <label for="">รหัสการส่งซ่อม/เคลม</label>
-              <input type="text" name="cusID" id="cusID" class="form-control" readonly
-              value="<?php echo $objResult["cusID"];?>" class="form-control">
-              </div>
-              <div class="form-group row">
-              <div class="col-md-12">
-              <label for="">ชื่อผู้ส่งซ่อม</label>
-              <input type="text" name="" id="" class="form-control" disable
-              value="<?php echo $objResult["cusName"];?>">
-              </div>
-              </div>
-              <div class="form-group row">
-                                              <div class="col-md-6">
-                                              <label for="typestech">ประเภท</label>
-                                              <select class="form-control" id="typestech" name="main">
-                                              <option value="no">-เลือกประเภท-</option>
-                                              </select>
-                                              </div>
-                                              <div class="col-md-6"> 
-                                              <label for="sub_types">อุปกรณ์เสีย</label>
-                                              <select class="form-control" id="sub_types" name="sub">
-                                              <option value="no">-เลือกอุปกรณ์-</option>																			
-                                              </select>
-                                              </div>
-                                              <div class="modal-body">
-                                              <div class="form-group row">
-                                              <div class="col-md-12">
-                                              <label for="">อาการ</label>
-                                              <textarea name="descrip" id="descrip" class="form-control" required="required"></textarea>
-                                              <div>
-                                              <div class="modal-body">
-                                              <div class="form-group row">
-                                              <div class="col-md-6">
-                                              <label for="">วันที่สะดวก</label>
-                                              <input type="date" name="hdate" id="hdate" class="form-control"
-                                              autocomplete="off" required="required">
-                                              </div>
-                                              <div class="col-md-6">
-                                              <label for="">เวลา</label>
-                                              <input type="time" name="ntime" id="ntime" class="form-control"
-                                              autocomplete="off" required="required">
-                                              </div>
-                                              <div class="modal-footer">
-                                              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times fa-fw"></i>ปิด</button>
-                                              <button type="submit" name="submit" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i>บันทึก</button>
-                                              <div>
-                                              <!-- /.modal-content -->
-                                              </div>
-                                              </form>
-                                  <!-- /.modal-dialog -->
-                                              <?php 
-                                              mysql_close();
-                                              ?>
-            <!-- Bootstrap core JavaScript-->
-            <script src="../vendor/jquery/jquery.min.js"></script>
-            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <!-- Core plugin JavaScript-->
-            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-            <!-- Page level plugin JavaScript-->
-            <script src="../vendor/chart.js/Chart.min.js"></script>
-            <script src="../vendor/datatables/jquery.dataTables.js"></script>
-            <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-            <!-- Custom scripts for all pages-->
-            <script src="../js/sb-admin.min.js"></script>
-            <!-- Demo scripts for this page-->
-            <script src="../js/demo/datatables-demo.js"></script>
-            <script src="../js/demo/chart-area-demo.js"></script>
-            <script src="sub_types.js"></script>
+                  <!-- Bootstrap core JavaScript-->
+                  <script src="../vendor/jquery/jquery.min.js"></script>
+                  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                  <!-- Core plugin JavaScript-->
+                  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+                  <!-- Page level plugin JavaScript-->
+                  <script src="../vendor/chart.js/Chart.min.js"></script>
+                  <script src="../vendor/datatables/jquery.dataTables.js"></script>
+                  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+                  <!-- Custom scripts for all pages-->
+                  <script src="../js/sb-admin.min.js"></script>
+                  <!-- Demo scripts for this page-->
+                  <script src="../js/demo/datatables-demo.js"></script>
+                  <script src="../js/demo/chart-area-demo.js"></script>
+                  <script src="sub_types.js"></script>
 </body>
 </html>

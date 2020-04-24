@@ -77,8 +77,8 @@ exit();
       <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle active" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo $objResult["cusName"]; ?></span> 
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#">โปรไฟล์ของฉัน</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">ออกจากระบบ</a>
@@ -87,7 +87,7 @@ exit();
         </ul>
         </nav>
 
-  <div id="wrapper">
+   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item ">
@@ -138,7 +138,7 @@ exit();
           <a class="dropdown-item" href="#">ลืมรหัสผ่าน</a>
           <div class="dropdown-divider"></div>
           </div>
-      </li>
+          </li>
           <li class="nav-item">
           <a class="nav-link" href="logout.php" class="dropdown-item" href="#" data-toggle="modal"data-target="#logoutModal">
           <i class="fas fa-fw fa-times "></i>
@@ -148,7 +148,7 @@ exit();
           </nav>
           <div id="content-wrapper">
           <div class="container-fluid">
-<!-- Breadcrumbs-->
+          <!-- Breadcrumbs-->
           <br>
           <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -157,27 +157,24 @@ exit();
            <li class="breadcrumb-item active">การชำระเงิน</li>
           </ol>
   <!-- /#wrapper -->
+        <?php
+        include('../db/connect.php');
 
+        $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+        $objDB = mysql_select_db("hwrp");
+      
+        $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+        infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+        infor_inform.cusID,infor_inform.id,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+        report_tech.detail_re,report_tech.cusID,report_tech.price_re FROM infor_inform
 
-
-                      <?php
-                      include('../db/connect.php');
-
-            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-            $objDB = mysql_select_db("hwrp");
-  
-    $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
-    infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-    infor_inform.cusID,infor_inform.id,infor_inform.id,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
-                     report_tech.detail_re,report_tech.cusID,report_tech.price_re FROM infor_inform
-
-  LEFT JOIN customers ON infor_inform.cusID = customers.cusID
-  LEFT JOIN technicain ON infor_inform.techID = technicain.techID
-   LEFT JOIN report_tech ON infor_inform.id = report_tech.id
- 
-    WHERE  report_tech.id_re ='" . $_GET['id'] . "' ";
-if ($objQuery = mysql_query($strSQL)) {
-    while ($objResult = mysql_fetch_array($objQuery)) {
+        LEFT JOIN customers ON infor_inform.cusID = customers.cusID
+        LEFT JOIN technicain ON infor_inform.techID = technicain.techID
+        LEFT JOIN report_tech ON infor_inform.id = report_tech.id
+      
+        WHERE  report_tech.id_re ='" . $_GET['id'] . "' ";
+        if ($objQuery = mysql_query($strSQL)) {
+        while ($objResult = mysql_fetch_array($objQuery)) {
                       ?>
                         <div id="wrapper">
                         <div id="content-wrapper">
@@ -207,8 +204,6 @@ if ($objQuery = mysql_query($strSQL)) {
                         </th>
                         </tr>
                         </thead>
-                      
-                        </thead>
                         </div>
                         <tr>
                         <td><div align="center"><?php echo $objResult["id_re"];?></td>
@@ -222,14 +217,12 @@ if ($objQuery = mysql_query($strSQL)) {
                         </div>
                         </td>
                         </tr>
-                      
                       </tbody>
                       </table>
                       </td>
                       </div>
                       </div>
                       </div>
-
                         <br>
                         <div id="wrapper">
                         <div id="content-wrapper">
@@ -304,7 +297,6 @@ if ($objQuery = mysql_query($strSQL)) {
                   </div>
                   </div>
                   </div>
-
                   <div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <form method="post" enctype="multipart/form-data" action="check_pay.php">
                   <div class="modal-dialog">
@@ -334,8 +326,6 @@ if ($objQuery = mysql_query($strSQL)) {
 
                   <input type="hidden" name="cusID" value="<?php echo $objResult['cusID']; ?>">
                  
-                   <center><button type="submit" class="btn btn-primary ">Create</button> </center>
-                  
                   </br>
                   <div class="modal-footer">
                   <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
@@ -343,49 +333,45 @@ if ($objQuery = mysql_query($strSQL)) {
                   </div>
                   </form>
                   </div>
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</form>
-</div>
-
-
+              </p>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              </form>
+              </div>
               <?php
-}
-}
+              }
+              }
+              ?>
+                    <?php
+                    include('../db/connect.php');
 
-?>
+                    $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+                    $objDB = mysql_select_db("hwrp");
 
-          <?php
-                      include('../db/connect.php');
-
-            $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-            $objDB = mysql_select_db("hwrp");
-
-                      $strSQL = "SELECT payment.*,payment.image,payment.cusID,customers.cusID,infor_inform.cusID,infor_inform.id,payment.cusID,payment.id
-                          FROM payment
+                     $strSQL = "SELECT payment.*,payment.image,payment.cusID,customers.cusID,infor_inform.cusID,
+                     infor_inform.id,payment.cusID,payment.id
+                     FROM payment
                      LEFT JOIN customers ON payment.cusID = customers.cusID 
                      LEFT JOIN infor_inform ON payment.id = infor_inform.id
 
                      WHERE  payment.id_re  ='" . $_GET['id'] . "' ";
 
-                     if ($objQuery = mysql_query($strSQL)) {
-    while ($objResult = mysql_fetch_array($objQuery)) {
-                       
-                       ?>
+                      if ($objQuery = mysql_query($strSQL)) {
+                      while ($objResult = mysql_fetch_array($objQuery)) {
+                      ?>
 
-<img src="payment/<?php echo $objResult["image"];?>" width="250" height="250"></a><br>
+                     <img src="payment/<?php echo $objResult["image"];?>"></a><br>
   
- <?php       }
-                          
-                        }
-                        ?>  
+                       <?php       
+                       }
+                       }
+                       ?>  
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

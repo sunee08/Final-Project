@@ -235,12 +235,12 @@ $count =1;
                     </thead>
 
                     <?php
-              while($objResult = mysql_fetch_array($objQuery))
-                  {
-                  ?>
+                    while($objResult = mysql_fetch_array($objQuery))
+                    {
+                    ?>
                     </thead>
-                </div>
-                <tr>
+                    </div>
+                  <tr>
                   <td>
                     <div align="center"> <?php echo $count++;?></td>
                   <td><?php echo $objResult["techName"];?></td>

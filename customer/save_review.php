@@ -4,26 +4,25 @@ include('../db/connect.php');
 
 $detail_review=$_POST['detail_review'];
 $cusID=$_POST['cusID'];
+$techID=$_POST['techID'];
+$c_status=$_POST['c_status'];
 
 
-$sql="INSERT INTO  review (detail_review,cusID)
-		VALUES ('$detail_review','$cusID')";
-
-
-
-
- 
-if(mysql_query($sql)){
+$sql="INSERT INTO  review (detail_review,cusID,techID,c_status)
+	VALUES ('$detail_review','$cusID','$techID','$c_status')";
 	
-		 echo "<script>alert('Save done!' )</script>";
-				echo "<script>window.open('review.php','_self')</script>";
+	
+
+     if(mysql_query($sql)){
+	
+     echo "<script>alert('บันทึกเรียบร้อย ขอบคุณที่ใช้บริการค่ะ' )</script>";
+	echo "<script>window.open('review.php','_self')</script>";
 
 	}
 
 	else{
-	 echo "<script>alert('MAY YOUR Email Or ID are USED Please! Try Again')</script>";
-	  echo "<script>window.open('','_self')</script>";
-	 
+	echo "<script>alert('Try Again')</script>";
+     echo "<script>window.open('','_self')</script>";
 	}
 
 ?>

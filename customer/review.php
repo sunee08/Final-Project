@@ -173,24 +173,27 @@ exit();
             </div>
           </div>
         </div>
-<?php
+        <?php
 
 include('../db/connect.php');
+$my_id = $_SESSION['id'];
 
 $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
 $objDB = mysql_select_db("hwrp");
 
-  $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
-  ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,infor_inform.status,
-  infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName
+$strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+infor_inform.cusID,infor_inform.id,technicain.techName,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+report_tech.detail_re,report_tech.cusID,report_tech.price_re
   
-  FROM infor_inform
-  
-  LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
-  LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
+FROM report_tech
 
-  WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.status = 'ซ่อมเสร็จ' ";
+LEFT JOIN customers ON report_tech.cusID = customers.cusID
+LEFT JOIN technicain ON report_tech.techID = technicain.techID
+LEFT JOIN infor_inform ON report_tech.id = infor_inform.id 
 
+
+WHERE  report_tech.cusID= '$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' AND  ";
 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
 $i = 1;
 $count =1;
@@ -234,20 +237,20 @@ $count =1;
                     </thead>
 
                     <?php
-              while($objResult = mysql_fetch_array($objQuery))
-                  {
-                  ?>
+                    while($objResult = mysql_fetch_array($objQuery))
+                    {
+                    ?>
                     </thead>
-                </div>
-                <tr>
-                  <td>
+                    </div>
+                    <tr>
+                    <td>
                     <div align="center"> <?php echo $count++;?></td>
                   <td><?php echo $objResult["techName"];?></td>
                   <td><?php echo $objResult["main"];?></td>
                   <td><?php echo $objResult["sub"];?></td>
                   <td><?php echo $objResult["descrip"];?></td>
-                  <td align="center"><?php echo $objResult["hdate"];?> &nbsp;
-                      <?php echo $objResult["ntime"];?></td>
+                  <td align="center"><?php echo $objResult["hdate"];?>
+                      &nbsp;<?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?></span></td>
                   <td align="center"><span class="btn btn-warning" data-toggle="modal" data-target="#review"
                    style="cursor:pointer;">คอมเมนต์/รีวิว&nbsp;</button>&nbsp;</td>
@@ -264,10 +267,16 @@ $count =1;
                   </tbody>
                   </table>
             <?php
-              include('../db/connect.php');
-              $strSQL = "SELECT * FROM customers WHERE cusID='".$_SESSION["id"]."'"; 
-              $objQuery = mysql_query($strSQL);
-              $objResult = mysql_fetch_array($objQuery);
+            $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
+            ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,infor_inform.status,
+            infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName
+            FROM infor_inform
+            LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
+            LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
+          
+            WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.techID ";
+            $objQuery = mysql_query($strSQL);
+            $objResult = mysql_fetch_array($objQuery);
             ?>
             <!--form alert add topic-->
             <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -276,22 +285,29 @@ $count =1;
               <div class="modal-dialog">
               <div class="modal-content">
               <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel">เพิ่มใบส่งซ่อม/เคลม</h4>
+              <h4 class="modal-title" id="myModalLabel">คอมเมนต์/รีวิวการทำงานของช่าง</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
               <div class="modal-body">
               <div class="form-group">
               <label for="">รหัสการส่งซ่อม/เคลม</label>
+              <input type="hidden" name="techID" value="<?php echo $objResult['techID']; ?>">
               <input type="text" name="cusID" id="cusID" class="form-control" readonly
-              value="<?php echo $objResult["cusID"];?>" class="form-control">
+              value="<?php echo $objResult["cusID"];?>">
               </div>
               <div class="form-group row">
               <div class="col-md-12">
               <label for="">ชื่อผู้ส่งซ่อม</label>
               <input type="text" name="" id="" class="form-control" disable
               value="<?php echo $objResult["cusName"];?>">
+              <input type="hidden" name="c_status" id="c_status" value="1">
               </div>
               </div>
               <div class="form-group row">
+              <div class="col-md-12">
+              <label for="">คอมเมนต์การทำงานของช่าง</label>
+              <textarea  name="detail_review" id="detail_review" class="form-control" disable
+              value="<?php echo $objResult["detail_review"];?>"></textarea>
+              </div>
               </div>
               <div class="modal-footer">
               <button type="submit" value="submit" name="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> บันทึก</button>

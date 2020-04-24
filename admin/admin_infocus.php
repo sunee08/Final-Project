@@ -87,47 +87,51 @@ exit();
 
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
+  <ul class="sidebar navbar-nav">
       <li class="nav-item ">
         <a class="nav-link" href="admin_home.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>&nbsp;หน้าแรก</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="admin_approve.php">
-        <i class="fas fa-fw fa-check-circle"></i>
+          <i class="fas fa-fw fa-check-circle"></i>
           <span>&nbsp;รอการอนุมัติ</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="informhistory.php">
-        <i class="fas fa-fw fa-table"></i>
+      <li class="nav-item ">
+        <a class="nav-link active" href="informhistory.php">
+          <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="report_tech.php">
-        <i class="fas fa-fw fa-file-alt"></i>
-          <span>&nbsp;รายงานการซ่อมช่าง</span></a>
+          <i class="fas fa-fw fa-file-alt"></i>
+          <span>&nbsp;รายงานการซ่อม</span></a>
       </li>
-          <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      <i class="nav-icon fas fa-user"></i>
-      <span>&nbsp;การจัดการโปรไฟล์</span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-    <h6 class="dropdown-header">โปรไฟล์:</h6>
-      <a class="dropdown-item active" href="admin_infocus.php">โปรไฟล์ลูกค้า</a>
-      <a class="dropdown-item " href="admin_infotech.php">โปรไฟล์ช่างซ่อม</a>
-      </div>
-  </li>
-      <li class="nav-item">
-        <a class="nav-link" href="addnews.php">
-        <i class="fas fa-fw fa-edit"></i>
-          <span>&nbsp;ข่าวสาร</span></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="nav-icon fas fa-user"></i>
+          <span>&nbsp;การจัดการโปรไฟล์</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">โปรไฟล์:</h6>
+          <a class="dropdown-item" href="admin_infocus.php">โปรไฟล์ลูกค้า</a>
+          <a class="dropdown-item" href="admin_infotech.php">โปรไฟล์ช่างซ่อม</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="nav-icon fas fas fa-edit"></i>
+          <span>&nbsp;การจัดการข้อมูล</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <a class="dropdown-item" href="addnews.php">ข่าวสาร</a>
           <a class="dropdown-item" href="admin_service.php">งานบริการ</a>
-      </li> 
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php" class="dropdown-item" href="#" data-toggle="modal"
           data-target="#logoutModal">

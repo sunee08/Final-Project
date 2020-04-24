@@ -88,20 +88,20 @@ exit();
           <span>&nbsp;หน้าแรก</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="admin_approve.php">
           <i class="fas fa-fw fa-check-circle"></i>
           <span>&nbsp;รอการอนุมัติ</span></a>
       </li>
-      <li class="nav-item  ">
-        <a class="nav-link " href="informhistory.php">
+      <li class="nav-item ">
+        <a class="nav-link active" href="informhistory.php">
           <i class="fas fa-fw fa-table"></i>
           <span>&nbsp;ประวัติการแจ้งซ่อม</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="report_tech.php">
           <i class="fas fa-fw fa-file-alt"></i>
-          <span>&nbsp;รายงานการซ่อมช่าง</span></a>
+          <span>&nbsp;รายงานการซ่อม</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
@@ -118,11 +118,10 @@ exit();
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="nav-icon fas fa-edit"></i>
+          <i class="nav-icon fas fas fa-edit"></i>
           <span>&nbsp;การจัดการข้อมูล</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <h6 class="dropdown-header">โปรไฟล์:</h6>
           <a class="dropdown-item" href="addnews.php">ข่าวสาร</a>
           <a class="dropdown-item" href="admin_service.php">งานบริการ</a>
         </div>
@@ -183,60 +182,55 @@ include('../db/connect.php');
                   <li class="breadcrumb-item active">Table Technician</li>
                 </ol>
                 <div class="card mb-3">
-                  <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    ข้อมูลช่าง </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                          <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
-                            <th>
-                              <div align="center">ลำดับ</div>
-                            </th>
-                            <th>
-                             <div align="center">ยูเซอร์เนม</div>
-                           </th>
-                            <th>
-                              <div align="center">ชื่อ</div>
-                            </th>
-                            <th>
-                              <div align="center">เบอร์โทรศัพท์</div>
-                            </th>
-                            <th>
-                              <div align="center">อีเมล</div>
-                            </th>
-                            <th>
-                              <div align="center" width="20">การจัดการ<div>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <?php
-     
-     while ($row = mysql_fetch_array($objQuery))
-     {
-?>
-
-   <tr>
-     <td align="center"> <?php echo $count++;?></td>
-     <td> <?php echo $row["techUsername"];?></td>
-     <td> <?php echo $row["techName"];?></td>
-     <td> <?php echo $row["techPhone"];?></td>
-     <td> <?php echo $row["techEmail"];?></td>
-</div>
-</td>
-<td align="center">
-                    
-
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            ข้อมูลช่างซ่อม </div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
+                    <th>
+                      <div >ลำดับ</div>
+                    </th>
+                    <th>
+                      <div >ยูเซอร์เนม</div>
+                    </th>
+                    <th>
+                      <div >ชื่อ</div>
+                    </th>
+                    <th>
+                      <div >เบอร์โทรศัพท์</div>
+                    </th>
+                    <th>
+                      <div >อีเมลล์</div>
+                    </th>
+                    <th>
+                      <div >การจัดการ<div>
+                    </th>
+                  </tr>
+                </thead>
+                  <?php
+                  while ($objResult = mysql_fetch_array($objQuery))
+                  {
+                 ?>
+                <tr>
+                  <td align="center"><?php echo $objResult["techID"];?></td>
+                  <td> <?php echo $objResult["techUsername"];?></td>
+                  <td> <?php echo $objResult["techName"];?></td>
+                  <td> <?php echo $objResult["techPhone"];?></td>
+                  <td> <?php echo $objResult["techEmail"];?></td>
+                  
+                  <td align="center">
                         <button class="btn btn-warning" data-toggle="modal" data-target="#lll<?php echo $i;?>"
                          style="cursor:pointer;">แก้ไข</a>&nbsp;</button>
 
                       <a href="JavaScript:if(confirm('Confirm Delete?')==true)
-          {window.location='delete_infotech.php?del=<?php echo $row["techID"];?>';}" class="btn btn-danger">ลบ</a></td>
-                
-                  </div>
-          </td>
+          {window.location='delete_infotech.php?del=<?php echo $row["techID"];?>';}" class="btn btn-danger">ลบ</a>
+                  </tr>
+  
+
+
           <div class="modal fade" id="lll<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <form method="post" action="save_editech.php" name="add" >
 
@@ -286,7 +280,7 @@ include('../db/connect.php');
                   <div class="techPassword">รหัสผ่าน</div>&nbsp;
                   <div class="input-group">
                   <input  type="text" name="techPassword" id="techPassword" class="form-control" 
-                          value="<?php echo $row["techPassword"];?>">
+                   value="<?php echo $row["techPassword"];?>">
                   </div>
                   </div> 
                   </div>
@@ -298,18 +292,12 @@ include('../db/connect.php');
                   <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> บันทึก</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยกเลิก</button>
                   </div>
-               <td>
                   <?php
                    $i++;
                     } 
                   ?>
-                  </table>
-                  <?php
-                    mysql_close();
-                 ?>
-
-                </div>
-                </td>
+                
+              
                 </table>
                 <div class="card-footer small text-muted"></div>
                 <!-- Bootstrap core JavaScript-->

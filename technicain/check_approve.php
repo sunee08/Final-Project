@@ -11,7 +11,7 @@ if(mysql_query($strSQL)){
 	
 	echo "<script>alert('Confirm By Technicain!' )</script>";
 
-		   echo "<script>window.open('tech_approve.php','_self') </script>";
+		   echo "<script>window.open('infor_approval.php','_self') </script>";
 		   
 }
 else{
