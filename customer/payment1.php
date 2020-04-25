@@ -289,7 +289,9 @@ exit();
                  <div class="col-xs-12 col-sm-12 col-md-12 text-right">
                        <p> <a class="btn btn-success" data-toggle="modal" data-target="#pay"
                    style="cursor:pointer;"> ชำระเงินตอนนี้</a></p>
-                       <a href="inform_repair.php" class="btn btn-warning" > เพิ่มการแจ้งซ่อม</a>
+                     
+                      <p> <a href="review.php" class="btn btn-info" > ไปยังหน้ารีวิว</a> </p>
+                        <a href="inform_repair.php" class="btn btn-warning" > เพิ่มการแจ้งซ่อม</a>
                   </div>
                   </div>
                   </div>
