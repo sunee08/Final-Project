@@ -170,16 +170,12 @@ exit();
             </div>
           </div>
         </div>
-
         <?php
         include('../db/connect.php');
         $sql = "SELECT * FROM technicain  WHERE techStatus  AND adminID = '0' ORDER BY techUsername";
-
         $i = 1;
-$count = 1;
-
+        $count = 1;
         $objQuery = mysql_query($sql) or die("Error Query[".$sql."]");
-
         ?>
         <tbody>
           <div id="wrapper">
@@ -217,8 +213,7 @@ $count = 1;
                         while ($row = mysql_fetch_array($objQuery))
                         {
                         ?>
-                        <tr>
-
+                          <tr>
                           <td align="center">  <?php echo $count++; ?></td>
                           <td> <?php echo $row["techName"];?></td>
                           <td> <?php echo $row["techAddress"];?></td>
@@ -226,51 +221,47 @@ $count = 1;
                           <td> <?php echo $row["techEmail"];?></td>
                           </div>
                           </td>
-                          <td align="center"><a href="check_approve_tech.php?id=<?php echo $row['techID']; ?>" title="Comfirm"
-                          onclick="return confirm_accept('<?php echo $row['techName']; ?>')">ยอมรับ</a> &nbsp;
-                          <a href="JavaScript:if(confirm('Confirm Delete?')==true)
+                          <td align="center"><button class="btn btn-success" href="check_approve_tech.php?id=<?php echo $row['techID']; ?>" title="Comfirm"
+                          onclick="return confirm_accept('<?php echo $row['techName']; ?>')">ยอมรับ</a> &nbsp;</button>
+                          <button class="btn btn-danger" href="JavaScript:if(confirm('Confirm Delete?')==true)
                          {window.location='delete_infotech.php ?del=<?php echo $row["techID"];?>';}">ลบ</a></td>
                           </div>
                           </div>
                           </div>
                           </td>
-                    </div>
-                    </td>
-                    
-                    <?php      
-$i++;
-
-                    }
-                    ?>
-                </tbody>
-                </table>
-</tr>
-</div>
-</div>
-</th>
-</div>
-</div>
-
-
- <?php
-        include('../db/connect.php');
-        $sql = "SELECT * FROM customers  WHERE cusStatus  AND adminID = '0' ORDER BY cusUsername";
-            $i = 1;
-$count = 1;
-        $objQuery = mysql_query($sql) or die("Error Query[".$sql."]");
-        ?>
-        <tbody>
-          <div id="wrapper">
-            <div id="content-wrapper">
-              <div class="container-fluid">
-                <div class="card mb-3">
-                  <div class="card-header">
-                  <i class="fas fa-table"></i> &nbsp;ข้อมูลลูกค้า </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-                        <thead>
-                          <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
+                          </div>
+                         </td>
+                          <?php      
+                          $i++;
+                          }
+                          ?>
+                          </tbody>
+                          </table>
+                          </tr>
+                          </div>
+                          </div>
+                          </th>
+                          </div>
+                          </div>
+                           <?php
+                           include('../db/connect.php');
+                           $sql = "SELECT * FROM customers  WHERE cusStatus  AND adminID = '0' ORDER BY cusUsername";
+                          $i = 1;
+                          $count = 1;
+                          $objQuery = mysql_query($sql) or die("Error Query[".$sql."]");
+                          ?>
+                         <tbody>
+                         <div id="wrapper">
+                         <div id="content-wrapper">
+                         <div class="container-fluid">
+                         <div class="card mb-3">
+                         <div class="card-header">
+                         <i class="fas fa-table"></i> &nbsp;ข้อมูลลูกค้า </div>
+                         <div class="card-body">
+                         <div class="table-responsive">
+                         <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                         <thead>
+                         <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
                             <th>
                               <div>เลขที่</div>
                             </th>
@@ -303,10 +294,10 @@ $count = 1;
                           <td> <?php echo $row["cusEmail"];?></td>
                        </div>
                        </td>
-                    <td align="center"><a href="check_approve_cus.php?id=<?php echo $row['cusID']; ?>" title="Comfirm"
-                        onclick="return confirm_accept('<?php echo $row['cusName']; ?>')">ยอมรับ</a> &nbsp;
-                      <a href="JavaScript:if(confirm('Confirm Delete?')==true)
-                    {window.location='delete_infocus.php ?del=<?php echo $row["cusID"];?>';}">ลบ</a></td>
+                    <td align="center"><button class="btn btn-success" href="check_approve_cus.php?id=<?php echo $row['cusID']; ?>" title="Comfirm"
+                        onclick="return confirm_accept('<?php echo $row['cusName']; ?>' )">ยอมรับ</a> &nbsp;</button>
+                      <button class="btn btn-danger" href="JavaScript:if(confirm('Confirm Delete?')==true)
+                    {window.location='delete_infocus.php ?del=<?php echo $row["cusID"];?>';}">ลบ</a></button></td>
                       </div>
                       </div>
                       </div>
@@ -315,16 +306,17 @@ $count = 1;
                       </td>
                       <?php   
                       $i++;
-      
                         }
                         ?>
                       </tbody>
                       </table>
-       </tr></div></div>
-     </th>
-   </div>
- </div>
-</th>
+                     </tr>
+                     </div>
+                     </div>
+                      </th>
+                    </div>
+                  </div>
+                  </th>
 
           
             <!-- Bootstrap core JavaScript-->

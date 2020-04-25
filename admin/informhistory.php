@@ -146,12 +146,10 @@ exit();
           </li>
           <li class="breadcrumb-item active">ติดตามสถานะ</li>
         </ol>
-
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
           <i class="fas fa-angle-up"></i>
         </a>
-
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
@@ -171,7 +169,6 @@ exit();
             </div>
           </div>
         </div>
-
   <?php
   include('../db/connect.php');
   $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
@@ -187,7 +184,6 @@ exit();
     WHERE  infor_inform.id  ";
   
   $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
- 
   ?>
       <div id="wrapper">
         <div id="content-wrapper">
@@ -228,19 +224,18 @@ exit();
                             <div >การจัดการ<div>
                           </th>
                         </tr>
-                      </thead>
-
+                        </thead>
                       <?php
-                while($objResult = mysql_fetch_array($objQuery))
-                    {
-                    ?>
+                      while($objResult = mysql_fetch_array($objQuery))
+                      {
+                       ?>
                       </thead>
-                  </div>
-                  <tr>
-                    <td>
+                      </div>
+                      <tr>
+                      <td>
                       <div align="center"><?php echo $objResult["id"];?>
-                    </td>
-                    <td>
+                      </td>
+                      <td>
                       <div align="center"><?php echo $objResult["date"];?>
                     </td>
                     <td><?php echo $objResult["cusName"];?></td>
@@ -251,12 +246,10 @@ exit();
                     <?php echo $objResult["ntime"];?></td>
                     <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?></span>
                     </td>
-
                     <td align="center">
                     <button class="btn btn-success" data-toggle="modal" data-target="#ttt"
                     style="cursor:pointer;">แก้ไข</a>&nbsp;</button>
-
-                      <a href="JavaScript:if(confirm('Confirm Delete?')==true)
+                    <a href="JavaScript:if(confirm('Confirm Delete?')==true)
                    {window.location='delete_infotech.php?del=<?php echo $objResult["techID"];?>';}" class="btn btn-danger">ลบ</a></td>
                  
                    </td>

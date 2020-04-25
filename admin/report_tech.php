@@ -203,17 +203,17 @@ exit();
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
                     <thead>
                       <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
-       <th>
-                                <div>เลขที่</div>
+                              <th>
+                                <div width="5">เลขที่</div>
                               </th>
                               <th>
                                 <div>ชื่อ</div>
                               </th>
                               <th>
-                                <div>ประเภท</div>
+                                <div>ชื่อช่างซ่อม</div>
                               </th>
                               <th>
-                                <div>รายการที่ส่งซ่อม</div>
+                                <div width="8">รายการที่ส่งซ่อม</div>
                               </th>
                               <th>
                                 <div>วันที่และเวลาสะดวก</div>
@@ -234,25 +234,22 @@ exit();
                           {
                           ?>
                           </thead>
-                      </div>
-                      <tr>
-                        <td>
-                          <div align="center"><?php echo $count++;?>
-                        </td>
+                          </div>
+                          <tr>
+                        <td ><div align="center"><?php echo $count++;?> </td>
                         <td><?php echo $objResult["cusName"];?></td>
-                        <td><?php echo $objResult["main"];?></td>
+                        <td><?php echo $objResult["techName"];?></td>
                         <td><?php echo $objResult["sub"];?></td>
                         <td><?php echo $objResult["hdate"];?>
                         <?php echo $objResult["ntime"];?></td>
-
                         <td align="center">
                         <span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
                         <td align="center"><button class="btn btn-success" data-toggle="modal" data-target="#uuu<?php echo $i;?>"
                          style="cursor:pointer;">รีวิวจากลูกค้า</a></button>&nbsp;
                          <a class="btn btn-warning" href="approve_success.php ?id=<?php echo $row['techID']; ?>" title="กดเพื่อยอมรับ"
-                        onclick="return confirm_accept('<?php echo $row['techName']; ?>')">สำเร็จ</a> &nbsp;
+                         onclick="return confirm_accept('<?php echo $row['techName']; ?>')">ยืนยันสำเร็จ</a> &nbsp;
                          <a class="btn btn-primary" href="approve_cus.php?id=<?php echo $row['cusID']; ?>" title="ทำการโอนเงินแก่ช่าง"
-                        onclick="return confirm_accept('<?php echo $row['cusName']; ?>')">โอนค่าจ้าง</a> &nbsp;</td>
+                         onclick="return confirm_accept('<?php echo $row['cusName']; ?>')">โอนค่าจ้าง</a> &nbsp;</td>
                            </button>&nbsp;                       
                            </td></td>
                            </div>
@@ -260,7 +257,6 @@ exit();
                            </div>
                            </td>
                            </tr>
-             
                            <div class="modal fade" id="uuu<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <form action="save_report.php" name="add" method="post">
@@ -322,11 +318,8 @@ exit();
                  $i++;   
                  }
                  ?>
-                 
                   </tbody>
                   </table>
-                  
-
           <!-- Bootstrap core JavaScript-->
             <script src="../vendor/jquery/jquery.min.js"></script>
             <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -346,6 +339,6 @@ exit();
             <script src="../js/demo/datatables-demo.js"></script>
             <script src="../js/demo/chart-area-demo.js"></script>
 
-</body>
+            </body>
 
-</html
+            </html
