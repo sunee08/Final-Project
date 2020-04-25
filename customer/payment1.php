@@ -322,7 +322,7 @@ exit();
                   <div class="name">อัพโหลดหลักฐานการชำระเงิน</div><br>
                   <input type="file" name="image" id="image" class="form-control" >
                   <br></div>
-                  <input type="hidden" name="status" id="status" value="รออนุมัติ" >
+                  <input type="hidden" name="status_pay" id="status_pay" value="ชำระเงินแล้ว" >
                   <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
                   <input type="hidden" name="id_re" value="<?php echo $objResult['id_re']; ?>">
 
@@ -331,6 +331,7 @@ exit();
                   </br>
                   <div class="modal-footer">
                   <p><button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>อัพโหลดหลักฐานการชำระเงิน</button></p>
+                  
                   <p><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>ยังไม่มีหลักฐาน อัพโหลดทีหลัง</button>
                   </div>
                   </form>
@@ -352,6 +353,9 @@ exit();
               ?>
                     <?php
                     include('../db/connect.php');
+
+$id = $_GET['id'];
+
 
                     $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
                     $objDB = mysql_select_db("hwrp");
