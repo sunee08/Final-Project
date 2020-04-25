@@ -179,14 +179,11 @@ exit();
         $strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
         infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
         infor_inform.cusID,infor_inform.id,technicain.techName,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
-        report_tech.detail_re,report_tech.cusID,report_tech.price_re,payment.status_pay,payment.id  FROM report_tech
+        report_tech.detail_re,report_tech.cusID,report_tech.price_re  FROM report_tech
 
         LEFT JOIN customers ON report_tech.cusID = customers.cusID
         LEFT JOIN technicain ON report_tech.techID = technicain.techID
         LEFT JOIN infor_inform ON report_tech.id = infor_inform.id  
-       LEFT JOIN payment ON report_tech.id = payment.id
-
-
       
         WHERE  report_tech.cusID= '$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' ";
         $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
@@ -207,10 +204,10 @@ exit();
                  <th>
                           <div>เลขที่</div>
                         </th>
-                        <th width="10%" >
+                        <th>
                           <div>ผู้รับซ่อม</div>
                         </th>
-                        <th >
+                        <th>
                           <div>ประเภท</div>
                         </th>
                         <th>
@@ -222,13 +219,10 @@ exit();
                         <th>
                           <div>วันที่เวลาที่สะดวก</div>
                         </th>
-                        <th width="15%"  >
+                        <th>
                           <div>สถานะ<div>
                         </th>
                         <th>
-                          <div>สถานะการชำระเงิน<div>
-                        </th>
-                        <th width="15%" >
                           <div>การชำระเงิน<div>
                         </th>
                         </tr>
@@ -247,7 +241,7 @@ exit();
                   <td><?php echo $objResult["descrip"];?></td>
                   <td align="center"><?php echo $objResult["hdate"];?> &nbsp;<?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"><?php echo $objResult["status"];?></span></td>
-             <td align="center" width="15%" ><?php echo $objResult["status_pay"];?></td>
+
                   <td align="center"><a href="payment1.php?id=<?php echo $objResult["id_re"];?>" class="btn btn-success">ทำการชำระเงิน</a>    </td>
        
                   </tr>
