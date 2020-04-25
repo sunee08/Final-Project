@@ -173,31 +173,7 @@ exit();
             </div>
           </div>
         </div>
-        <?php
-
-include('../db/connect.php');
-$my_id = $_SESSION['id'];
-
-$objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-$objDB = mysql_select_db("hwrp");
-
-$strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
-infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
-infor_inform.cusID,infor_inform.id,technicain.techName,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
-report_tech.detail_re,report_tech.cusID,report_tech.price_re
   
-FROM report_tech
-
-LEFT JOIN customers ON report_tech.cusID = customers.cusID
-LEFT JOIN technicain ON report_tech.techID = technicain.techID
-LEFT JOIN infor_inform ON report_tech.id = infor_inform.id 
-
-
-WHERE  report_tech.cusID= '$my_id'  AND  infor_inform.status ='ซ่อมเสร็จ' AND  ";
-$objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-$i = 1;
-$count =1;
-?>
       <div id="wrapper">
         <div id="content-wrapper">
           <div class="container-fluid">
@@ -206,7 +182,7 @@ $count =1;
                 <i class="fas fa-table"></i> &nbsp; ข้อมูลลูกค้า </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
+                  <table class="able table-sm " id="dataTable" width="100%" cellspacing="">
                     <thead>
                       <tr style="font-weight:bold; color:#040404; text-align:center; background:#f7f8f8;">
                         <th>
@@ -230,12 +206,42 @@ $count =1;
                         <th>
                           <div>สถานะ<div>
                         </th>
+                          <th>
+                          <div>สถานะการชำระเงิน<div>
+                        </th>
                         <th>
                           <div>การจัดการ<div>
                         </th>
+                        
                       </tr>
                     </thead>
+      <?php
 
+   include('../db/connect.php');
+        $my_id = $_SESSION['id'];
+
+        $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
+        $objDB = mysql_select_db("hwrp");
+
+        $strSQL = "SELECT report_tech.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress,
+        infor_inform.sub,infor_inform.main,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.status,
+        infor_inform.cusID,infor_inform.id,technicain.techName,report_tech.id_re,report_tech.status_tech,report_tech.id,report_tech.date_re,
+        report_tech.detail_re,report_tech.cusID,report_tech.price_re,payment.status_pay,payment.id,review.c_status,review.detail_review FROM report_tech
+
+        LEFT JOIN customers ON report_tech.cusID = customers.cusID
+        LEFT JOIN technicain ON report_tech.techID = technicain.techID
+        LEFT JOIN infor_inform ON report_tech.id = infor_inform.id  
+       LEFT JOIN payment ON report_tech.id = payment.id
+       LEFT JOIN review ON report_tech.id = review.id
+
+
+
+      
+        WHERE  report_tech.cusID= '$my_id'  AND  payment.status_pay ='ชำระเงินแล้ว'  ";
+$objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
+$i = 1;
+$count =1;
+?>
                     <?php
                     while($objResult = mysql_fetch_array($objQuery))
                     {
@@ -252,34 +258,27 @@ $count =1;
                   <td align="center"><?php echo $objResult["hdate"];?>
                       &nbsp;<?php echo $objResult["ntime"];?></td>
                   <td align="center"><span class="btn btn-info"> <?php echo $objResult["status"];?></span></td>
-                  <td align="center"><span class="btn btn-warning" data-toggle="modal" data-target="#review"
-                   style="cursor:pointer;">คอมเมนต์/รีวิว&nbsp;</button>&nbsp;</td>
-                  </td>    
-                  </div>
-                  </div>
-                  </div>
-                  </td>
-                  </tr>
-                  <?php
-                  $i++;
-                  }
-                  ?>
-                  </tbody>
-                  </table>
-            <?php
-            $strSQL = "SELECT infor_inform.*, customers.cusID,customers.cusName,customers.cusPhone,customers.cusAddress
-            ,infor_inform.descrip,infor_inform.hdate,infor_inform.ntime,infor_inform.sub,infor_inform.main,infor_inform.status,
-            infor_inform.cusID,infor_inform.id,technicain.techID,technicain.techName
-            FROM infor_inform
-            LEFT JOIN customers ON customers.cusID = infor_inform.cusID 
-            LEFT JOIN technicain ON technicain.techID = infor_inform.techID 
-          
-            WHERE  customers.cusID ='".$_SESSION["id"]."' AND  infor_inform.techID ";
-            $objQuery = mysql_query($strSQL);
-            $objResult = mysql_fetch_array($objQuery);
-            ?>
-            <!--form alert add topic-->
-            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+                  <td align="center"><span class="btn btn-success"> <?php echo $objResult["status_pay"];?></span></td>
+
+
+                  <td align="center">
+
+                    <?php if ($objResult["c_status"] != "") {?>
+                          <button class="btn btn-warning disabled " disabled="disabled" >คอมเมนต์/รีวิว</button>
+
+                          <?php } else {?>
+                          <button type="submit" class="btn btn-dark " data-toggle="modal"  data-toggle="modal" data-target="#review<?php echo $i; ?>"> คอมเมนต์/รีวิว</button>
+                          <?php }?>
+
+
+
+
+                          <button type="submit" class="btn btn-info " data-toggle="modal"  data-toggle="modal" data-target="#view<?php echo $i; ?>">ดูข้อมูล</button>
+                   
+
+
+<div class="modal fade" id="view<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
               aria-hidden="true">
               <form method="post" enctype="multipart/form-data" action="save_review.php">
               <div class="modal-dialog">
@@ -299,14 +298,91 @@ $count =1;
               <label for="">ชื่อผู้ส่งซ่อม</label>
               <input type="text" name="" id="" class="form-control" disable
               value="<?php echo $objResult["cusName"];?>">
-              <input type="hidden" name="c_status" id="c_status" value="1">
+              </div>
+              </div>
+
+                   <div class="form-group row">
+              <div class="col-md-12">
+              <label for="">ชื่อผู้ส่งซ่อม</label>
+              <input type="text" name="" id="" class="form-control" disable
+              value="<?php echo $objResult["techName"];?>">
+              </div>
+              </div>
+
+                 <div class="form-group row">
+              <div class="col-md-12">
+              <label for="">จาก</label>
+                          <input type="text" name="c_status" id="c_status" value="<?php echo $objResult['c_status']; ?>" class="form-control" disable>
+
+              </div>
+              </div>
+
+
+                 <div class="form-group row">
+              <div class="col-md-12">
+          
+            
+              <input type="hidden" name="techID" id="techID" value="<?php echo $objResult["techName"];?>" >
+              <input type="hidden" name="id_re" value="<?php echo $objResult['id_re']; ?>">
+                  <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
+
               </div>
               </div>
               <div class="form-group row">
               <div class="col-md-12">
               <label for="">คอมเมนต์การทำงานของช่าง</label>
-              <textarea  name="detail_review" id="detail_review" class="form-control" disable
-              value="<?php echo $objResult["detail_review"];?>"></textarea>
+              <input  name="detail_review" id="detail_review" class="form-control" value="<?php echo $objResult["detail_review"];?>">
+           </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+          
+            <!--form alert add topic-->
+          
+   
+            <!--form alert add topic-->
+            <div class="modal fade" id="review<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+              aria-hidden="true">
+              <form method="post" enctype="multipart/form-data" action="save_review.php">
+              <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">คอมเมนต์/รีวิวการทำงานของช่าง</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
+              <div class="modal-body">
+              <div class="form-group">
+              <label for="">รหัสการส่งซ่อม/เคลม</label>
+              <input type="hidden" name="techID" value="<?php echo $objResult['techID']; ?>">
+              <input type="text" name="cusID" id="cusID" class="form-control" readonly
+              value="<?php echo $objResult["cusID"];?>">
+              </div>
+              <div class="form-group row">
+              <div class="col-md-12">
+              <label for="">ชื่อผู้ส่งซ่อม</label>
+              <input type="text" name="" id="" class="form-control" disable
+              value="<?php echo $objResult["cusName"];?>">
+              <input type="hidden" name="c_status" id="c_status" value="จากผู้ใช้งานจริง">
+              </div>
+              </div>
+                 <div class="form-group row">
+              <div class="col-md-12">
+          
+            
+              <input type="hidden" name="id_re" value="<?php echo $objResult['id_re']; ?>">
+                  <input type="hidden" name="id" value="<?php echo $objResult['id']; ?>">
+
+              </div>
+              </div>
+              <div class="form-group row">
+              <div class="col-md-12">
+              <label for="">คอมเมนต์การทำงานของช่าง</label>
+              <textarea  name="detail_review" id="detail_review" class="form-control" 
+     ></textarea>
               </div>
               </div>
               <div class="modal-footer">
@@ -315,11 +391,25 @@ $count =1;
               <div>
                 <!-- /.modal-content -->
                   </div>
-                </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+
+ 
                                   <!-- /.modal-dialog -->
-                   <?php 
-                   mysql_close();
-                   ?>
+                     </td>
+                  </tr>
+                  <?php
+                  $i++;
+                  }
+                  ?>
+                  </tbody>
+                  </table>
             <!-- Bootstrap core JavaScript-->
             <script src="../vendor/jquery/jquery.min.js"></script>
             <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -3,7 +3,7 @@ session_start();
 
 include('../db/connect.php');
 
-$status=$_POST['status'];
+$status_pay=$_POST['status_pay'];
 $cusID=$_POST['cusID'];
 $id=$_POST['id'];
 $id_re=$_POST['id_re'];
@@ -20,8 +20,8 @@ if ($_FILES['image']['name'] != "") {
 $image = $_FILES['image']['name'];
 
 
-$sql="INSERT INTO payment (status,cusID,image,id,id_re)
-		VALUES ('$status','$cusID','$image','$id','$id_re')";
+$sql="INSERT INTO payment (status_pay,cusID,image,id,id_re)
+		VALUES ('$status_pay','$cusID','$image','$id','$id_re')";
 
                        
 
@@ -29,11 +29,8 @@ $sql="INSERT INTO payment (status,cusID,image,id,id_re)
  
 if(mysql_query($sql)){
 	
-		 echo "<script>alert('อัพโหลดสลิปเรียบร้อย' )</script>";
+	        echo '<script> window.location="payment1.php?id=' . $id_re . '"</script> ';
 
-				echo "<script>window.open('review.php','_self')</script>";
-
-		
 
 
 	}
