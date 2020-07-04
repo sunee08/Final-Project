@@ -1,17 +1,5 @@
 <?php
-require '../connect/connection.php';
-
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rws_manage_std";
-
-$db = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!$db) {
-    die("Connetion failed:" . mysqli_connect_error('Could not connected to the DB'));
-}
+include('../connect/connection.php');
 
 $fullname = $_POST['fullname'];
 $username = $_POST['username'];

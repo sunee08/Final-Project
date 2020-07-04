@@ -82,7 +82,7 @@ if (isset($_GET['success'])) {
       </div>
 
 <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="รหัสผ่าน" id="password" name="password">
+        <input type="password" class="form-control" placeholder="รหัสผ่าน" id="password" name="password">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
 
@@ -115,7 +115,7 @@ if (isset($_GET['success'])) {
         Google+</a>
     </div>
 
-    <a href="login.html" class="text-center">I already have a membership</a>
+    <a href="login.php" class="text-center">ลงชื่อเข้าใช้</a>
   </div>
   <!-- /.form-box -->
 </div>
