@@ -6,13 +6,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
+
     $sql_admin = "SELECT id_admin, fullname FROM admin WHERE username = '$username' AND password = '$password' AND id_admin != '0'";
+
     if ($result_admin = $db->query($sql_admin)) {
         if ($result_admin->num_rows > 0) {
             while ($row = $result_admin->fetch_object()) {
                 $_SESSION['id'] = $row->id_admin;
                 $_SESSION['name'] = $row->fullname;
-                $_SESSION['rank'] = "Admin";
+                $_SESSION['rank'] = "admin";
             }
             $result_admin->free();
             header("Location: ../admin/index.php");
@@ -28,19 +30,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                         $_SESSION['rank'] = $row->status;
                     }
 
-                   $result->free();
+                    $result->free();
 
-                    if ($_SESSION['rank'] == "Student") {
-                        header("Location: ../student/index.php");
+                    if ($_SESSION['rank'] == "teacher") {
+                        header("Location: ../teacher/index.php");
                         exit();
-                    } else if ($_SESSION['rank'] == "Lecturer") {
-                        header("Location: ../advisor/index.php");
-                        exit();
-                    } else if ($_SESSION['rank'] == "Officer") {
-
-                        header("Location: ../Officer/index.php");
-                        exit();
-                    }
+                    } 
                 } else {
                     header("Location: login.php?error=1");
                 }

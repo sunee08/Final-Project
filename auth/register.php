@@ -1,3 +1,14 @@
+
+
+<?php
+
+$success = 0;
+if (isset($_GET['success'])) {
+    $success = $_GET['success'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,24 +46,51 @@
 
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
+      <?php if ($success == 1): ?>
+        <div class="alert alert-success" role="alert">
+          <i class="glyphicon glyphicon-ok"></i> Register Successful! Please wait confirmation by Administrator <a href="../index.php">Back to Homepage</a>
+        </div>
+        <?php endif;?>
 
-    <form action="../../index.html" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
+  <form id="add" name="add" method="post" action="checkregis.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+
+   <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="ชื่อ นามสกุล" name="fullname" id="fullname">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+
+    <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" name="username" id="username">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" class="form-control" placeholder="อีเมล์" id="email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+
+      <div class="form-group has-feedback">  
+         เพศ: &nbsp;&nbsp; &nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="gender"
+                  value="ชาย" required aria-describedby="basic-addon1"> &nbsp;&nbsp; ชาย</label>
+              &nbsp;&nbsp; &nbsp;&nbsp; <label class="radio-inline"><input type="radio" name="gender"
+                  value="หญิง" aria-describedby="basic-addon1">
+                &nbsp;&nbsp; หญิง</label>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+    
+     <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel" name="tel">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
+
+<div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="รหัสผ่าน" id="password" name="password">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+
+
+ <div class="form-group has-feedback">
+        <input type="hidden"  id="status" name="status" value="teacher">
+      </div>
+
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -63,7 +101,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">ลงทะเบียน</button>
         </div>
         <!-- /.col -->
       </div>
