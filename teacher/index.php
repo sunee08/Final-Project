@@ -49,7 +49,7 @@ include('../connect/connection.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -117,6 +117,27 @@ include('../connect/connection.php');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
+
+   <li>
+             <a href="add_user.php">
+            <i class="fa fa-pie-chart"></i>
+            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+          </a>
+        </li>
+
+         <li >
+        <a href="add_student.php">
+            <i class="fa fa-pie-chart"></i>
+            <span>เพิ่มข้อมูลนักเรียน</span>
+          </a>
+        </li>
+
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>ข้อมูลผู้ดูแลระบบ</span>
+          </a>
+        </li>
 
         <li class=" treeview">
           <a href="#">
@@ -507,5 +528,21 @@ include('../connect/connection.php');
 <script src="../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
 </body>
 </html>

@@ -41,8 +41,8 @@ if (isset($_GET['success'])) {
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
-  </div>
+   <a href=".../index.php">ระบบการจัดการพฤติกรรม<b>นักเรียน</b></a>
+</div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
@@ -107,13 +107,7 @@ if (isset($_GET['success'])) {
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-        Google+</a>
-    </div>
+  
 
     <a href="login.php" class="text-center">ลงชื่อเข้าใช้</a>
   </div>
