@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2020 at 03:48 AM
+-- Generation Time: Jul 05, 2020 at 07:06 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.39
 
@@ -117,10 +117,10 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`id_teacher`, `fullname`, `username`, `password`, `gender`, `email`, `tel`, `status`, `id_admin`) VALUES
-(1, 'Nik-husnee Nik-uma', 'husnee', 1234, 'หญิง', 'admin@gmail.com', 936672931, 'teacher', 1),
-(2, 'gg', 'hh', 0, '', 'nikhusnee1003@gmail.com', 9546, 'teacher', 0),
-(3, 'à¹ˆà¸µà¸µà¹‰à¸™à¸™', 'à¸ªà¸ª', 0, '', 'nikhusnee1003@gmail.com', 9546, 'teacher', 0),
-(4, 'à¸ªà¸²', 'à¸ªà¸²', 25, '', 'admin@gmail.com', 9546, 'teacher', 0);
+(1, 'นิฮุสนี นิอุมา', 'husnee', 1234, 'หญิง', 'admin@gmail.com', 936672931, 'teacher', 1),
+(2, 'สุนียฺ์ เกษม', 'sunee', 1234, 'ชาย', 'admin@gmail.com', 936672931, 'teacher', 1),
+(3, 'อานัส', 'ลาฝานิช', 1234, 'ชาย', 'admin@gmail.com', 936672931, 'teacher', 1),
+(4, 'คอลิค ลังสารี', 'kholed', 1234, 'ชาย', 'itpromo123@gmail.com', 936872882, 'teacher', 1);
 
 --
 -- Indexes for dumped tables
