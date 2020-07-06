@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include('../connect/connection.php');
@@ -119,7 +120,7 @@ include('../connect/connection.php');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
- <li>
+        <li>
              <a href="add_user.php">
             <i class="fa fa-pie-chart"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
@@ -204,6 +205,128 @@ include('../connect/connection.php');
       </ol>
     </section>
 
+<?php
+use Phppot\DataSource;
+
+require 'DataSource.php';
+$db = new DataSource();
+$conn = $db->getConnection();
+
+if (isset($_POST["import"])) {
+    
+    $fileName = $_FILES["file"]["tmp_name"];
+    
+    if ($_FILES["file"]["size"] > 0) {
+        
+        $file = fopen($fileName, "r");
+        
+        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+            
+
+           
+            $id_card = "";
+            if (isset($column[0])) {
+                $id_card = mysqli_real_escape_string($conn, $column[0]);
+            }
+            $id_std_card = "";
+            if (isset($column[1])) {
+                $id_std_card = mysqli_real_escape_string($conn, $column[1]);
+            }
+            $class_room = "";
+            if (isset($column[2])) {
+                $class_room = mysqli_real_escape_string($conn, $column[2]);
+            }
+            $fullname = "";
+            if (isset($column[3])) {
+                $fullname = mysqli_real_escape_string($conn, $column[3]);
+            }
+            $birthday = "";
+            if (isset($column[4])) {
+                $birthday = mysqli_real_escape_string($conn, $column[4]);
+            }
+            $status = "";
+            if (isset($column[5])) {
+                $status = mysqli_real_escape_string($conn, $column[5]);
+            }
+            $types = "";
+            if (isset($column[6])) {
+                $types = mysqli_real_escape_string($conn, $column[6]);
+            }
+            $address = "";
+            if (isset($column[7])) {
+                $address = mysqli_real_escape_string($conn, $column[7]);
+            }
+            $parents = "";
+            if (isset($column[8])) {
+                $parents = mysqli_real_escape_string($conn, $column[8]);
+            }
+            $tel = "";
+            if (isset($column[9])) {
+                $tel = mysqli_real_escape_string($conn, $column[9]);
+            }
+            $teacher = "";
+            if (isset($column[10])) {
+                $teacher = mysqli_real_escape_string($conn, $column[10]);
+            }
+            
+            $sqlInsert = "INSERT into student(id_card,id_std_card,class_room,fullname,birthday,status,types,address,parents,tel,teacher)
+                   values (?,?,?,?,?,?,?,?,?,?,?)";
+            $paramType = "issssssssss";
+            $paramArray = array(
+                $id_card,
+                $id_std_card,
+                $class_room,
+                $fullname,
+                $birthday,
+                $status,
+                $types,
+                $address,
+                $parents,
+                $tel,
+                $teacher
+        
+            );
+
+
+            $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
+            
+            if (! empty($insertId)) {
+                $type = "success";
+            } else {
+                $type = "error";
+                $message = "Problem in Importing CSV Data";
+            }
+        }
+    }
+}
+?>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#frmCSVImport").on("submit", function () {
+
+      $("#response").attr("class", "");
+        $("#response").html("");
+        var fileType = ".csv";
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
+        if (!regex.test($("#file").val().toLowerCase())) {
+              $("#response").addClass("error");
+              $("#response").addClass("display-block");
+            $("#response").html("Invalid File. Upload : <b>" + fileType + "</b> Files.");
+            return false;
+        }
+        return true;
+    });
+});
+</script>
+  <div id="response"
+        class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">
+        <?php if(!empty($message)) { echo $message; } ?>
+        </div>
+
+
+
     <!-- Main content -->
      <section class="content">
       <div class="row">
@@ -224,72 +347,22 @@ include('../connect/connection.php');
                 <h4 class="modal-title">Default Modal</h4>
               </div>
               <div class="modal-body">
-           
 
-                <form id="add" name="add" method="post" action="check_add_teacher.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+  <form class="form-horizontal" action="" method="post"
+                name="frmCSVImport" id="frmCSVImport"
+                enctype="multipart/form-data">
+                <div class="input-row">
+                    <label class="col-md-4 control-label">Choose CSV
+                        File</label> <input type="file" name="file"
+                        id="file" accept=".csv">
+                    <button type="submit" id="submit" name="import"
+                        class="btn-submit">Import</button>
+                    <br />
 
-              <div class="user-details">
-                <div class="form-group">
-                 <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" >
-                  <div class="input-group-append">
-                    
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="username"
-                    name="username" >
-                  <div class="input-group-append">
-                   
-                  </div>
                 </div>
 
-              
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password"
-                    id="password" >
-                  <div class="input-group-append">
-                   
-                  </div>
-                 
-                </div>
-               
-                <div class="form-group">
-                  <input type="email" class="form-control" placeholder="....@gmail.com" id="email"
-                    name="email" 
-                    pattern="^[a-zA-Z0-9]+@gmail\.com$" required>
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-             
-               <div class="form-group">
-                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"
-                    name="tel" >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-                  <div class="form-group">
+            </form>
 
-                 เพศ: &nbsp;&nbsp; &nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="gender"
-                  value="ชาย" required aria-describedby="basic-addon1"> &nbsp;&nbsp; ชาย</label>
-              &nbsp;&nbsp; &nbsp;&nbsp; <label class="radio-inline"><input type="radio" name="gender"
-                  value="หญิง" aria-describedby="basic-addon1">
-                &nbsp;&nbsp; หญิง</label>
-                  </div>
-
-              </div>
-
-                      <input type="hidden"  id="status" name="status" value="teacher">
-
-                      <input type="hidden"  id="id_admin" name="id_admin" value="<?php echo $_SESSION['id']; ?>"
->
-
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
 
               </div>
             </div>
@@ -311,13 +384,20 @@ include('../connect/connection.php');
                       <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
                       <th style="font-size: 13px;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
                       <th style="font-size: 13px;" width="4%" class="text-left">จัดการ</th>
+                         <th style="font-size: 13px;" width="10%" class="text-left">ชื่อ นามสกุล</th>
+                      <th style="font-size: 13px;" width="10%"class="text-left">ชื่อผู้ใช้</th>
+                          <th style="font-size: 13px;" width="6%" class="text-left">สถานะ</th>
+                      <th style="font-size: 13px;" width="10%" class="text-left">อีเมล์</th>
+                      <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
+                      
 
                 </tr>
                 </thead>
                 <tbody>
                     <?php
+include('../connect/connection.php');
 
-$strSQL = "SELECT * FROM teacher WHERE id_admin='1' ORDER BY id_admin desc  ";
+$strSQL = "SELECT * FROM student  ";
 $i = 1;
 $count = 1;
 ?>
@@ -326,13 +406,20 @@ if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
         
-                   <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
+                   <td class="text-left" style="font-size: 6px;"> <?php echo $count++; ?></td>
+                   
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->id_card; ?></td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->id_std_card; ?></td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->class_room; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->fullname; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->username; ?></td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->birthday; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->status; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->email; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->gender; ?></td>
+           <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types; ?></td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->address; ?></td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->parents; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->tel; ?></td>
+                      <td class="text-left" style="font-size: 14px;"><?php echo $objResult->teacher; ?></td>
+
 
     <td>
 
