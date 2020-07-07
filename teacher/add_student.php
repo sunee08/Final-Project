@@ -326,16 +326,30 @@ $(document).ready(function() {
         </div>
 
 
-
-    <!-- Main content -->
      <section class="content">
       <div class="row">
+      
+ 
         <div class="col-xs-12">
           <div class="box">
+    <!-- Main content -->
+
             <div class="box-header">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-            เพิ่มรายชื่อนักเรียน
-              </button>
+             <form class="form-horizontal" action="" method="post"
+                name="frmCSVImport" id="frmCSVImport"
+                enctype="multipart/form-data"> <a href="../files excel/excel.csv" class="btn btn-primary btn-sm " role="button" aria-pressed="true" target="_blank">Dowload File Excel</a>
+                <div class="input-row">
+
+               <label class="col-md-4 control-label">Choose CSV
+                 File</label> <input type="file" name="file" id="file" accept=".csv" class="form-control">
+                            <div class="modal-footer">
+                    <button type="submit" id="submit" name="import"
+                     class="btn btn-success btn-sm pull-right " >Import</button>
+                    <br />
+
+                </div>
+
+            </form>
             </div>
 
           <div class="modal fade" id="modal-default">
@@ -348,10 +362,12 @@ $(document).ready(function() {
               </div>
               <div class="modal-body">
 
+
   <form class="form-horizontal" action="" method="post"
                 name="frmCSVImport" id="frmCSVImport"
-                enctype="multipart/form-data">
+                enctype="multipart/form-data"> <a href="../files excel/excel.csv" class="btn btn-primary btn-sm " role="button" aria-pressed="true" target="_blank">Dowload File Excel</a>
                 <div class="input-row">
+
                     <label class="col-md-4 control-label">Choose CSV
                         File</label> <input type="file" name="file"
                         id="file" accept=".csv">
@@ -373,31 +389,24 @@ $(document).ready(function() {
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
+              <table id="example1" class="table table-sm ">
+                  <thead class="thead-light">
                 <tr>
-                      <th style="font-size: 13px;" width="2%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">ชื่อ นามสกุล</th>
-                      <th style="font-size: 13px;" width="10%"class="text-left">ชื่อผู้ใช้</th>
-                          <th style="font-size: 13px;" width="6%" class="text-left">สถานะ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">อีเมล์</th>
-                      <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
-                      <th style="font-size: 13px;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
-                      <th style="font-size: 13px;" width="4%" class="text-left">จัดการ</th>
-                         <th style="font-size: 13px;" width="10%" class="text-left">ชื่อ นามสกุล</th>
-                      <th style="font-size: 13px;" width="10%"class="text-left">ชื่อผู้ใช้</th>
-                          <th style="font-size: 13px;" width="6%" class="text-left">สถานะ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">อีเมล์</th>
-                      <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
-                      
+                  <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 15px;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 15px;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 15px;" width="5%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 15px;" width="5%" class="text-left">ว.ด.ป. เกิด</th>
+                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะนักเรียน</th>
+                  <th style="font-size: 13px;" width="5%" class="text-left">จัดการ</th>
+  </tr>
+                  </thead>
+                  <tbody align="center">
 
-                </tr>
-                </thead>
-                <tbody>
                     <?php
 include('../connect/connection.php');
 
-$strSQL = "SELECT * FROM student  ";
+$strSQL = "SELECT * FROM student  ORDER BY id_std desc ";
 $i = 1;
 $count = 1;
 ?>
@@ -406,19 +415,13 @@ if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
         
-                   <td class="text-left" style="font-size: 6px;"> <?php echo $count++; ?></td>
-                   
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->id_card; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->id_std_card; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->class_room; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->fullname; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->birthday; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->status; ?></td>
-           <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->address; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->parents; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->tel; ?></td>
-                      <td class="text-left" style="font-size: 14px;"><?php echo $objResult->teacher; ?></td>
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->birthday; ?></td>
+        <td class="text-left" style="font-size: 15px;"><?php echo $objResult->status; ?></td>
+                  
 
 
     <td>
@@ -519,9 +522,7 @@ if ($result = $db->query($strSQL)) {
 
 
 
-
-
-                      <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
+  <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
                         aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
 
@@ -536,14 +537,14 @@ if ($result = $db->query($strSQL)) {
 
                             <div class="modal-body">
                               <form class="form-horizontal" method="post" action="check_edit_member.php">
-                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
+                                <input type="hidden" name="id_std" value=" <?php echo $objResult->id_std; ?>">
 
                                 <div class="card-body">
                                   <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_idcard" name="member_idcard"
-                                        value="  <?php echo $objResult->member_idcard; ?>">
+                                      <input type="text" class="form-control" id="id_card" name="id_card"
+                                        value="  <?php echo $objResult->id_card; ?>">
                                     </div>
                                   </div>
 
@@ -552,8 +553,8 @@ if ($result = $db->query($strSQL)) {
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_username"
-                                        name="member_username" value="<?php echo $objResult->member_username; ?>">
+                                      <input type="text" class="form-control" id="id_std_card"
+                                        name="id_std_card" value="<?php echo $objResult->id_std_card; ?>">
                                     </div>
                                   </div>
 
@@ -612,6 +613,12 @@ if ($result = $db->query($strSQL)) {
                         </div>
 
 
+
+
+
+
+
+                 
 
 
                     </td>
