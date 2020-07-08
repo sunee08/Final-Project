@@ -51,7 +51,7 @@ include('../connect/connection.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.php" class="logo">
+    <a href="../teacher/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -120,28 +120,26 @@ include('../connect/connection.php');
         <li class="header">เมนู</li>
        
 
-   <li class="active treeview">
-             <a href="add_user.php">
+   <li >
+             <a href="../teacher/add_user.php">
             <i class="fa fa-pie-chart"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
-        <a href="add_student.php">
+        <a href="../teacher/add_student.php">
             <i class="fa fa-pie-chart"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
           <li >
-          <a href="profile.php">
+          <a href="../teacher/profile.php">
             <i class="fa fa-pie-chart"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
-      
-      
-      <li class="treeview">
+       <li class="active treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
@@ -149,20 +147,21 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+                  <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                   <li>
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
               </ul>
             </li>
-               <li class="treeview">
+               <li class=" active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมปลาย
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -170,15 +169,14 @@ include('../connect/connection.php');
               </a>
               <ul class="treeview-menu">
               <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
-              <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
+           <li class=" active treeview"><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
               <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
                 </li>
               </ul>
             </li>
           </ul>
         </li>
-
-
+        
 
          <li class=" treeview">
           <a href="#">
@@ -217,12 +215,11 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+        รายชื่อนักเรียน มัธยมศึกษาปีที่ 5
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -235,116 +232,39 @@ include('../connect/connection.php');
      <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-            เพิ่มผู้ใช้ระบบ
-              </button>
-            </div>
-
-          <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
-              </div>
-              <div class="modal-body">
+          <div class="box">  <div class="modal-footer">
            
-
-                <form id="add" name="add" method="post" action="check_add_teacher.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
-              <div class="user-details">
-                <div class="form-group">
-                 <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" >
-                  <div class="input-group-append">
-                    
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="username"
-                    name="username" >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-              
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password"
-                    id="password" >
-                  <div class="input-group-append">
-                   
-                  </div>
-                 
-                </div>
-               
-                <div class="form-group">
-                  <input type="email" class="form-control" placeholder="....@gmail.com" id="email"
-                    name="email" 
-                    pattern="^[a-zA-Z0-9]+@gmail\.com$" required>
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
+<a href="../class study/m5_1.php"><button type="submit" class="btn btn-primary">ม.5/1</button></a>
+<a href="../class study/m5_2.php"> <button type="submit" class="btn btn-primary">ม.5/2</button></a>
+<a href="../class study/m5_3.php"><button type="submit" class="btn btn-primary">ม.5/3</button></a>
+<a href="../class study/m5_4.php"> <button type="submit" class="btn btn-primary">ม.5/4</button></a>
              
-               <div class="form-group">
-                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"
-                    name="tel" >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-                  <div class="form-group">
-
-                 เพศ: &nbsp;&nbsp; &nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="gender"
-                  value="ชาย" required aria-describedby="basic-addon1"> &nbsp;&nbsp; ชาย</label>
-              &nbsp;&nbsp; &nbsp;&nbsp; <label class="radio-inline"><input type="radio" name="gender"
-                  value="หญิง" aria-describedby="basic-addon1">
-                &nbsp;&nbsp; หญิง</label>
-                  </div>
-
               </div>
 
-                      <input type="hidden"  id="status" name="status" value="teacher">
-
-                      <input type="hidden"  id="id_admin" name="id_admin" value="<?php echo $_SESSION['id']; ?>"
->
-
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
+            <div class="box-header">
+  
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                      <th style="font-size: 13px;" width="2%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">ชื่อ นามสกุล</th>
-                      <th style="font-size: 13px;" width="10%"class="text-left">ชื่อผู้ใช้</th>
-                          <th style="font-size: 13px;" width="6%" class="text-left">สถานะ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">อีเมล์</th>
-                      <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
-                      <th style="font-size: 13px;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
-                      <th style="font-size: 13px;" width="4%" class="text-left">จัดการ</th>
+                     <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 15px;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 15px;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 15px;" width="5%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 15px;" width="5%" class="text-left">ว.ด.ป.เกิด</th>
+                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะนักเรียน</th>
+                  <th style="font-size: 13px;" width="5%" class="text-left">จัดการ</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                    <?php
+                       <?php
+include('../connect/connection.php');
 
-$strSQL = "SELECT * FROM teacher WHERE id_admin='1' ORDER BY id_admin desc  ";
+$strSQL = "SELECT * FROM student  where class_room= 'ม.5/2'  ";
+
 $i = 1;
 $count = 1;
 ?>
@@ -353,13 +273,14 @@ if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
         
-                   <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->fullname; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->username; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->status; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->email; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->gender; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->tel; ?></td>
+        
+                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->birthday; ?></td>
+        <td class="text-left" style="font-size: 15px;"><?php echo $objResult->status; ?></td>
+                  
 
     <td>
 
@@ -565,7 +486,6 @@ $i++;
 
                 </table>
             </div>
-
 
             <!-- /.box-body -->
           </div>

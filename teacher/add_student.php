@@ -127,30 +127,54 @@ include('../connect/connection.php');
           </a>
         </li>
 
-         <li >
+      <li class="active treeview">
         <a href="add_student.php">
             <i class="fa fa-pie-chart"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
 
-          <li class="treeview">
-          <a href="#">
+          <li >
+          <a href="profile.php">
             <i class="fa fa-pie-chart"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
-        <li class=" treeview">
+      <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> มัธยมต้น</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> มัธยมปลาย</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+              <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
+              <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
+
+              </ul>
+            </li>
+               <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> มัธยมปลาย
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+              <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
+              <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
+              <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
 
@@ -393,11 +417,11 @@ $(document).ready(function() {
                   <thead class="thead-light">
                 <tr>
                   <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 15px;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 15px;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 15px;" width="15%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 15px;" width="15%"class="text-left">ชื่อ - นามสกุล</th>
                   <th style="font-size: 15px;" width="5%" class="text-left">ห้องเรียน</th>
                   <th style="font-size: 15px;" width="5%" class="text-left">ว.ด.ป. เกิด</th>
-                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะนักเรียน</th>
+                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะ</th>
                   <th style="font-size: 13px;" width="5%" class="text-left">จัดการ</th>
   </tr>
                   </thead>
@@ -561,8 +585,8 @@ if ($result = $db->query($strSQL)) {
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_fullname"
-                                        name="member_fullname" value="<?php echo $objResult->member_fullname; ?>">
+                                      <input type="text" class="form-control" id="class_room"
+                                        name="class_room" value="<?php echo $objResult->class_room; ?>">
                                     </div>
                                   </div>
 
@@ -571,15 +595,15 @@ if ($result = $db->query($strSQL)) {
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_email" name="member_email"
-                                        value="<?php echo $objResult->member_email; ?>"> </div>
+                                      <input type="text" class="form-control" id="  fullname" name="  fullname"
+                                        value="<?php echo $objResult->  fullname; ?>"> </div>
                                   </div>
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_phone" name="member_phone"
-                                        value="<?php echo $objResult->member_phone; ?>"> </div>
+                                      <input type="text" class="form-control" id="birthday" name="birthday"
+                                        value="<?php echo $objResult->birthday; ?>"> </div>
                                   </div>
 
 
@@ -587,7 +611,7 @@ if ($result = $db->query($strSQL)) {
                                     <label for="inputPassword3" class="col-sm-2 ">Gender</label>
                                     <div class="col-sm-10">
 
-                                      <?php echo $objResult->member_gender; ?> </div>
+                                      <?php echo $objResult->status; ?> </div>
                                   </div>
 
                                   <div class="form-group row">

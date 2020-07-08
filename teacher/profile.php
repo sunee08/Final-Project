@@ -132,13 +132,14 @@ include('../connect/connection.php');
           </a>
         </li>
 
-          <li>
+       <li class="active treeview">
           <a href="profile.php">
             <i class="fa fa-pie-chart"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
-
+    
+    
       <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
@@ -176,7 +177,6 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-        
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -228,88 +228,68 @@ include('../connect/connection.php');
       </ol>
     </section>
 
+     <?php
+
+$strSQL = "SELECT * FROM teacher WHERE id_teacher = '" . $_SESSION['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+        
+
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
+
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>150</h3>
+     <div class="col-xs-12">
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-              <p>New Orders</p>
+              <h3 class="profile-username text-center">แก้ไขประวัติส่วนตัว</h3>
+
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>ชื่อ-นามสกุล</b>  <input type="text" class="form-control" name="fullname" value=" <?php echo $objResult->fullname; ?>"></a>
+                </li>
+                <li class="list-group-item">
+                  <b> ชื่อผู้ใช้</b> <input type="text" class="form-control" name="username" value=" <?php echo $objResult->username; ?>"></a>
+                </li>
+                <li class="list-group-item">
+                  <b>เพศ</b><input type="text" class="form-control" name="gender" value=" <?php echo $objResult->gender; ?>"></a>
+                </li>
+                 <li class="list-group-item">
+                  <b>อีเมล์</b> <input type="text" class="form-control" name="email" value=" <?php echo $objResult->email; ?>"></a>
+                </li>
+                 <li class="list-group-item">
+                  <b>เบอร์โทรศัพท์</b> <input type="text" class="form-control" name="tel" value=" <?php echo $objResult->tel; ?>"></a>
+                </li> <li class="list-group-item">
+                  <b>สถานะ</b> <input type="text" class="form-control" name="status" value=" <?php echo $objResult->status; ?>"></a>
+                </li>
+                <li class="list-group-item">
+                  <b>เปลี่ยนรหัสผ่าน</b> <input type="password" class="form-control" name="password" value=" <?php echo $objResult->password; ?>"></a>
+                </li>
+              </ul>
+
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
             </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- /.box-body -->
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+          <!-- /.box -->
 
-              <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>44</h3>
+         
+                 <?php
 
-              <p>User Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-           
-
-        </section>
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
+    }
+}
+?>
 
     </section>
-    <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
