@@ -342,45 +342,39 @@ include('../connect/connection.php');
                 </tr>
                 </thead>
                 <tbody>
-                    <?php
-
-$strSQL = "SELECT * FROM teacher WHERE id_admin='1' ORDER BY id_admin desc  ";
-$i = 1;
-$count = 1;
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
+                  <?php
+                  $strSQL = "SELECT * FROM teacher WHERE id_teacher ORDER BY id_teacher desc  ";
+                  $i = 1;
+                  $count = 1;
+                  ?>
+                  <?php
+                  if ($result = $db->query($strSQL)) {
+                  while ($objResult = $result->fetch_object()) {
+                  ?>
         
-                   <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
+                    <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->fullname; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->username; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->status; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->email; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->gender; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->tel; ?></td>
-
-    <td>
+                    <td>
 
                       <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
+                        data-target="#editsub<?php echo $i;?>">
                         <i class="fa fa-edit" title="Edit"></i> </button>
 
-                      </center>
-
-
+        
                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
                         <i class="fa fa-eye"></i></button>
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+                       <a href="delete_user.php?del=<?php echo $objResult->id_teacher; ?>" class="btn btn-danger btn-xs">
                         <i class="fa fa-trash" title="Delete"></i></a>
 
-
-
-
-
+                      </center>
+                     <!----show information ----->
 
                       <div class="modal fade" id="show<?php echo $i; ?>" tabindex="-1" role="dialog"
                         aria-labelledby="myModalLabel" aria-hidden="true">
@@ -392,61 +386,56 @@ if ($result = $db->query($strSQL)) {
                             </div>
 
                             <div class="modal-body">
-                              <form class="form-horizontal" method="post" action="check_edit_member.php">
+                              <form class="form-horizontal" method="post" action="check_edit_user.php">
                                 <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
 
                                 <div class="card-body">
                                   <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID</label>
                                     <div class="col-sm-10">
-                                      <?php echo $objResult->member_idcard; ?>
+                                      <?php echo $objResult->id_teacher; ?>
                                     </div>
                                   </div>
-
-
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                      <?php echo $objResult->member_username; ?> </div>
+                                      <?php echo $objResult->username; ?> </div>
                                   </div>
 
                                   <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Teacher Name</label>
                                     <div class="col-sm-10">
-                                      <?php echo $objResult->member_fullname; ?>
+                                      <?php echo $objResult->fullname; ?>
                                     </div>
                                   </div>
-
-
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                      <?php echo $objResult->member_email; ?>
-                                    </div>
+                                      <?php echo $objResult->email; ?>
+                                  </div>
                                   </div>
 
                                   <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
                                     <div class="col-sm-10">
 
-                                      <?php echo $objResult->member_phone; ?> </div>
+                                      <?php echo $objResult->status; ?> </div>
                                   </div>
-
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 ">Gender</label>
                                     <div class="col-sm-10">
 
-                                      <?php echo $objResult->member_gender; ?> </div>
+                                      <?php echo $objResult->gender; ?> </div>
                                   </div>
 
                                   <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
+                                    <label for="inputPassword3" class="col-sm-2 ">Phone</label>
                                     <div class="col-sm-10">
 
-                                      <?php echo $objResult->member_pos; ?> </div>
+                                      <?php echo $objResult->tel; ?> </div>
                                   </div>
                                 </div>
                               </form>
@@ -458,13 +447,19 @@ if ($result = $db->query($strSQL)) {
                       <!-- Modal -->
 
 
-
-
-
-                      <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-
+                    <!--- edit information-->
+                    <div class="modal fade" id="editsub<?php echo $i; ?>">
+                <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div>
+            
                           <div class="modal-content">
                             <div class="modal-header bg-info">
                               <h5 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
@@ -483,7 +478,7 @@ if ($result = $db->query($strSQL)) {
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
                                     <div class="col-sm-10">
                                       <input type="text" class="form-control" id="member_idcard" name="member_idcard"
-                                        value="  <?php echo $objResult->member_idcard; ?>">
+                                        value="<?php echo $objResult->member_idcard; ?>">
                                     </div>
                                   </div>
 
@@ -536,15 +531,16 @@ if ($result = $db->query($strSQL)) {
                                       <?php echo $objResult->member_pos; ?> </div>
                                   </div>
 
-
-
-
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
-                                        class="glyphicon glyphicon-remove"></i>
-                                      Cancle</button>
-                                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
-                                      Edit</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
                                   </div>
                               </form>
                             </div>
