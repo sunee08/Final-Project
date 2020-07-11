@@ -186,9 +186,10 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
-            <li class="active"><a href="std_behavior.php"><i class="fa fa-circle-o"></i>พฤติกรรมของนักเรียน</a></li>
+           <ul class="treeview-menu">
+            <li class="active"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
@@ -335,7 +336,7 @@ $(document).ready(function() {
 
       $("#response").attr("class", "");
         $("#response").html("");
-        var fileType = ".csv";
+        var fileType = ".xlsx";
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
         if (!regex.test($("#file").val().toLowerCase())) {
               $("#response").addClass("error");
@@ -367,8 +368,8 @@ $(document).ready(function() {
                 enctype="multipart/form-data"> <a href="../files excel/excel.csv" class="btn btn-primary btn-sm " role="button" aria-pressed="true" target="_blank">Dowload File Excel</a>
                 <div class="input-row">
 
-               <label class="col-md-4 control-label">Choose CSV
-                 File</label> <input type="file" name="file" id="file" accept=".csv" class="form-control">
+               <label class="col-md-4 control-label">เลือกไฟล์ Excel นามสกุลไฟล์ .csv
+                 </label> <input type="file" name="file" id="file" accept=".csv" class="form-control">
                             <div class="modal-footer">
                     <button type="submit" id="submit" name="import"
                      class="btn btn-success btn-sm pull-right " >Import</button>
@@ -414,18 +415,27 @@ $(document).ready(function() {
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+      <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-sm ">
+          <div class="box-body">
+              <table id="example1" class="table table-sm active">
                   <thead class="thead-light">
-                <tr>
-                  <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 15px;" width="15%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 15px;" width="15%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 15px;" width="5%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 15px;" width="5%" class="text-left">ว.ด.ป. เกิด</th>
-                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะ</th>
-                  <th style="font-size: 13px;" width="5%" class="text-left">จัดการ</th>
+                <tr >
+                 <th style="font-size: 14px; color:white;"   width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;"  width="9%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 14px; color:white;"   width="15%"class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">ว.ด.ป. เกิด</th>
+                  <th style="font-size: 14px; color:white;"  width="7%" class="text-left">สถานะ</th>
+                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">จัดการ</th>
   </tr>
                   </thead>
                   <tbody align="center">

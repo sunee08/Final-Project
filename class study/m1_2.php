@@ -236,11 +236,13 @@ include('../connect/connection.php');
         <div class="col-xs-12">
           <div class="box">  <div class="modal-footer">
            
-<a href="../class study/m1_1.php"><button type="submit" class="btn btn-primary">ม.1/1</button></a>
-<a href="../class study/m1_2.php"> <button type="submit" class="btn btn-primary">ม.1/2</button></a>
-<a href="../class study/m1_3.php"><button type="submit" class="btn btn-primary">ม.1/3</button></a>
-<a href="../class study/m1_4.php"> <button type="submit" class="btn btn-primary">ม.1/4</button></a>
-             
+<a href="../class study/m1_1.php"><button type="submit" class="btn bg-red">ม.1/1</button></a>
+<a href="../class study/m1_2.php"> <button type="submit" class="btn bg-red">ม.1/2</button></a>
+<a href="../class study/m1_3.php"><button type="submit" class="btn bg-red">ม.1/3</button></a>
+<a href="../class study/m1_4.php"> <button type="submit" class="btn bg-red">ม.1/4</button></a>
+<a href="../class study/m1_5.php"> <button type="submit" class="btn bg-red">ม.1/5</button></a>
+<a href="../class study/m1_6.php"> <button type="submit" class="btn bg-red">ม.1/6</button></a>
+<a href="../class study/m1_7.php"> <button type="submit" class="btn bg-red">ม.1/7</button></a>     
               </div>
 
             <div class="box-header">

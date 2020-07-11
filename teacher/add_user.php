@@ -190,9 +190,10 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
-            <li class="active"><a href="std_behavior.php"><i class="fa fa-circle-o"></i>พฤติกรรมของนักเรียน</a></li>
+           <ul class="treeview-menu">
+            <li class="active"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
@@ -329,19 +330,27 @@ include('../connect/connection.php');
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+  <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                      <th style="font-size: 13px;" width="2%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">ชื่อ นามสกุล</th>
-                      <th style="font-size: 13px;" width="10%"class="text-left">ชื่อผู้ใช้</th>
-                          <th style="font-size: 13px;" width="6%" class="text-left">สถานะ</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">อีเมล์</th>
-                      <th style="font-size: 13px;" width="6%"class="text-left">เพศ</th>
-                      <th style="font-size: 13px;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
-                      <th style="font-size: 13px;" width="4%" class="text-left">จัดการ</th>
+          <div class="box-body">
+              <table id="example1" class="table table-sm active">
+                  <thead class="thead-light">
+                <tr >
+                      <th style="font-size: 14px; color:white;" width="2%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ นามสกุล</th>
+                      <th style="font-size: 14px; color:white;" width="10%"class="text-left">ชื่อผู้ใช้</th>
+                          <th style="font-size: 14px; color:white;" width="6%" class="text-left">สถานะ</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">อีเมล์</th>
+                      <th style="font-size: 14px; color:white;" width="6%"class="text-left">เพศ</th>
+                      <th style="font-size: 14px; color:white;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
+                      <th style="font-size: 14px; color:white;" width="4%" class="text-left">จัดการ</th>
 
                 </tr>
                 </thead>

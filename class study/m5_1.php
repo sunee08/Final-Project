@@ -234,10 +234,11 @@ include('../connect/connection.php');
         <div class="col-xs-12">
           <div class="box">  <div class="modal-footer">
            
-<a href="../class study/m5_1.php"><button type="submit" class="btn btn-primary">ม.5/1</button></a>
-<a href="../class study/m5_2.php"> <button type="submit" class="btn btn-primary">ม.5/2</button></a>
-<a href="../class study/m5_3.php"><button type="submit" class="btn btn-primary">ม.5/3</button></a>
-<a href="../class study/m5_4.php"> <button type="submit" class="btn btn-primary">ม.5/4</button></a>
+<a href="../class study/m5_1.php"><button type="submit" class="btn bg-red">ม.5/1</button></a>
+<a href="../class study/m5_2.php"> <button type="submit" class="btn bg-red">ม.5/2</button></a>
+<a href="../class study/m5_3.php"><button type="submit" class="btn bg-red">ม.5/3</button></a>
+<a href="../class study/m5_4.php"> <button type="submit" class="btn bg-red">ม.5/4</button></a>
+<a href="../class study/m5_5.php"> <button type="submit" class="btn bg-red">ม.5/5</button></a>
              
               </div>
 

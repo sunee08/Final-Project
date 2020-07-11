@@ -187,16 +187,17 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
-            <li class="active"><a href="std_behavior.php"><i class="fa fa-circle-o"></i>พฤติกรรมของนักเรียน</a></li>
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
 
 
 
-        <li class="treeview">
-          <a href="#">
+        <li >
+          <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
@@ -242,14 +243,22 @@ include('../connect/connection.php');
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+            
 
-              <p>New Orders</p>
+                              <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std FROM student ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> นักเรียนทั้งหมด  </p>';
+?>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-users"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -257,12 +266,22 @@ include('../connect/connection.php');
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                 <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std
+                        FROM student
+                        WHERE types ='มัธยมต้น'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> นักเรียนชั้นมัธยมต้น  </p>';
+?>
 
-              <p>Bounce Rate</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-user"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -272,12 +291,22 @@ include('../connect/connection.php');
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+                <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std
+                        FROM student
+                        WHERE types ='มัธยมปลาย'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> นักเรียนชั้นมัธยมปลาย  </p>';
+?>
 
-              <p>User Registrations</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fa fa-user"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -287,9 +316,15 @@ include('../connect/connection.php');
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
+                      <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> คุณครู  </p>';
+?>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -298,6 +333,27 @@ include('../connect/connection.php');
           </div>
         </div>
         <!-- ./col -->
+              <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+                      <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> ใบลา  </p>';
+?>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
       </div>
       <!-- /.row -->
       <!-- Main row -->

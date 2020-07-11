@@ -235,10 +235,11 @@ include('../connect/connection.php');
         <div class="col-xs-12">
           <div class="box">  <div class="modal-footer">
            
-<a href="../class study/m4_1.php"><button type="submit" class="btn btn-primary">ม.4/1</button></a>
-<a href="../class study/m4_2.php"> <button type="submit" class="btn btn-primary">ม.4/2</button></a>
-<a href="../class study/m4_3.php"><button type="submit" class="btn btn-primary">ม.4/3</button></a>
-<a href="../class study/m4_4.php"> <button type="submit" class="btn btn-primary">ม.4/4</button></a>
+<a href="../class study/m4_1.php"><button type="submit" class="btn bg-red">ม.4/1</button></a>
+<a href="../class study/m4_2.php"> <button type="submit" class="btn bg-red">ม.4/2</button></a>
+<a href="../class study/m4_3.php"><button type="submit" class="btn bg-red">ม.4/3</button></a>
+<a href="../class study/m4_4.php"> <button type="submit" class="btn bg-red">ม.4/4</button></a>
+<a href="../class study/m4_5.php"> <button type="submit" class="btn bg-red">ม.4/5</button></a>
              
               </div>
 
@@ -264,7 +265,7 @@ include('../connect/connection.php');
                        <?php
 include('../connect/connection.php');
 
-$strSQL = "SELECT * FROM student  where class_room= 'ม.4/1'  ";
+$strSQL = "SELECT * FROM student  where class_room= 'ม.4/2'  ";
 
 $i = 1;
 $count = 1;

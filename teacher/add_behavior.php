@@ -122,7 +122,7 @@ include('../connect/connection.php');
         <li class="header">เมนู</li>
        
 
-   <li class="active treeview">
+   <li class=" treeview">
              <a href="add_user.php">
             <i class="fa fa-pie-chart"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
@@ -182,15 +182,17 @@ include('../connect/connection.php');
 
 
 
-         <li class=" treeview">
+         <li class=" active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+            <ul class="treeview-menu">
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
@@ -333,19 +335,26 @@ include('../connect/connection.php');
                    
                         <span class="username">
                            <div class="col-xs-14">
-
+    <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
        
       <!-- /.row (main row) -->
-<div class="box-body">
-              <table id="example1"  class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                      <th style="font-size: 13px;" width="5%" class="text-left">ลำดับ</th>
-                     <th style="font-size: 13px;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 13px;" width="20%" class="text-left">หัวข้อหลัก</th>
-                      <th style="font-size: 13px;" width="10%"class="text-left">หัวข้อย่อย</th>
-                      <th style="font-size: 13px;" width="10%" class="text-left">วันที่</th>
-                         <th style="font-size: 13px;" width="10%" class="text-left">จัดการ</th>
+  <div class="box-body">
+              <table id="example1" class="table table-sm active">
+                  <thead class="thead-light">
+                <tr >
+                      <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
+                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
                    
                 </tr>
                 </thead>
