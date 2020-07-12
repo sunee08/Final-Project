@@ -35,6 +35,8 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +53,7 @@ include('../connect/connection.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../teacher/index.php" class="logo">
+    <a href="index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -105,15 +107,7 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="ค้นหา...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+   
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -140,7 +134,8 @@ include('../connect/connection.php');
           </a>
         </li>
       
-       <li class="active treeview">
+      
+<li class=" active treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
@@ -148,7 +143,7 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-                  <li class="active treeview">
+          <li class=" active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -168,7 +163,7 @@ include('../connect/connection.php');
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-              <ul class="treeview-menu">
+             <ul class="treeview-menu">
               <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
               <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
               <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
@@ -179,6 +174,7 @@ include('../connect/connection.php');
         </li>
 
 
+
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -186,27 +182,34 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+            <ul class="treeview-menu">
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
+     
+        <li >
+          <a href="../teacher/leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
             </span>
           </a>
-        
         </li>
+
+
+    
+
         <li>
-          <a href="pages/widgets.html">
+          <a href="../teacher/result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+
+        <li>
+          <a href="../teacher/report.php">
             <i class="fa fa-pie-chart"></i>
             <span>รายงาน</span>
           </a>
@@ -215,7 +218,6 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -252,8 +254,8 @@ include('../connect/connection.php');
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
+               <table id="example1" class="table table-hover">
+                  <thead class="thead-light">
                 <tr>
                      <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
                   <th style="font-size: 15px;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>

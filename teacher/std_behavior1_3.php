@@ -106,15 +106,7 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="ค้นหา...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -194,22 +186,27 @@ include('../connect/connection.php');
         </li>
 
 
-        <li class="treeview">
-          <a href="#">
+
+        <li >
+          <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
             </span>
           </a>
-        
         </li>
+
+
+    
+
         <li>
-          <a href="pages/widgets.html">
+          <a href="result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+
+        <li>
+          <a href="report.php">
             <i class="fa fa-pie-chart"></i>
             <span>รายงาน</span>
           </a>
@@ -249,16 +246,17 @@ include('../connect/connection.php');
 </style>
             <!-- /.box-header -->
           <div class="box-body">
-              <table id="example1" class="table table-sm active">
+    <table id="example1" class="table  table-hover">
                   <thead class="thead-light">
                 <tr >
                   <th style="font-size: 14px; color:white;"   width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;"  width="9%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 14px; color:white;"   width="15%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;"  width="7%" class="text-left">สถานะ</th>
-                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">จัดการ</th>
-  </tr>
+                  <th style="font-size: 14px; color:white;"  width="11%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 14px; color:white;"   width="14%"class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 14px; color:white;"  width="6%" class="text-left">ห้องเรียน</th>
+                    <th style="font-size: 14px; color:white;"  width="6%" class="text-left">ประเภท</th>
+
+                  <th style="font-size: 14px; color:white;"  width="10%" class="text-left">จัดการ</th>
+       </tr>
                   </thead>
                   <tbody align="center">
 
@@ -278,11 +276,14 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-        <td class="text-left" style="font-size: 15px;"><?php echo $objResult->status; ?></td>
-                  
+             <td class="text-left" style="font-size: 15px;"><?php echo $objResult->types; ?></td>
 
 
-    <td>
+
+    <td> 
+             <a href="add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
+                          class="btn btn-warning btn-xs">
+                        เพิ่มพฤติกรรม</a>
 
                       <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
                         data-target="#editsub<?php echo $i; ?>">

@@ -200,7 +200,7 @@ include('../connect/connection.php');
 
     
 
-        <li>
+         <li class="active treeview">
           <a href="result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
@@ -233,139 +233,21 @@ include('../connect/connection.php');
 
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-            
+        <div class="col-xs-12">
+          <div class="box">
+       <div class="box-header">
 
-                              <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_std FROM student ORDER BY id_std";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> นักเรียนทั้งหมด  </p>';
-?>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-                                 <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_std
-                        FROM student
-                        WHERE types ='มัธยมต้น'
-                        ORDER BY id_std";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> นักเรียนชั้นมัธยมต้น  </p>';
-?>
 
-            </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-                <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_std
-                        FROM student
-                        WHERE types ='มัธยมปลาย'
-                        ORDER BY id_std";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> นักเรียนชั้นมัธยมปลาย  </p>';
-?>
 
-            </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-                      <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> คุณครู  </p>';
-?>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-              <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-                      <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> ใบลา  </p>';
-?>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+Test
 
+
+
+          </div>
+        </div>
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-           
-
-        </section>
-        <!-- right col -->
       </div>
-      <!-- /.row (main row) -->
-
     </section>
     <!-- /.content -->
   </div>

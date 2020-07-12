@@ -105,15 +105,7 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="ค้นหา...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -126,7 +118,7 @@ include('../connect/connection.php');
           </a>
         </li>
 
-      <li class="active treeview">
+      <li>
         <a href="add_student.php">
             <i class="fa fa-pie-chart"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
@@ -186,29 +178,34 @@ include('../connect/connection.php');
             </span>
           </a>
            <ul class="treeview-menu">
-            <li class="active"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
 
-        <li class="treeview">
-          <a href="#">
+    
+         <li class="active treeview">
+          <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
             </span>
           </a>
-        
         </li>
+
+
+    
+
         <li>
-          <a href="pages/widgets.html">
+          <a href="result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+
+        <li>
+          <a href="report.php">
             <i class="fa fa-pie-chart"></i>
             <span>รายงาน</span>
           </a>
@@ -251,7 +248,7 @@ include('../connect/connection.php');
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-sm active">
+          <table id="example1" class="table  table-hover">
                   <thead class="thead-light">
                 <tr >
           <th style="font-size: 14px; color:white;"  width="3%" class="text-left" >ลำดับ</th>
@@ -291,15 +288,17 @@ if ($result = $db->query($strSQL)) {
     <td>
 
 
-
   <form id="add" name="add" method="post" action="check_leave.php?id=<?php echo $objResult->id_std;?>" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
- <input type="text" name="times_leaves" id="times_leaves" size="2" >
-    <input type="hidden" name="id_teacher" class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
- <td class="text-left" style="font-size: 15px;"> <div class="input-group mb-3">
-  <button type="submit" class="btn btn-success btn-sm">บันทึก</button>
+ <input type="number" name="times_leaves" id="times_leaves" style="width: 3em" value="<?php echo $objResult->times_leaves; ?>">
+    <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
+ <td class="text-left" style="font-size: 5px;"> 
+  <button type="submit" class="btn-success" > <i class="fa fa-check"></i></button>
   </center>
 </form>
+
+ 
+
 
                     
 </td>

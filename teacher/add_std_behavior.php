@@ -33,9 +33,7 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-   <!-- DataTables -->
-  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <!-- Select2 -->
+  <!-- Select2 -->
   <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -107,14 +105,14 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-   
+     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
 
-   <li class=" treeview">
+   <li>
              <a href="add_user.php">
             <i class="fa fa-pie-chart"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
@@ -127,14 +125,14 @@ include('../connect/connection.php');
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
-          <li >
+
+          <li>
           <a href="profile.php">
             <i class="fa fa-pie-chart"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
-      
-      
+
       <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
@@ -172,23 +170,22 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-
-
-         <li class=" active treeview">
+        
+         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-            <ul class="treeview-menu">
-            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+          <ul class="treeview-menu">
+            <li class="active treeview"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
-     
+
         <li >
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
@@ -231,88 +228,70 @@ include('../connect/connection.php');
         <li class="active">Dashboard</li>
       </ol>
     </section>
-<!-- Main content -->
-     <section class="content">
+   
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-            เพิ่มผู้ใช้ระบบ
-              </button>
-            </div>
+   <?php
 
-          <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
-              </div>
-              <div class="modal-body">
-           
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
 
-         <form id="add" name="add" method="post" action="check_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
-              <div class="user-details">
-                <div class="form-group">
-                    <label>หัวข้อหลัก</label>
-
-   <input type="text" name="topic" class="form-control select2" >
-                  <div class="input-group-append">
-                    
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
                   </div>
-                </div>
-                <div class="form-group">
-                                      <label>หัวข้อย่อย</label>
-          <input type="text" name="detail" class="form-control select2"  >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
+                         <p>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> ชื่อ - นามสกุล </th>
+                            <td><?php echo $objResult->fullname; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                            <td><?php echo $objResult->id_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                            <td><?php echo $objResult->id_std_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
+                            <td><?php echo $objResult->class_room; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                            <td><?php echo $objResult->birthday; ?></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                            <td><?php echo $objResult->types; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+                            <td><?php echo $objResult->status; ?></td>
+                        </tr>
+                    </tbody>
+                </table>       
+   <?php
+}
+}
+?>
 
-                 <div class="form-group">
-                                      <label>ประเภท</label>
-          <input type="text" name="types_behavior" class="form-control select2"  >
-          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-
-                 <div class="form-group">
-                                      <label>เปอรเซนต์</label>
-          <input type="text" name="percent" class="form-control select2"  >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-    <input type="hidden" name="id_teacher" class="form-control select2" value="<?php echo $_SESSION['name']; ?>" >
-            
-
-
-              </div>
-
-                    
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-
-    
-       
       <div class="row">
    
               <div class="col-md-12">
@@ -325,13 +304,8 @@ include('../connect/connection.php');
               <div class="active tab-pane" id="activity">
                 <!-- Post -->
              <div class="tab-pane" id="activity">
-                <!-- The timeline -->
-                          <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                   
-                        <span class="username">
-                           <div class="col-xs-14">
+                   <span class="username">
+                  <div class="col-xs-14">
     <style>
 .table .thead-light th {
   color: #401500;
@@ -342,16 +316,17 @@ include('../connect/connection.php');
 </style>
        
       <!-- /.row (main row) -->
+       <form id="add" name="add" method="post" action="chec.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+
   <div class="box-body">
-           <table id="example1" class="table  table-hover">
+            <table id="example1" class="table  table-hover">
                   <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                   <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
-                    <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
-                     <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
                    
                 </tr>
                 </thead>
@@ -371,24 +346,11 @@ if ($result = $db->query($strSQL)) {
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
                     
 
     <td>
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
-
-                      </center>
-
-
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
-
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
+                   <input type="checkbox" name="">
 
 
                     </td>
@@ -399,61 +361,50 @@ $i++;
     }
 }
 ?>
+                  </table>
+                   <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
 
-                </table>
+              </div>
             </div>
 </div>
 </div>
+</form>
                          
                         </span>
                     
                   </div>
                   <!-- /.user-block -->
                   <div class="row margin-bottom">
-                  
-                    <!-- /.col -->
                     <div class="col-sm-6">
                       <div class="row">
-                   
-                        <!-- /.col -->
-                       
                         <!-- /.col -->
                       </div>
                       <!-- /.row -->
                     </div>
                     <!-- /.col -->
                   </div>
-                  <!-- /.row -->
-
-              
-                </div>
-                <!-- /.post -->
-              </div>
-              <!-- /.tab-pane -->
+    
               <div class="tab-pane" id="timeline">
                 <!-- The timeline -->
-                          <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                   
+           
                         <span class="username">
                            <div class="col-xs-12">
 
-     
+          <form id="add" name="add" method="post" action="check.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+
        
       <!-- /.row (main row) -->
 <div class="box-body">
-             <table id="example2" class="table  table-hover">
+            <table id="example2" class="table  table-hover">
                   <thead class="thead-light">
                 <tr>
               <th style="font-size: 14px; color:white;" width="10%" class="text-left">ลำดับ</th>
              <th style="font-size: 14px; color:white;" width="20%" class="text-left">ด้านพฤติกรรม</th>
-
-                     <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
-                    <th style="font-size: 14px; color:white;" width="20%"class="text-left">หัวข้อย่อย</th>
-                     <th style="font-size: 14px; color:white;"  width="20%" class="text-left">วันที่</th>
-                       <th style="font-size: 14px; color:white;" width="20%" class="text-left">จัดการ</th>
-                   
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
+                         <th style="font-size: 14px; color:white;" width="20%" class="text-left">จัดการ</th>
+        
                 </tr>
                 </thead>
                 <tbody>
@@ -471,27 +422,12 @@ if ($result = $db->query($strSQL)) {
                    <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
                      <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?></td>
                   
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
                     
 
     <td>
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
-
-                      </center>
-
-
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
-
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
-
+                                       <input type="checkbox" name="">
 
                     </td>
                     </tr>
@@ -502,7 +438,12 @@ $i++;
 }
 ?>
 
+            
                 </table>
+                   <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+
             </div>
 </div>
 </div>
@@ -510,22 +451,9 @@ $i++;
                   <!-- timeline item -->
               
        
-              <!-- /.tab-pane -->
-
            
-            </div>
-            <!-- /.tab-content -->
-          </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
-
+   
     </section>
-
-
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -537,7 +465,7 @@ $i++;
     reserved.
   </footer>
 
-  <!-- Control Sidebar -->
+ 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -584,17 +512,14 @@ $i++;
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable()
-
-    $('#example3').DataTable({
+    $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,

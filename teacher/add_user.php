@@ -107,15 +107,7 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="ค้นหา...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -191,28 +183,32 @@ include('../connect/connection.php');
             </span>
           </a>
            <ul class="treeview-menu">
-            <li class="active"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
+        <li >
+          <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
             </span>
           </a>
-        
         </li>
+
+
+    
+
         <li>
-          <a href="pages/widgets.html">
+          <a href="result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+
+        <li>
+          <a href="report.php">
             <i class="fa fa-pie-chart"></i>
             <span>รายงาน</span>
           </a>
@@ -340,7 +336,7 @@ include('../connect/connection.php');
 </style>
             <!-- /.box-header -->
           <div class="box-body">
-              <table id="example1" class="table table-sm active">
+       <table id="example2" class="table table-hover">
                   <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="2%" class="text-left">ลำดับ</th>
