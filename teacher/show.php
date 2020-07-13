@@ -33,8 +33,8 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-   <!-- DataTables -->
-  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -111,28 +111,29 @@ include('../connect/connection.php');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
-        <li>
+
+   <li>
              <a href="add_user.php">
             <i class="fa fa-pie-chart"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
-      <li>
+         <li >
         <a href="add_student.php">
             <i class="fa fa-pie-chart"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
 
-          <li >
+          <li>
           <a href="profile.php">
             <i class="fa fa-pie-chart"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
-      <li class="treeview">
+         <li class="active treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
@@ -140,14 +141,15 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+         <li class="active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                      <li class="active">
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -169,24 +171,27 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-     
-         <li class=" treeview">
+        
+      
+         <li >
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-           <ul class="treeview-menu">
-            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+          <ul class="treeview-menu">
+              
+         <li class=" "><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
 
-    
-         <li class="active treeview">
+
+
+        <li >
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
@@ -228,16 +233,86 @@ include('../connect/connection.php');
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
-     <section class="content">
+   
+    <section class="content">
       <div class="row">
-      
- 
         <div class="col-xs-12">
           <div class="box">
-    <!-- Main content -->
+   <?php
 
-          <style>
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
+                  </div>
+                         <p>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> ชื่อ - นามสกุล </th>
+                            <td><?php echo $objectResult->fullname; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                            <td><?php echo $objectResult->id_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                            <td><?php echo $objectResult->id_std_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
+                            <td><?php echo $objectResult->class_room; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                            <td><?php echo $objectResult->birthday; ?></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                            <td><?php echo $objectResult->types; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+                            <td><?php echo $objectResult->status; ?></td>
+                        </tr>
+                    </tbody>
+                </table>       
+ 
+ <?php
+
+    }
+}
+?>
+      <div class="row">
+   
+              <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">ด้านการพฤติกรรม</a></li>
+              
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <!-- Post -->
+             <div class="tab-pane" id="activity">
+                   <span class="username">
+                  <div class="col-xs-14">
+    <style>
 .table .thead-light th {
   color: #401500;
   background-color: #3c8dbc
@@ -245,85 +320,83 @@ include('../connect/connection.php');
   border-color: #3c8dbc;
 }
 </style>
-        <!-- /.modal -->
-            <!-- /.box-header -->
-            <div class="box-body">
-          <table id="example1" class="table  table-hover">
-                  <thead class="thead-light">
-                <tr >
-          <th style="font-size: 14px; color:white;"  width="3%" class="text-left" >ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="15%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">กี่ครั้ง</th>
-
-                   <th style="font-size: 14px; color:white;"  width="5%" class="text-left">เลือก</th>
-                   <th style="font-size: 14px; color:white;"  width="5%" class="text-left">จัดการ</th>
-
-  </tr>
+       
+      <!-- /.row (main row) -->
+    
+  <div class="box-body">
+       
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+          
+         <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                     </tr>
                   </thead>
+                  
                   <tbody align="center">
+      <?php
 
-                    <?php
+              $my_id = $_GET['id'];
 
-$strSQL = "SELECT * FROM student  Where id_std ";
-$i = 1;
-$count = 1;
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+      $count = 1;
+
         ?>
 
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+               
+                 
+            </tr>
 
 
-    
+            <?php
+              }
+               }
+                   ?>
 
-
-    <td>
-
-
-  <form id="add" name="add" method="post" action="check_leave.php?id=<?php echo $objResult->id_std;?>" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
- <input type="number" name="times_leaves" id="times_leaves" style="width: 3em" value="<?php echo $objResult->times_leaves; ?>">
-    <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
- <td class="text-left" style="font-size: 5px;"> 
-  <button type="submit" class="btn-success" > <i class="fa fa-check"></i></button>
-  </center>
-</form>
-
- 
-
-
-                    
-</td>
-
-              
-                    </tr>
-
+                   <tr>
                     <?php
-$i++;
-    }
-}
-?>
+                    $db = mysqli_connect('localhost','root','','rws_manage_std');
+         
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
 
-                </table>
-            </div>
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
 
-
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
-
+                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+           
+   
     </section>
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -335,7 +408,7 @@ $i++;
     reserved.
   </footer>
 
-  <!-- Control Sidebar -->
+ 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -382,8 +455,10 @@ $i++;
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -396,17 +471,6 @@ $i++;
       'autoWidth'   : false
     })
   })
-
-
-$('.tex').keyup(function() {
-     var sum = 0;
-    $('.tex').each(function() {
-        sum += Number($(this).val());
-    });
-    $('#totals').val(sum);
-
-});
-
 </script>
 </body>
 </html>

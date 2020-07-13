@@ -53,7 +53,7 @@ include('../connect/connection.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.php" class="logo">
+    <a href="../teacher/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -150,7 +150,7 @@ include('../connect/connection.php');
                 </span>
               </a>
               <ul class="treeview-menu">
-                   <li class="active treeview">
+                   <li class="active ">
 <a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
@@ -218,6 +218,7 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -244,7 +245,8 @@ include('../connect/connection.php');
 <a href="../class study/m1_4.php"> <button type="submit" class="btn bg-red">ม.1/4</button></a>
 <a href="../class study/m1_5.php"> <button type="submit" class="btn bg-red">ม.1/5</button></a>
 <a href="../class study/m1_6.php"> <button type="submit" class="btn bg-red">ม.1/6</button></a>
-<a href="../class study/m1_7.php"> <button type="submit" class="btn bg-red">ม.1/7</button></a>     
+<a href="../class study/m1_7.php"> <button type="submit" class="btn bg-red">ม.1/7</button></a>
+             
               </div>
 
             <div class="box-header">
@@ -252,16 +254,14 @@ include('../connect/connection.php');
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-           <table id="example1" class="table table-hover">
+             <table id="example1" class="table table-hover">
                   <thead class="thead-light">
                 <tr>
-                     <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 15px;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
+                  <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 15px;" width="6%" class="text-left">รหัสนักเรียน</th>
                   <th style="font-size: 15px;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 15px;" width="5%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 15px;" width="5%" class="text-left">ว.ด.ป.เกิด</th>
-                  <th style="font-size: 15px;" width="7%" class="text-left">สถานะนักเรียน</th>
-                  <th style="font-size: 13px;" width="5%" class="text-left">จัดการ</th>
+                  <th style="font-size: 15px;" width="6%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 13px;" width="14%" class="text-left">จัดการ</th>
 
                 </tr>
                 </thead>
@@ -284,25 +284,29 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->birthday; ?></td>
-        <td class="text-left" style="font-size: 15px;"><?php echo $objResult->status; ?></td>
                   
 
     <td>
-
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
-
-                      </center>
-
-
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
+            <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
+                        <i class="fa fa-eye"></i>ดูประวัติ</button>
+                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>">
+                        <i class="fa fa-edit"></i>แก้ไขประวัติ</button>
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
+  <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash" title="Delete"></i>ลบข้อมูล</a>
+
+
+                   <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
+                          class="btn btn-warning btn-xs">
+                        ระเบียบที่ทำผิด</a>
+
+
+
+                    
+
+                    
 
 
 

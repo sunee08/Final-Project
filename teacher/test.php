@@ -241,86 +241,76 @@ include('../connect/connection.php');
   border-color: #3c8dbc;
 }
 </style>
+
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
               
+  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
-    <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
-<?php
-  $objConnect = mysql_connect("localhost","root","") or die("Error Connect to Database");
-  $objDB = mysql_select_db("rws_manage_std");
-
-  $strSQL = "SELECT * FROM student where id_std='$id'";
-  $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-
-  $db->set_charset("utf8");
-?>
-
-
-              <table id="example1" class="table table-sm active">
+  <div class="box-body">
+            <table id="example1" class="table  table-hover">
                   <thead class="thead-light">
                 <tr >
-                  <th style="font-size: 14px; color:white;"  width="3%" class="text-left" >ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="15%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">ห้องเรียน</th>
-                   <th style="font-size: 14px; color:white;"  width="5%" class="text-left">รวม</th>
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+             <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+             <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    <?php
 
 
-  </tr>
-                  </thead>
-                  <tbody align="center">
 
 
 
+$strSQL = "SELECT student.*,  student.id_std_card,student.fullname,student.class_room,leaves.totals,leaves.times,student.id_std,leaves.id_leave FROM student
+ LEFT JOIN leaves ON student.id_std = leaves.id_std
+      ";
 
-     <?php
-  while($objResult = mysql_fetch_array($objQuery))
-  {
+
 ?>
-          <td class="text-left" style="font-size: 15px;"><?php echo $objResult["id_std"] ?></td>
-        <td style="text-align:center; font-family:cursive; font-size:18px;"><?php echo $objResult["id_std_card"] ?></td>
-        <td style="text-align:center; font-family:cursive; font-size:18px;"><?php echo $objResult["fullname"] ?></td>
-        <td style="text-align:center; font-family:cursive; font-size:18px;"><?php echo $objResult["class_room"] ?></td>
-       
-             <td>
+
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+
+           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
 
 
+    <td>
 
- 
- <input type="checkbox" name="times" id="times" value="1">
+        <input type="checkbox"  name="id_std" id="id_std" value="<?php echo $objResult->id_std; ?>" >
 
-    <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
+     <input type="hidden" name="times" class="form-control"  value="1" >
+ <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
-    <input type="text" name="id_std" id='id_std'  value="<?php echo $objResult["id_std"] ?>" >
- 
-  <button type="submit" class="btn btn-success btn-sm">บันทึก</button>
-  </center>
-</form>
+                    </td>
+                    </tr>
 
-                    
-</td>
+                    <?php
 
+    }
+}
+?>
+            </table>
+                   <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
 
-        </td>
-
-
-
-
-
-
-       </td>
-      </tr>
-
-     <?php
-  }
-?> 
-         
-    </tbody>
-  </table>
-  <br />        
+              </div>
+            </div>
+</div>
+</div>
 </form>
             </div>
 
@@ -329,7 +319,7 @@ include('../connect/connection.php');
           </div>
           <!-- /.box -->
         <!-- right col -->
-      </div>
+
       <!-- /.row (main row) -->
 
     </section>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2020 at 06:20 PM
+-- Generation Time: Jul 13, 2020 at 07:15 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.39
 
@@ -21,6 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `rws_manage_std`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `add_behavior`
+--
+
+CREATE TABLE `add_behavior` (
+  `id_add_behavior` int(20) NOT NULL,
+  `id_behavior` int(20) NOT NULL,
+  `id_teacher` varchar(20) NOT NULL,
+  `id_std` int(20) NOT NULL,
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `add_behavior`
+--
+
+INSERT INTO `add_behavior` (`id_add_behavior`, `id_behavior`, `id_teacher`, `id_std`, `date_time`) VALUES
+(1, 3, '1', 1, '2020-07-13 11:58:10'),
+(2, 20, '1', 2, '2020-07-13 11:59:16'),
+(3, 22, '1', 1, '2020-07-13 11:59:33'),
+(4, 9, '1', 59, '2020-07-13 12:02:23'),
+(5, 3, '1', 338, '2020-07-13 12:06:03');
 
 -- --------------------------------------------------------
 
@@ -93,7 +118,9 @@ CREATE TABLE `leaves` (
 --
 
 INSERT INTO `leaves` (`id_leave`, `id_teacher`, `id_std`, `date_time`, `times`, `totals`, `percent`, `round`, `round1`, `round2`, `round3`, `round4`, `round5`) VALUES
-(1, 1, 10, '2020-07-12 19:37:13', 1, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 1, 2, '2020-07-13 08:57:40', 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 30, 3, '2020-07-13 09:37:34', 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 30, 3, '2020-07-13 09:38:11', 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -758,6 +785,12 @@ INSERT INTO `teacher` (`id_teacher`, `fullname`, `username`, `password`, `gender
 --
 
 --
+-- Indexes for table `add_behavior`
+--
+ALTER TABLE `add_behavior`
+  ADD PRIMARY KEY (`id_add_behavior`);
+
+--
 -- Indexes for table `behavior`
 --
 ALTER TABLE `behavior`
@@ -786,6 +819,12 @@ ALTER TABLE `teacher`
 --
 
 --
+-- AUTO_INCREMENT for table `add_behavior`
+--
+ALTER TABLE `add_behavior`
+  MODIFY `id_add_behavior` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `behavior`
 --
 ALTER TABLE `behavior`
@@ -795,7 +834,7 @@ ALTER TABLE `behavior`
 -- AUTO_INCREMENT for table `leaves`
 --
 ALTER TABLE `leaves`
-  MODIFY `id_leave` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_leave` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student`

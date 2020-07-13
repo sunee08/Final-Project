@@ -133,7 +133,7 @@ include('../connect/connection.php');
           </a>
         </li>
 
-      <li class="treeview">
+         <li class="active treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
@@ -141,14 +141,15 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+         <li class="active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                      <li class="active ">
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -171,7 +172,8 @@ include('../connect/connection.php');
         </li>
 
         
-         <li class="active treeview">
+      
+         <li >
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
@@ -179,11 +181,14 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active treeview"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+              
+         <li class=" "><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
+
+
 
 
         <li >
@@ -240,7 +245,7 @@ $strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
 ?>
                     <?php
 if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
+    while ($objectResult = $result->fetch_object()) {
         ?>
      <table class="table table-hover">
                     <tbody>
@@ -252,53 +257,51 @@ if ($result = $db->query($strSQL)) {
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th> ชื่อ - นามสกุล </th>
-                            <td><?php echo $objResult->fullname; ?></td>
+                            <td><?php echo $objectResult->fullname; ?></td>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th> เลขประจำตัวประชาชน</th>
-                            <td><?php echo $objResult->id_card; ?></td>
+                            <td><?php echo $objectResult->id_card; ?></td>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th> เลขประจำตัวนักเรียน</th>
-                            <td><?php echo $objResult->id_std_card; ?></td>
+                            <td><?php echo $objectResult->id_std_card; ?></td>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th>ห้องเรียน</th>
-                            <td><?php echo $objResult->class_room; ?></td>
+                            <td><?php echo $objectResult->class_room; ?></td>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th>ว.ด.ป. เกิด</th>
-                            <td><?php echo $objResult->birthday; ?></td>
+                            <td><?php echo $objectResult->birthday; ?></td>
                         </tr>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th>สถานะนักเรียน</th>
-                            <td><?php echo $objResult->types; ?></td>
+                            <td><?php echo $objectResult->types; ?></td>
                         </tr>
                         <tr>
                             <th align="right" scope="row">&nbsp;</th>
                             <th>ประเภทนักเรียน</th>
-                            <td><?php echo $objResult->status; ?></td>
+                            <td><?php echo $objectResult->status; ?></td>
                         </tr>
                     </tbody>
                 </table>       
-   <?php
-}
-}
-?>
+ 
 
       <div class="row">
    
               <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">ด้านการพฤติกรรม</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab" >ด้านการพฤติกรรม</a></li>
               <li><a href="#timeline" data-toggle="tab">ด้านการเรียน</a></li>
+                <li><a href="#time" data-toggle="tab">แสดงผล</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
@@ -316,7 +319,7 @@ if ($result = $db->query($strSQL)) {
 </style>
        
       <!-- /.row (main row) -->
-       <form id="add" name="add" method="post" action="chec.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+       <form id="add" name="add" method="post" action="check_side_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
   <div class="box-body">
             <table id="example1" class="table  table-hover">
@@ -324,7 +327,7 @@ if ($result = $db->query($strSQL)) {
                 <tr >
                       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
                        <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
                           <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
                    
@@ -334,37 +337,38 @@ if ($result = $db->query($strSQL)) {
                     <?php
 
 $strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการพฤติกรรม' ";
-$i = 1;
-$count = 1;
+
 ?>
                     <?php
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
         
-                <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"> <?php echo $objResult->id_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
                     
 
     <td>
 
-                   <input type="checkbox" name="">
+                   <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
 
+     <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
+ <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
                     </td>
                     </tr>
 
                     <?php
-$i++;
+
     }
 }
 ?>
-                  </table>
+            </table>
                    <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
 
               </div>
             </div>
@@ -392,7 +396,7 @@ $i++;
                         <span class="username">
                            <div class="col-xs-12">
 
-          <form id="add" name="add" method="post" action="check.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+          <form id="add" name="add" method="post" action="check_side_study.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
        
       <!-- /.row (main row) -->
@@ -426,8 +430,11 @@ if ($result = $db->query($strSQL)) {
                     
 
     <td>
+  <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
 
-                                       <input type="checkbox" name="">
+     <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
+ <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
+
 
                     </td>
                     </tr>
@@ -438,11 +445,15 @@ $i++;
 }
 ?>
 
-            
+          <?php
+}
+}
+?>
+          
                 </table>
                    <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
 
             </div>
 </div>
@@ -452,7 +463,104 @@ $i++;
               
        
            
-   
+         </span>
+                    
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="row margin-bottom">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+    
+              <div class="tab-pane" id="time">
+                <!-- The timeline -->
+           
+                        <span class="username">
+                           <div class="col-xs-12">
+
+      
+
+       
+      <!-- /.row (main row) -->
+<div class="box-body">
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                     </tr>
+                  </thead>
+                  
+                  <tbody align="center">
+      <?php
+
+              $my_id = $_GET['id'];
+
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+      $count = 1;
+
+        ?>
+
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+               
+                 
+            </tr>
+
+
+            <?php
+              }
+               }
+                   ?>
+
+                   <tr>
+                    <?php
+                    $db = mysqli_connect('localhost','root','','rws_manage_std');
+         
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+
+                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+           
+                </table>
+            
+</div>
+</div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+              
     </section>
     <!-- /.content -->
   </div>
