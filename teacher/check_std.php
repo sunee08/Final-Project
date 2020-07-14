@@ -93,8 +93,11 @@ if (isset($_POST["import"])) {
             if (! empty($insertId)) {
                 $type = "success";
         
-           echo "<script>alert('สำเร็จ')</script>";
-           echo "<script>window.open('add_student.php','_self')</script>";
+      
+
+                    echo "<script>alert('สำเร็จ');window.location = \"add_student.php\";</script>";
+
+
 
             } else {
                 $type = "error";

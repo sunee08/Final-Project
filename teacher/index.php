@@ -336,7 +336,13 @@ echo ' <p> คุณครู  </p>';
                       <?php
 $con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
 $con->set_charset("utf8");
-$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
+
+
+$query = "SELECT id_std FROM student
+                        WHERE times_leaves
+                        ORDER BY id_std";
+
+
 $query_num = mysqli_query($con, $query);
 $row = mysqli_num_rows($query_num);
 echo '<h3>' . $row . '</h3>';
@@ -359,7 +365,7 @@ echo ' <p> ใบลา  </p>';
           <!-- Custom tabs (Charts with tabs)-->
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
-           
+
 
         </section>
         <!-- right col -->

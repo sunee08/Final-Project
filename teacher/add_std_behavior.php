@@ -336,7 +336,11 @@ if ($result = $db->query($strSQL)) {
                 <tbody>
                     <?php
 
-$strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการพฤติกรรม' ";
+
+
+$strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการพฤติกรรม' and id_behavior";
+           
+
 
 ?>
                     <?php
@@ -352,9 +356,13 @@ if ($result = $db->query($strSQL)) {
 
     <td>
 
-                   <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
+         <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
+     <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
 
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
+     <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
+
+
  <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
                     </td>
@@ -365,6 +373,7 @@ if ($result = $db->query($strSQL)) {
     }
 }
 ?>
+     
             </table>
                    <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
@@ -430,9 +439,14 @@ if ($result = $db->query($strSQL)) {
                     
 
     <td>
-  <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
+
+          <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
+     <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
 
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
+     <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
+
+
  <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
 
@@ -445,11 +459,13 @@ $i++;
 }
 ?>
 
-          <?php
+
+ <?php
 }
 }
 ?>
-          
+
+    
                 </table>
                    <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
@@ -488,81 +504,137 @@ $i++;
        
       <!-- /.row (main row) -->
 <div class="box-body">
-            <table id="example1" class="table  table-hover" >
-                <thead class="thead-light">
-                  <tr>
-                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
-                     </tr>
-                  </thead>
-                  
-                  <tbody align="center">
-      <?php
+  
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ by devbanban.com</title>
+</head>
+<?php
+$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 
-              $my_id = $_GET['id'];
+mysqli_query($con, "SET NAMES 'utf8' ");
 
-$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ $my_id = $_GET['id'];
+
+
+
+$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id' ";
-      $count = 1;
-
-        ?>
-
-        <?php
-     if($result = $db->query($strSQL)){
-             while($objResult = $result->fetch_object()){
-            ?>
-            <tr>
-                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
-              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
-               
-                 
-            </tr>
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std = '$my_id'
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
 
 
-            <?php
-              }
-               }
-                   ?>
 
-                   <tr>
-                    <?php
-                    $db = mysqli_connect('localhost','root','','rws_manage_std');
-         
-  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id' ";
 
-                    $query_result=mysqli_query($db,$query);
-                     while ($row=mysqli_fetch_assoc($query_result)) {
-                      $sum= $row['total'];
-                     }
-                    ?>
-                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+$result = mysqli_query($con, $query);
+$resultchart = mysqli_query($con, $query);  
 
-                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
-                       
-                     </tr>
-                  
-                </tbody>
-              </table>
-              
-           
-                </table>
+
+ //for chart
+$date_time = array();
+$percent = array();
+
+while($rs = mysqli_fetch_array($resultchart)){ 
+  $date_time[] = "\"".$rs['date_time']."\""; 
+  $percent[] = "\"".$rs['percent']."\""; 
+}
+$date_time = implode(",", $date_time); 
+$percent = implode(",", $percent); 
+ 
+?>
+
+<h3 align="center">รายงานในแบบกราฟ by devbanban.com</h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+  <thead>
+  <tr>
+    <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">เปอรเซ็นต์</th>
+  </tr>
+  </thead>
+  
+
+  
+  <?php while($row = mysqli_fetch_array($result)) { ?>
+    <tr>
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
+    </tr>
+    <?php } ?>
+
+</table>
+<?php mysqli_close($con);?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+<hr>
+<p align="center">
+
+ <!--devbanban.com-->
+
+<canvas id="myChart" width="800px" height="300px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
+            data: [<?php echo $percent;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+</p> 
+  <!--devbanban.com-->
+</html>
+
+
             
 </div>
 </div>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
-              
+            
+
+
+
+
     </section>
     <!-- /.content -->
+
+
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
