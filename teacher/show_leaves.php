@@ -226,8 +226,7 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
   <!-- Content Wrapper. Contains page content -->
-    <!-- Content Header (Page header) -->
-   <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -239,16 +238,80 @@ include('../connect/connection.php');
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
-     <section class="content">
+       <section class="content">
       <div class="row">
-      
- 
         <div class="col-xs-12">
           <div class="box">
-    <!-- Main content -->
+   <?php
 
-          <style>
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
+                  </div>
+                         <p>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> ชื่อ - นามสกุล </th>
+                            <td><?php echo $objectResult->fullname; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                            <td><?php echo $objectResult->id_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                            <td><?php echo $objectResult->id_std_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
+                            <td><?php echo $objectResult->class_room; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                            <td><?php echo $objectResult->birthday; ?></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                            <td><?php echo $objectResult->types; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+                            <td><?php echo $objectResult->status; ?></td>
+                        </tr>
+                    </tbody>
+                </table>       
+ 
+   <div class="row">
+   
+              <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">แสดงผล</a></li>
+              
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <!-- Post -->
+             <div class="tab-pane" id="activity">
+                   <span class="username">
+                  <div class="col-xs-14">
+    <style>
 .table .thead-light th {
   color: #401500;
   background-color: #3c8dbc
@@ -256,85 +319,231 @@ include('../connect/connection.php');
   border-color: #3c8dbc;
 }
 </style>
-   <div class="modal-footer">
-
-            <a href="result_leaves.php"
-                          class="btn btn-success btn-l">
-                        เพิ่มนักเรียนซื้อใบลา</a>
-
-              </div>
-        <!-- /.modal -->
-            <!-- /.box-header -->
-          
-  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+       
+      <!-- /.row (main row) -->
+    
   <div class="box-body">
-    <table id="example1" class="table  table-hover">
-          <thead class="thead-light">
-                <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-              <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-               <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
-               <th style="font-size: 14px; color:white;" width="10%" class="text-left">จำนวน</th>
+      
+         </span>
+                    
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="row margin-bottom">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+    
+              <div class="tab-pane" id="time">
+                <!-- The timeline -->
+           
+                        <span class="username">
+                           <div class="col-xs-12">
 
-           <th style="font-size: 14px; color:white;" width="10%" class="text-left">แสดงผล</th>
+      
 
 
-                </tr>
-                </thead>
-                <tbody>
-
-
+   <div class="modal-footer">
+                           <a href="leave.php?id=<?php echo $objectResult->id_std; ?>"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+            </div>
+       
+      <!-- /.row (main row) -->
+<div class="box-body">
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >วันที่ซื้อใบลา</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">จำนวน</th>
+                     </tr>
+                  </thead>
+                  
+                  <tbody align="center">
+ 
  <?php
 
           
+              $my_id = $_GET['id'];
 
-$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,leaves.id_std FROM leaves
+$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,student.id_std FROM leaves
  LEFT JOIN student ON leaves.id_std = student.id_std
-      WHERE leaves.id_std  ";
+      WHERE leaves.id_std = '$my_id' ";
       $count = 1;
 
         ?>
-  <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                   <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
-<td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        รายละเอียด</a>
-</td>
-      </tr>
-
+ 
+            </tr>
+            <?php
+              }
+               }
+                   ?>
+                   <tr>
                     <?php
+ $my_id = $_GET['id'];
+$query = "
+SELECT SUM(times_leaves) AS times_leaves, DATE_FORMAT(date_time, '%Y') AS date_time
+FROM leaves 
+WHERE id_std = '$my_id' 
+GROUP BY DATE_FORMAT(date_time, '%Y%')
+";
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['times_leaves'];
+                     }
+                    ?>
+                      <td colspan="2" class="text-center btn-default"  style="font-size: 15px;"> รวมจำนวนกี่รอบ</td>
+
+                      <td class="text-left " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+            
+</div>
+</div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+              
+   
+    <!-- /.content -->
+           
+ <?php
+
     }
 }
 ?>
-            </table>
-                   
-            </div>
-</div>
-</div>
-</form>
-            </div>
+   
 
 
-            <!-- /.box-body -->
-    
-          <!-- /.box -->
-        <!-- right col -->
 
-      <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
+<?php
+$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+                   
+ $my_id = $_GET['id'];
+$query = "
+SELECT SUM(times_leaves) AS times_leaves, DATE_FORMAT(date_time, '%M') AS date_time
+FROM leaves 
+WHERE id_std = '$my_id' 
+GROUP BY DATE_FORMAT(date_time, '%M%')
+";
+
+$result = mysqli_query($con, $query);
+$resultchart = mysqli_query($con, $query);  
+
+
+ //for chart
+$date_time = array();
+$times_leaves = array();
+
+while($rs = mysqli_fetch_array($resultchart)){ 
+  $date_time[] = "\"".$rs['date_time']."\""; 
+  $times_leaves[] = "\"".$rs['times_leaves']."\""; 
+}
+$date_time = implode(",", $date_time); 
+$times_leaves = implode(",", $times_leaves); 
+ 
+?>
+
+<h3 align="center">รายงานในแบบกราฟ </h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+  <thead>
+  <tr>
+    <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">จำนาน</th>
+  </tr>
+  </thead>
+  
+
+  
+  <?php while($row = mysqli_fetch_array($result)) { ?>
+    <tr>
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['times_leaves']);?></td> 
+    </tr>
+    <?php } ?>
+
+</table>
+<?php mysqli_close($con);?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+<hr>
+<p align="center">
+
+ <!--devbanban.com-->
+
+<canvas id="myChart" width="800px" height="300px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (จำนวน)',
+            data: [<?php echo $times_leaves;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+</p> 
+  <!--devbanban.com-->
+</html>
+
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -345,7 +554,7 @@ if ($result = $db->query($strSQL)) {
     reserved.
   </footer>
 
-  <!-- Control Sidebar -->
+ 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -392,8 +601,10 @@ if ($result = $db->query($strSQL)) {
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -406,17 +617,6 @@ if ($result = $db->query($strSQL)) {
       'autoWidth'   : false
     })
   })
-
-
-$('.tex').keyup(function() {
-     var sum = 0;
-    $('.tex').each(function() {
-        sum += Number($(this).val());
-    });
-    $('#totals').val(sum);
-
-});
-
 </script>
 </body>
 </html>

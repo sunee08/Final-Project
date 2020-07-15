@@ -97,7 +97,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -172,8 +172,8 @@ include('../connect/connection.php');
         </li>
 
         
-      
-         <li >
+             <!-- 
+         <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
@@ -181,12 +181,21 @@ include('../connect/connection.php');
             </span>
           </a>
           <ul class="treeview-menu">
-              
-         <li class=" "><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
+
+
+                 end task item -->
+
+     <li>
+          <a href="add_behavior.php">
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+          </a>
+        </li>
+        
 
 
 
@@ -292,7 +301,9 @@ if ($result = $db->query($strSQL)) {
                         </tr>
                     </tbody>
                 </table>       
- 
+    <div class="modal-footer">
+                           <a href="../class study/m1_1.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+            </div>
 
       <div class="row">
    
@@ -317,6 +328,10 @@ if ($result = $db->query($strSQL)) {
   border-color: #3c8dbc;
 }
 </style>
+
+
+
+
        
       <!-- /.row (main row) -->
        <form id="add" name="add" method="post" action="check_side_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
@@ -504,7 +519,81 @@ $i++;
        
       <!-- /.row (main row) -->
 <div class="box-body">
-  
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                     </tr>
+                  </thead>
+                  
+                  <tbody align="center">
+      <?php
+
+              $my_id = $_GET['id'];
+
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+      $count = 1;
+
+        ?>
+
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+               
+                 
+            </tr>
+
+
+            <?php
+              }
+               }
+                   ?>
+                   
+
+                   <tr>
+                    <?php
+         
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+
+                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+</div>
+</div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+              
+    </section>
+    <!-- /.content -->
+           
+
+     
 <html>
 <head>
     <meta charset="utf-8">
@@ -545,7 +634,7 @@ $percent = implode(",", $percent);
  
 ?>
 
-<h3 align="center">รายงานในแบบกราฟ by devbanban.com</h3>
+<h3 align="center">รายงานในแบบกราฟ</h3>
 <table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
@@ -621,8 +710,8 @@ var myChart = new Chart(ctx, {
 
 
             
-</div>
-</div>
+
+
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
             

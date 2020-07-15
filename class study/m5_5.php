@@ -99,7 +99,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -175,6 +175,9 @@ include('../connect/connection.php');
 
 
 
+
+
+       <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -182,12 +185,23 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-            <ul class="treeview-menu">
+          <ul class="treeview-menu">
             <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
+
+
+                 end task item -->
+
+     <li>
+          <a href="../teacher/add_behavior.php">
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+          </a>
+        </li>
+        
+
 
      
         <li >

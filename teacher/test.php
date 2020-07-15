@@ -97,7 +97,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -170,6 +170,7 @@ include('../connect/connection.php');
         </li>
 
      
+               <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -177,30 +178,45 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-           <ul class="treeview-menu">
-            <li class="active"><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class="active"><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
+          <ul class="treeview-menu">
+            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
 
-        <li class="active treeview">
-          <a href="#">
+                 end task item -->
+
+     <li>
+          <a href="add_behavior.php">
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+          </a>
+        </li>
+        
+
+
+    
+         <li class="active ">
+          <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
             </span>
           </a>
-        
         </li>
+
+
+    
+
         <li>
-          <a href="pages/widgets.html">
+          <a href="result.php">
             <i class="fa fa-th"></i> <span>แสดงผล</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+
+        <li>
+          <a href="report.php">
             <i class="fa fa-pie-chart"></i>
             <span>รายงาน</span>
           </a>
@@ -209,7 +225,6 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
    <div class="content-wrapper">
@@ -245,34 +260,33 @@ include('../connect/connection.php');
         <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-              
-  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+                  <div class="modal-footer">
 
+            <a href="result_leaves.php"
+                          class="btn btn-success btn-lg">
+                        รายชื่อที่ได้ซื้อใบลา</a>
+
+              </div>
+  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
   <div class="box-body">
-            <table id="example1" class="table  table-hover">
-                  <thead class="thead-light">
+    <table id="example1" class="table  table-hover">
+          <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
               <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
             <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
              <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
-             <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+
 
                 </tr>
                 </thead>
                 <tbody>
-                    <?php
+                 <?php
 
-
-
-
-
-$strSQL = "SELECT student.*,  student.id_std_card,student.fullname,student.class_room,leaves.totals,leaves.times,student.id_std,leaves.id_leave FROM student
- LEFT JOIN leaves ON student.id_std = leaves.id_std
-      ";
-
-
+$strSQL = "SELECT * FROM student  Where id_std ";
+$i = 1;
+$count = 1;
 ?>
 
                     <?php
@@ -280,25 +294,28 @@ if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
 
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std; ?></td>
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
 
 
     <td>
 
-        <input type="checkbox"  name="id_std" id="id_std" value="<?php echo $objResult->id_std; ?>" >
 
-     <input type="hidden" name="times" class="form-control"  value="1" >
+
+ <input type="checkbox" name="id_std" id="id_std" style="width: 3em" value="<?php echo $objResult->id_std; ?>">
+      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
+
+<input type="hidden"  name="times_leaves" id="times_leaves" value="1" >
  <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
                     </td>
+
                     </tr>
 
                     <?php
-
+$i++;
     }
 }
 ?>

@@ -97,7 +97,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -170,7 +170,7 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-        
+         <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -186,6 +186,14 @@ include('../connect/connection.php');
         </li>
 
 
+                 end task item -->
+
+     <li>
+          <a href="add_behavior.php">
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+          </a>
+        </li>
+        
 
 
         <li >
@@ -254,7 +262,7 @@ echo ' <p> นักเรียนทั้งหมด  </p>';
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+   <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -279,7 +287,7 @@ echo ' <p> นักเรียนชั้นมัธยมต้น  </p>';
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -304,7 +312,7 @@ echo ' <p> นักเรียนชั้นมัธยมปลาย  </p>
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -325,7 +333,7 @@ echo ' <p> คุณครู  </p>';
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -338,7 +346,7 @@ $con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
 $con->set_charset("utf8");
 
 
-$query = "SELECT id_std FROM student
+$query = "SELECT id_std FROM leaves
                         WHERE times_leaves
                         ORDER BY id_std";
 
@@ -352,7 +360,7 @@ echo ' <p> ใบลา  </p>';
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
           </div>
         </div>
 

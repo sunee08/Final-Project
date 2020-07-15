@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2020 at 03:54 AM
+-- Generation Time: Jul 15, 2020 at 03:15 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.39
 
@@ -42,8 +42,17 @@ CREATE TABLE `add_behavior` (
 --
 
 INSERT INTO `add_behavior` (`id_add_behavior`, `id_behavior`, `id_teacher`, `id_std`, `date_time`, `std_name`) VALUES
-(1, 11, '1', 2, '2020-07-14', 'เด็กชาย อับดุลรออิม '),
-(2, 8, '1', 597, '2020-07-14', 'นาย มูฮำหมัดรออู๊ฟ  ');
+(1, 3, '2', 3, '2020-07-14', 'เด็กชาย ฟาฮ์ฮามี  เจ'),
+(2, 22, '2', 3, '2020-07-14', 'เด็กชาย ฟาฮ์ฮามี  เจ'),
+(3, 9, '2', 3, '2020-07-14', 'เด็กชาย ฟาฮ์ฮามี  เจ'),
+(4, 21, '2', 3, '2020-07-14', 'เด็กชาย ฟาฮ์ฮามี  เจ'),
+(5, 3, '1', 1, '2020-07-15', 'เด็กชาย อานัส  หวังเ'),
+(6, 6, '1', 5, '2020-07-15', 'เด็กชาย ฮัสบุลเล๊าะห'),
+(7, 8, '1', 2, '2020-07-15', 'เด็กชาย อับดุลรออิม '),
+(8, 9, '1', 42, '2020-07-15', 'เด็กชาย สันติภาพ  ด่'),
+(9, 21, '1', 42, '2020-07-15', 'เด็กชาย สันติภาพ  ด่'),
+(10, 2, '1', 1, '2020-07-15', 'เด็กชาย อานัส  หวังเ'),
+(11, 4, '1', 1, '2020-07-15', 'เด็กชาย อานัส  หวังเ');
 
 -- --------------------------------------------------------
 
@@ -99,11 +108,24 @@ CREATE TABLE `leaves` (
   `id_leave` int(20) NOT NULL,
   `id_teacher` int(20) NOT NULL,
   `id_std` int(20) NOT NULL,
-  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `times` int(20) NOT NULL,
+  `date_time` date NOT NULL,
+  `times_leaves` int(20) NOT NULL,
   `totals` int(20) NOT NULL,
   `percent` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `leaves`
+--
+
+INSERT INTO `leaves` (`id_leave`, `id_teacher`, `id_std`, `date_time`, `times_leaves`, `totals`, `percent`) VALUES
+(1, 1, 2, '2020-07-15', 1, 0, 0),
+(2, 1, 4, '2020-07-15', 1, 0, 0),
+(3, 1, 10, '2020-07-15', 1, 0, 0),
+(4, 1, 6, '2020-07-15', 1, 0, 0),
+(5, 1, 2, '2020-08-06', 1, 0, 0),
+(6, 1, 8, '2020-07-15', 1, 0, 0),
+(7, 1, 30, '2020-07-15', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -135,7 +157,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id_std`, `id_std_card`, `id_card`, `class_room`, `fullname`, `birthday`, `status`, `types`, `address`, `parents`, `tel`, `teacher`, `date`, `id_teacher`, `date_time`, `times_leaves`) VALUES
-(1, '636697', '0', 'ม.1/1', 'เด็กชาย อานัส  หวังเบ็ญหมูด', '02 ธ.ค. 50', 'กำลังศึกษาอยู่', 'มัธยมต้น', '', '', 0, '', '2020-07-12 17:00:42', 2, '2020-07-12 13:04:39', 0),
+(1, '636697', '0', 'ม.1/1', 'เด็กชาย อานัส  หวังเบ็ญหมูด', '02 ธ.ค. 50', 'กำลังศึกษาอยู่', 'มัธยมต้น', '', '', 0, '', '2020-07-12 17:00:42', 1, '2020-07-15 08:39:45', 1),
 (2, '636699', '1900501193022    ', 'ม.1/1', 'เด็กชาย อับดุลรออิม  เจะตำ', '01 ก.ค. 49', 'กำลังศึกษาอยู่', 'มัธยมต้น', '', '', 0, '', '2020-07-12 17:00:42', 2, '2020-07-12 13:37:20', 0),
 (3, '636700', '1909400037953    ', 'ม.1/1', 'เด็กชาย ฟาฮ์ฮามี  เจ๊ะมะ', '05 ก.พ. 51', 'กำลังศึกษาอยู่', 'มัธยมต้น', '', '', 0, '', '2020-07-12 17:00:42', 0, '2020-07-12 10:00:42', 0),
 (4, '636708', '1900101588186    ', 'ม.1/1', 'เด็กชาย ฟัรฮาน  หวังนุรักษ์', '29 เม.ย. 50', 'กำลังศึกษาอยู่', 'มัธยมต้น', '', '', 0, '', '2020-07-12 17:00:42', 1, '0000-00-00 00:00:00', 0),
@@ -1500,7 +1522,7 @@ ALTER TABLE `teacher`
 -- AUTO_INCREMENT for table `add_behavior`
 --
 ALTER TABLE `add_behavior`
-  MODIFY `id_add_behavior` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_add_behavior` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `behavior`
@@ -1512,7 +1534,7 @@ ALTER TABLE `behavior`
 -- AUTO_INCREMENT for table `leaves`
 --
 ALTER TABLE `leaves`
-  MODIFY `id_leave` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_leave` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student`

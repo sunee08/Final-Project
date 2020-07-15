@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include('../connect/connection.php');
@@ -98,7 +97,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -119,7 +118,7 @@ include('../connect/connection.php');
           </a>
         </li>
 
-      <li >
+      <li>
         <a href="add_student.php">
             <i class="fa fa-pie-chart"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
@@ -171,23 +170,34 @@ include('../connect/connection.php');
         </li>
 
      
-         <li class="active treeview">
+               <!-- 
+         <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-         <ul class="treeview-menu">
+          <ul class="treeview-menu">
             <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class="active"><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
+            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
 
 
+                 end task item -->
+
+     <li>
+          <a href="add_behavior.php">
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+          </a>
+        </li>
+        
+
+
     
-        <li >
+         <li class="active ">
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
@@ -215,14 +225,14 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        รายชื่อนักเรียน
-        <small>ชั้นมัธยมปลาย 4-6</small>
+        Dashboard
+        <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -230,12 +240,14 @@ include('../connect/connection.php');
       </ol>
     </section>
 
-  <section class="content">
+     <section class="content">
       <div class="row">
+      
+ 
         <div class="col-xs-12">
           <div class="box">
-        <!-- /.modal -->
-            <!-- /.box-header -->
+    <!-- Main content -->
+
           <style>
 .table .thead-light th {
   color: #401500;
@@ -244,240 +256,62 @@ include('../connect/connection.php');
   border-color: #3c8dbc;
 }
 </style>
+
+        <!-- /.modal -->
             <!-- /.box-header -->
-          <div class="box-body">
-<table id="example1" class="table  table-hover">
-                  <thead class="thead-light">
-               <tr >
-                  <th style="font-size: 14px; color:white;"   width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;"  width="11%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 14px; color:white;"   width="14%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;"  width="6%" class="text-left">ห้องเรียน</th>
-                    <th style="font-size: 14px; color:white;"  width="6%" class="text-left">ประเภท</th>
+            <div class="box-body">
+                  <div class="modal-footer">
 
-                  <th style="font-size: 14px; color:white;"  width="10%" class="text-left">จัดการ</th>
-       </tr>
-                  </thead>
-                  <tbody align="center">
+            <a href="result_leaves.php"
+                          class="btn btn-success btn-l">
+                        รายชื่อที่ได้ซื้อใบลา</a>
 
-                    <?php
-include('../connect/connection.php');
+              </div>
+  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+  <div class="box-body">
+    <table id="example1" class="table  table-hover">
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+             <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
 
-$strSQL = "SELECT * FROM student Where types='มัธยมปลาย'";
+
+                </tr>
+                </thead>
+                <tbody>
+                 <?php
+
+$strSQL = "SELECT * FROM student  Where id_std ";
 $i = 1;
 $count = 1;
 ?>
+
                     <?php
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
-        
-            <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-             <td class="text-left" style="font-size: 15px;"><?php echo $objResult->types; ?></td>
-
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
 
 
     <td>
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
-
-                      </center>
 
 
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
+ <input type="checkbox" name="id_std" id="id_std" style="width: 3em" value="<?php echo $objResult->id_std; ?>">
+      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
-
-
-
-
-
-
-                      <div class="modal fade" id="show<?php echo $i; ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                            <div class="modal-header bg-info">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h5 class="modal-title">View Proposal</h5>
-                            </div>
-
-                            <div class="modal-body">
-                              <form class="form-horizontal" method="post" action="check_edit_member.php">
-                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
-
-                                <div class="card-body">
-                                  <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
-                                    <div class="col-sm-10">
-                                      <?php echo $objResult->member_idcard; ?>
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
-                                    <div class="col-sm-10">
-                                      <?php echo $objResult->member_username; ?> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
-                                    <div class="col-sm-10">
-                                      <?php echo $objResult->member_fullname; ?>
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                      <?php echo $objResult->member_email; ?>
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_phone; ?> </div>
-                                  </div>
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Gender</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_gender; ?> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_pos; ?> </div>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Modal -->
-
-
-
-  <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-
-                          <div class="modal-content">
-                            <div class="modal-header bg-info">
-                              <h5 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
-                                View Member</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                  aria-hidden="true">&times;</span></button>
-                              
-                            </div>
-
-                            <div class="modal-body">
-                              <form class="form-horizontal" method="post" action="check_edit_member.php">
-                                <input type="hidden" name="id_std" value=" <?php echo $objResult->id_std; ?>">
-
-                                <div class="card-body">
-                                  <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="id_card" name="id_card"
-                                        value="  <?php echo $objResult->id_card; ?>">
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="id_std_card"
-                                        name="id_std_card" value="<?php echo $objResult->id_std_card; ?>">
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="class_room"
-                                        name="class_room" value="<?php echo $objResult->class_room; ?>">
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="  fullname" name="  fullname"
-                                        value="<?php echo $objResult->  fullname; ?>"> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="birthday" name="birthday"
-                                        value="<?php echo $objResult->birthday; ?>"> </div>
-                                  </div>
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Gender</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->status; ?> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_pos; ?> </div>
-                                  </div>
-
-
-
-
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
-                                        class="glyphicon glyphicon-remove"></i>
-                                      Cancle</button>
-                                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
-                                      Edit</button>
-                                  </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-
-
-
-
-
-
-
-                 
-
+<input type="hidden"  name="times_leaves" id="times_leaves" value="1" >
+ <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >
 
                     </td>
+
                     </tr>
 
                     <?php
@@ -485,8 +319,16 @@ $i++;
     }
 }
 ?>
+            </table>
+                   <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
 
-                </table>
+              </div>
+            </div>
+</div>
+</div>
+</form>
             </div>
 
 
@@ -494,7 +336,7 @@ $i++;
           </div>
           <!-- /.box -->
         <!-- right col -->
-      </div>
+
       <!-- /.row (main row) -->
 
     </section>
@@ -570,6 +412,17 @@ $i++;
       'autoWidth'   : false
     })
   })
+
+
+$('.tex').keyup(function() {
+     var sum = 0;
+    $('.tex').each(function() {
+        sum += Number($(this).val());
+    });
+    $('#totals').val(sum);
+
+});
+
 </script>
 </body>
 </html>
