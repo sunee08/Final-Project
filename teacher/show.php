@@ -233,8 +233,8 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        รายการที่นักเรียนทำผิด
+        
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -438,7 +438,10 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
 }
 ?>
    
-
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
 <html>
 <head>
     <meta charset="utf-8">
@@ -479,7 +482,7 @@ $percent = implode(",", $percent);
  
 ?>
 
-<h3 align="center">รายงานในแบบกราฟ by devbanban.com</h3>
+<h3 align="center">รายงานในแบบกราฟ</h3>
 <table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
@@ -552,7 +555,9 @@ var myChart = new Chart(ctx, {
 </p> 
   <!--devbanban.com-->
 </html>
-
+</div>
+</div>
+</div>
 
 
     <!-- /.content -->

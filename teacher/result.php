@@ -33,8 +33,8 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -229,41 +229,115 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+            แสดงผลนักเรียนที่ทำผิด
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+           <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">แสดงผล</li>
       </ol>
     </section>
 
-    <!-- Main content -->
-    <section class="content">
+     <section class="content">
       <div class="row">
+      
+ 
         <div class="col-xs-12">
           <div class="box">
-       <div class="box-header">
+    <!-- Main content -->
+
+          <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
+  
+        <!-- /.modal -->
+            <!-- /.box-header -->
+          
+
+  <div class="box-body">
+    <table id="example1" class="table  table-hover">
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">รหัสนักเรียน</th>
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
+           
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
+
+           <th style="font-size: 14px; color:white;" width="10%" class="text-left">แสดงผล</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+ <?php
+include('../connect/connection.php');
+       $strSQL = "SELECT DISTINCT add_behavior.id_std,student.fullname,student.id_std_card,student.class_room,add_behavior.date_time FROM add_behavior 
+ LEFT JOIN behavior ON add_behavior.id_behavior = behavior.id_behavior
+INNER JOIN  student ON add_behavior.id_std = student.id_std  
+     WHERE add_behavior.id_std
+     ORDER BY add_behavior.id_std ASC  ";
+      $count = 1;
+        ?>
+
+     
+
+  <?php
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
 
 
 
-Test
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+
+           
+         </td> 
+<td><a href="../teacher/show.php?id=<?php echo $objResult->id_std; ?>"
+                          class="btn btn-warning btn-xs">
+                        รายละเอียด</a>
+</td>
+      </tr>
+  
+                    <?php
+    }
+}
+?>
+            </table>
+                   
+            </div>
+</div>
+</div>
+</form>
+            </div>
 
 
+            <!-- /.box-body -->
+    
+          <!-- /.box -->
+        <!-- right col -->
 
-          </div>
-        </div>
-      </div>
-      </div>
+      <!-- /.row (main row) -->
+
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+  </div>  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
@@ -319,10 +393,8 @@ Test
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -335,6 +407,17 @@ Test
       'autoWidth'   : false
     })
   })
+
+
+$('.tex').keyup(function() {
+     var sum = 0;
+    $('.tex').each(function() {
+        sum += Number($(this).val());
+    });
+    $('#totals').val(sum);
+
+});
+
 </script>
 </body>
 </html>

@@ -234,8 +234,7 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        เลือกรายการที่นักเรียนทำผิด
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -320,6 +319,7 @@ if ($result = $db->query($strSQL)) {
              <div class="tab-pane" id="activity">
                    <span class="username">
                   <div class="col-xs-14">
+
     <style>
 .table .thead-light th {
   color: #401500;
@@ -510,11 +510,13 @@ $i++;
     
               <div class="tab-pane" id="time">
                 <!-- The timeline -->
-           
+                 
+                    <div align="center"> 
+                  <img src="../dist/img/smie.gif" width=160 height=150 >
+                  </div>
                         <span class="username">
                            <div class="col-xs-12">
 
-      
 
        
       <!-- /.row (main row) -->
@@ -591,13 +593,16 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
               
     </section>
     <!-- /.content -->
-           
+            <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
 
      
 <html>
 <head>
     <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ by devbanban.com</title>
+    <title>รายงานในแบบกราฟ </title>
 </head>
 <?php
 $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
@@ -715,12 +720,11 @@ var myChart = new Chart(ctx, {
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
             
+</html>
+</div>
+</div>
+</div>
 
-
-
-
-    </section>
-    <!-- /.content -->
 
 
 

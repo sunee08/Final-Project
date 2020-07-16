@@ -228,14 +228,14 @@ include('../connect/connection.php');
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+   <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+            แสดงผลรายการที่ซื้อใบลา
+
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+           <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">การติดต่อซื้อใบลา</li>
       </ol>
     </section>
        <section class="content">
@@ -433,6 +433,11 @@ GROUP BY DATE_FORMAT(date_time, '%Y%')
 
     </section>
     <!-- /.content -->
+
+     <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
 <html>
 <head>
     <meta charset="utf-8">
@@ -542,6 +547,9 @@ var myChart = new Chart(ctx, {
 </p> 
   <!--devbanban.com-->
 </html>
+</div>
+</div>
+</div>
 
 
   </div>

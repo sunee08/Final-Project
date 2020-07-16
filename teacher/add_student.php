@@ -231,12 +231,12 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        เพิ่มรายชื่อนักเรียน
+ 
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+     <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">เพิ่มข้อมูลนักเรียน</li>
       </ol>
     </section>
 
@@ -281,7 +281,7 @@ $(document).ready(function() {
                  </label> <input type="file" name="file" id="file" accept=".csv" class="form-control">
                             <div class="modal-footer">
                     <button type="submit" id="submit" name="import"
-                     class="btn btn-success btn-sm pull-right " >Import</button>
+                     class="btn btn-success btn-sm pull-right " >นำไฟล์เข้า</button>
                     <br />
 
                 </div>

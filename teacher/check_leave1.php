@@ -21,7 +21,7 @@ $sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time)values('$tim
 
 if ($rs = $db->query($sql)) {
     $db->close();
-    header("Location: result_leaves.php?success=1");
+    header("Location: leave.php?success=1");
 } else {
     echo $db->error;
     $db->close();

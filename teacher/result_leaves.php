@@ -231,12 +231,11 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        เลือกรายชื่อนักเรียนที่ซื้อใบลา
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+           <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">การติดต่อซื้อใบลา</li>
       </ol>
     </section>
 
@@ -259,14 +258,7 @@ include('../connect/connection.php');
 
         <!-- /.modal -->
             <!-- /.box-header -->
-            <div class="box-body">
-                  <div class="modal-footer">
-
-            <a href="result_leaves.php"
-                          class="btn btn-success btn-l">
-                        รายชื่อที่ได้ซื้อใบลา</a>
-
-              </div>
+           
   <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
   <div class="box-body">
     <table id="example1" class="table  table-hover">

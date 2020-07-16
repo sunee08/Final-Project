@@ -233,12 +233,11 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        รายการพฤติกรรม
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+       <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">การจัดการพฤติกรรมนักเรียน</li>
       </ol>
     </section>
 <!-- Main content -->
@@ -248,8 +247,7 @@ include('../connect/connection.php');
           <div class="box">
             <div class="box-header">
               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-            เพิ่มผู้ใช้ระบบ
-              </button>
+ เพิ่มรายการพฤติกรรม              </button>
             </div>
 
           <div class="modal fade" id="modal-default">

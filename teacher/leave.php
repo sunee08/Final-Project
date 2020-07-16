@@ -231,12 +231,11 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+            รายชื่อนักเรียนที่ซื้อใบลา
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">การติดต่อซื้อใบลา</li>
       </ol>
     </section>
 
@@ -272,9 +271,9 @@ include('../connect/connection.php');
           <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-              <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">รหัสนักเรียน</th>
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
                <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
                <th style="font-size: 14px; color:white;" width="10%" class="text-left">จำนวน</th>
 
@@ -286,16 +285,18 @@ include('../connect/connection.php');
                 <tbody>
 
 
- <?php
 
-          
 
-$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,leaves.id_std FROM leaves
- LEFT JOIN student ON leaves.id_std = student.id_std
-      WHERE leaves.id_std  ";
+         <?php
+include('../connect/connection.php');
+
+       $strSQL = "SELECT DISTINCT leaves.id_std,student.fullname,student.id_std_card,student.class_room,leaves.date_time,leaves.times_leaves FROM leaves 
+INNER JOIN  student ON leaves.id_std = student.id_std  
+     WHERE leaves.id_std
+     ORDER BY leaves.id_std ASC  ";
       $count = 1;
-
         ?>
+
   <?php
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
@@ -306,10 +307,12 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>
+           
+         </td> 
 <td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">
-                        รายละเอียด</a>
+                        สถิติการซื้อใบลา</a>
 </td>
       </tr>
 
