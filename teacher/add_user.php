@@ -75,18 +75,7 @@ include('../connect/connection.php');
         </li>
 
           <li class="dropdown messages-menu">
-           
           
-     
-                  <!-- end task item -->
-    
-                  <!-- end task item -->
-              
-          <!-- User Account: style can be found in dropdown.less -->
-     
-              <!-- Menu Body -->
-          
-          <!-- Control Sidebar Toggle Button -->
         
         </ul>
       </div>
@@ -99,7 +88,7 @@ include('../connect/connection.php');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
+          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $_SESSION['name']; ?></p>
@@ -175,7 +164,6 @@ include('../connect/connection.php');
 
 
          
-             <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -183,22 +171,12 @@ include('../connect/connection.php');
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
+           <ul class="treeview-menu">
             <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
             <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
-
-
-                 end task item -->
-
-     <li>
-          <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
-          </a>
-        </li>
-        
 
         <li >
           <a href="leave.php">
@@ -234,14 +212,14 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-เพิ่มผู้ใช้งาน        
+        Dashboard
+        <small>Control panel</small>
       </h1>
-     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">จัดการผู้ที่มีสิทธิเข้าใช้งาน</li>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
-
     <!-- Main content -->
      <section class="content">
       <div class="row">
@@ -252,83 +230,60 @@ include('../connect/connection.php');
             เพิ่มผู้ใช้ระบบ
               </button>
             </div>
-
           <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
+           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">เพิ่มผู้ใช้ระบบ</h4>
               </div>
               <div class="modal-body">
-           
-
                 <form id="add" name="add" method="post" action="check_add_teacher.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
               <div class="user-details">
                 <div class="form-group">
                  <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" >
                   <div class="input-group-append">
-                    
                   </div>
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="username"
                     name="username" >
                   <div class="input-group-append">
-                   
                   </div>
                 </div>
-
-              
                 <div class="form-group">
                   <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password"
                     id="password" >
                   <div class="input-group-append">
-                   
                   </div>
-                 
                 </div>
-               
                 <div class="form-group">
                   <input type="email" class="form-control" placeholder="....@gmail.com" id="email"
                     name="email" 
                     pattern="^[a-zA-Z0-9]+@gmail\.com$" required>
                   <div class="input-group-append">
-                   
                   </div>
-                </div>
-             
-               <div class="form-group">
-                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"
-                    name="tel" >
-                  <div class="input-group-append">
-                   
                   </div>
-                </div>
                   <div class="form-group">
-
+                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" >
+                  <div class="input-group-append">
+                  </div>
+                  </div>
+                  <div class="form-group">
                  เพศ: &nbsp;&nbsp; &nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="gender"
                   value="ชาย" required aria-describedby="basic-addon1"> &nbsp;&nbsp; ชาย</label>
               &nbsp;&nbsp; &nbsp;&nbsp; <label class="radio-inline"><input type="radio" name="gender"
                   value="หญิง" aria-describedby="basic-addon1">
                 &nbsp;&nbsp; หญิง</label>
                   </div>
-
-              </div>
-
+                  </div>
                       <input type="hidden"  id="status" name="status" value="teacher">
-
-                      <input type="hidden"  id="id_admin" name="id_admin" value="<?php echo $_SESSION['id']; ?>"
->
-
-
+                      <input type="hidden"  id="id_admin" name="id_admin" value="<?php echo $_SESSION['id']; ?>">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-
               </div>
             </div>
             <!-- /.modal-content -->
@@ -345,19 +300,18 @@ include('../connect/connection.php');
 }
 </style>
             <!-- /.box-header -->
-          <div class="box-body">
-       <table id="example2" class="table table-hover">
+                  <div class="box-body">
+                <table id="example2" class="table table-hover">
                   <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="2%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ นามสกุล</th>
                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">ชื่อผู้ใช้</th>
-                          <th style="font-size: 14px; color:white;" width="6%" class="text-left">สถานะ</th>
+                      <th style="font-size: 14px; color:white;" width="6%" class="text-left">สถานะ</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">อีเมล์</th>
                       <th style="font-size: 14px; color:white;" width="6%"class="text-left">เพศ</th>
                       <th style="font-size: 14px; color:white;" width="7%" class="text-left">เบอร์โทรศัพท์</th>
                       <th style="font-size: 14px; color:white;" width="4%" class="text-left">จัดการ</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -370,7 +324,6 @@ include('../connect/connection.php');
                   if ($result = $db->query($strSQL)) {
                   while ($objResult = $result->fetch_object()) {
                   ?>
-        
                     <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->fullname; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->username; ?></td>
@@ -379,22 +332,15 @@ include('../connect/connection.php');
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->gender; ?></td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->tel; ?></td>
                     <td>
-
                       <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
                         data-target="#editsub<?php echo $i;?>">
                         <i class="fa fa-edit" title="Edit"></i> </button>
-
-        
                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
                         <i class="fa fa-eye"></i></button>
-
                        <a href="delete_user.php?del=<?php echo $objResult->id_teacher; ?>" class="btn btn-danger btn-xs">
                         <i class="fa fa-trash" title="Delete"></i></a>
-
-                      </center>
                      <!----show information ----->
-
                       <div class="modal fade" id="show<?php echo $i; ?>" tabindex="-1" role="dialog"
                         aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -403,11 +349,9 @@ include('../connect/connection.php');
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                               <h5 class="modal-title">View Proposal</h5>
                             </div>
-
                             <div class="modal-body">
                               <form class="form-horizontal" method="post" action="check_edit_user.php">
-                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
-
+                                <input type="hidden" name="member_id" value="<?php echo $objResult->member_id; ?>">
                                 <div class="card-body">
                                   <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">ID</label>
@@ -415,20 +359,17 @@ include('../connect/connection.php');
                                       <?php echo $objResult->id_teacher; ?>
                                     </div>
                                   </div>
-
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
                                       <?php echo $objResult->username; ?> </div>
                                   </div>
-
                                   <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Teacher Name</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Teacheพ Name</label>
                                     <div class="col-sm-10">
                                       <?php echo $objResult->fullname; ?>
                                     </div>
                                   </div>
-
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
@@ -453,7 +394,6 @@ include('../connect/connection.php');
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 ">Phone</label>
                                     <div class="col-sm-10">
-
                                       <?php echo $objResult->tel; ?> </div>
                                   </div>
                                 </div>
@@ -467,94 +407,64 @@ include('../connect/connection.php');
 
 
                     <!--- edit information-->
-                    <div class="modal fade" id="editsub<?php echo $i; ?>">
-                <div class="modal-dialog">
-              <div class="modal-content">
+              
+          <div class="modal fade" id="editsub<?php echo $i; ?>">
+           <div class="modal-dialog">
+            <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">แก้ไขข้อมูล</h4>
               </div>
               <div class="modal-body">
-                <p>One fine body&hellip;</p>
+                <form id="add" name="add" method="post" action="check_add_teacher.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+              <div class="user-details">
+                <div class="form-group">
+                 <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" >
+                  <div class="input-group-append">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="username"
+                    name="username" >
+                  <div class="input-group-append">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password"
+                    id="password" >
+                  <div class="input-group-append">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" placeholder="....@gmail.com" id="email"
+                    name="email" 
+                    pattern="^[a-zA-Z0-9]+@gmail\.com$" required>
+                  <div class="input-group-append">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" >
+                  <div class="input-group-append">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                 เพศ: &nbsp;&nbsp; &nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="gender"
+                  value="ชาย" required aria-describedby="basic-addon1"> &nbsp;&nbsp; ชาย</label>
+              &nbsp;&nbsp; &nbsp;&nbsp; <label class="radio-inline"><input type="radio" name="gender"
+                  value="หญิง" aria-describedby="basic-addon1">
+                &nbsp;&nbsp; หญิง</label>
+                  </div>
+                  </div>
+                      <input type="hidden"  id="status" name="status" value="teacher">
+                      <input type="hidden"  id="" name="" value="<?php echo $_SESSION['id']; ?>">
               </div>
-            
-                          <div class="modal-content">
-                            <div class="modal-header bg-info">
-                              <h5 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
-                                View Member</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                  aria-hidden="true">&times;</span></button>
-                              
-                            </div>
-
-                            <div class="modal-body">
-                              <form class="form-horizontal" method="post" action="check_edit_member.php">
-                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
-
-                                <div class="card-body">
-                                  <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_idcard" name="member_idcard"
-                                        value="<?php echo $objResult->member_idcard; ?>">
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_username"
-                                        name="member_username" value="<?php echo $objResult->member_username; ?>">
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_fullname"
-                                        name="member_fullname" value="<?php echo $objResult->member_fullname; ?>">
-                                    </div>
-                                  </div>
-
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_email" name="member_email"
-                                        value="<?php echo $objResult->member_email; ?>"> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="member_phone" name="member_phone"
-                                        value="<?php echo $objResult->member_phone; ?>"> </div>
-                                  </div>
-
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Gender</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_gender; ?> </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
-                                    <div class="col-sm-10">
-
-                                      <?php echo $objResult->member_pos; ?> </div>
-                                  </div>
-
-                                  <div class="modal-footer">
+              <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">แก้ไข</button>
               </div>
             </div>
+
             <!-- /.modal-content -->
           </div>
           <!-- /.modal-dialog -->
