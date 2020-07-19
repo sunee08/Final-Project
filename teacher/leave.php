@@ -111,30 +111,31 @@ include('../connect/connection.php');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
-        <li>
+
+   <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
-      <li>
+         <li >
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
-          <li >
+          <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
       <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -169,8 +170,7 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-     
-               <!-- 
+         <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -190,14 +190,12 @@ include('../connect/connection.php');
 
      <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
 
-
-    
-         <li class="active ">
+           <li class="active ">
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
@@ -211,13 +209,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -225,13 +223,14 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
+
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
    <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            รายชื่อนักเรียนที่ซื้อใบลา
+            แสดงผลรายชื่อนักเรียนที่ซื้อใบลา
       </h1>
         <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -274,41 +273,30 @@ include('../connect/connection.php');
               <th style="font-size: 14px; color:white;" width="15%" class="text-left">รหัสนักเรียน</th>
             <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
-               <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
                <th style="font-size: 14px; color:white;" width="10%" class="text-left">จำนวน</th>
-
-           <th style="font-size: 14px; color:white;" width="10%" class="text-left">แสดงผล</th>
-
-
+           <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
                 </tr>
                 </thead>
                 <tbody>
 
-
-
-
          <?php
 include('../connect/connection.php');
 
-       $strSQL = "SELECT DISTINCT leaves.id_std,student.fullname,student.id_std_card,student.class_room,leaves.date_time,leaves.times_leaves FROM leaves 
+       $strSQL = "SELECT DISTINCT leaves.id_std,student.fullname,student.id_std_card,student.class_room,leaves.times_leaves FROM leaves 
 INNER JOIN  student ON leaves.id_std = student.id_std  
      WHERE leaves.id_std
      ORDER BY leaves.id_std ASC  ";
       $count = 1;
         ?>
-
   <?php
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
-
          <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>
-           
          </td> 
 <td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">
@@ -344,10 +332,11 @@ if ($result = $db->query($strSQL)) {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
+ 
   <!-- Control Sidebar -->
  
   <!-- /.control-sidebar -->

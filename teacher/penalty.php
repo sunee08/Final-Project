@@ -33,9 +33,7 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-   <!-- DataTables -->
-  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <!-- Select2 -->
+  <!-- Select2 -->
   <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -107,37 +105,37 @@ include('../connect/connection.php');
         </div>
       </div>
       <!-- search form -->
-   
+     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
 
-   <li >
+   <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
-          <li >
+
+          <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
-      
-      
+
       <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -172,8 +170,7 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-
-       <!-- 
+         <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -191,14 +188,14 @@ include('../connect/connection.php');
 
                  end task item -->
 
-         <li class=" active treeview">
+     <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
 
-     
+
         <li >
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
@@ -213,13 +210,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -228,117 +225,100 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-กฏระเบียบของโรงเรียนรุ่งโรจน์วิทยา      </h1>
-       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">การจัดการพฤติกรรมนักเรียน</li>
+        รายการที่นักเรียนทำผิด
+        
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
-<!-- Main content -->
-     <section class="content">
+   
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
- เพิ่มกฏระเบียบ            </button>
-            </div>
+   <?php
 
-          <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"> เพิ่มกฏระเบียบ  </h4>
-              </div>
-              <div class="modal-body">
-           
+              $my_id = $_GET['id'];
 
-         <form id="add" name="add" method="post" action="check_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+$strSQL = "SELECT add_behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,student.fullname,student.id_card,student.id_std_card,student.class_room,student.birthday,student.types,student.status   FROM add_behavior
+ LEFT JOIN student ON add_behavior.id_std = student.id_std
+ LEFT JOIN behavior ON add_behavior.id_behavior = behavior.id_behavior
+     WHERE  add_behavior.id_std = '$my_id' ";
+      $count = 1;
 
-              <div class="user-details">
-                <div class="form-group">
-                    <label>หัวข้อหลัก</label>
-
-   <input type="text" name="topic" class="form-control select2" >
-                  <div class="input-group-append">
-                    
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
                   </div>
-                </div>
-                <div class="form-group">
-                                      <label>หัวข้อย่อย</label>
-          <input type="text" name="detail" class="form-control select2"  >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-                 <div class="form-group">
-                                      <label>ประเภท</label>
-          <input type="text" name="types_behavior" class="form-control select2"  >
-          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-
-                 <div class="form-group">
-                                      <label>เปอรเซนต์</label>
-          <input type="text" name="percent" class="form-control select2"  >
-                  <div class="input-group-append">
-                   
-                  </div>
-                </div>
-
-    <input type="hidden" name="id_teacher" class="form-control select2" value="<?php echo $_SESSION['name']; ?>" >
-            
-
-
-              </div>
-
-                    
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-
-    
-       
-      <div class="row">
+                         <p>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> ชื่อ - นามสกุล </th>
+                            <td><?php echo $objectResult->fullname; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                            <td><?php echo $objectResult->id_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                            <td><?php echo $objectResult->id_std_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
+                            <td><?php echo $objectResult->class_room; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                            <td><?php echo $objectResult->birthday; ?></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                            <td><?php echo $objectResult->types; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+                            <td><?php echo $objectResult->status; ?></td>
+                        </tr>
+                    </tbody>
+                </table>       
+ 
+   <div class="row">
    
               <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">ด้านการพฤติกรรม</a></li>
-              <li><a href="#timeline" data-toggle="tab">ด้านการเรียน</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab">แสดงผล</a></li>
+              
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
                 <!-- Post -->
              <div class="tab-pane" id="activity">
-                <!-- The timeline -->
-                          <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                   
-                        <span class="username">
-                           <div class="col-xs-14">
+                   <span class="username">
+                  <div class="col-xs-14">
     <style>
 .table .thead-light th {
   color: #401500;
@@ -349,194 +329,189 @@ include('../connect/connection.php');
 </style>
        
       <!-- /.row (main row) -->
+    
   <div class="box-body">
-           <table id="example1" class="table  table-hover">
-                  <thead class="thead-light">
-                <tr >
-                      <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                   <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
-                    <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">วันที่</th>
-                     <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
-                   
-                </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-$strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการพฤติกรรม' ";
-$i = 1;
-$count = 1;
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-        
-                <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?></td>
-                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
-                    
-
-    <td>
-
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
-
-                      </center>
-
-
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
-
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
-
-
-                    </td>
-                    </tr>
-
-                    <?php
-$i++;
-    }
-}
-?>
-
-                </table>
-            </div>
-</div>
-</div>
-                         
-                        </span>
+      
+         </span>
                     
                   </div>
                   <!-- /.user-block -->
                   <div class="row margin-bottom">
-                  
-                    <!-- /.col -->
                     <div class="col-sm-6">
                       <div class="row">
-                   
-                        <!-- /.col -->
-                       
                         <!-- /.col -->
                       </div>
                       <!-- /.row -->
                     </div>
                     <!-- /.col -->
                   </div>
-                  <!-- /.row -->
-
-              
-                </div>
-                <!-- /.post -->
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
+    
+              <div class="tab-pane" id="time">
                 <!-- The timeline -->
-                          <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                   
+           
                         <span class="username">
                            <div class="col-xs-12">
 
-     
-       
+      
+
+
+   <div class="modal-footer">
+                           <a href="../class study/m1_1.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+            </div>
+
+
+
+        <br>
+       </span>
+       <p>
+       <center>
+   <h3>รายงานบทลงโทษ</h3></center>
+
+    <!-- /.content -->
+           
+   
+
+             <div style="width:100%; max-width: 600px; margin:0 auto;">
+            <div class="panel panel-default">
+                <div class="panel-heading">Add Programming Skill Details</div>
+                <div class="panel-body">
+                    <span id="success_result"></span>
+                  
+
+                       <form action="check_penalty.php?id=<?php echo $_GET["id"]; ?>" name="fromEdit" method="post"
+                  onsubmit="return checkForm()">
+
+                        <div class="form-group">
+                            <label>เลือกประเภทบทลงโทษ</label>
+                            <p>
+                <input type="checkbox" name="penalty" id="penalty"   value="บำเพ็ญประโยชน์" />&nbsp;&nbsp;&nbsp;&nbsp;บำเพ็ญประโยชน์
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="penalty" id="penalty"   value="ตักเตือน" />&nbsp;&nbsp;&nbsp;&nbsp;ตักเตือน &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="penalty" id="penalty"   value="เชิญผู้ปกครอง" />&nbsp;&nbsp;&nbsp;&nbsp;เชิญผู้ปกครอง
+                        </div>
+                        <div id="repeater">
+                           
+                            <div class="clearfix"></div>
+                            <div class="items" data-group="programming_languages">
+                                <div class="item-content">
+                                    <div class="form-group">
+          <div class="row">
+           <div class="col-md-9">
+                                        <label>รายละเอียดเพิ่มเติ่มบทลงโทษ</label>
+
+             <input type="text" name="detail_penalty" id="detail_penalty" class="form-control" required />
+                <input type="text" name="id_std" class="form-control" value="<?php echo $objectResult->id_add_behavior; ?>" >
+
+                                            </div>
+                                          
+          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+      
+      <div class="clearfix"></div>
+                        <div class="form-group" align="center">
+       <br /><br />
+                            <input type="submit"  class="btn btn-success" value="insert" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
       <!-- /.row (main row) -->
 <div class="box-body">
-             <table id="example2" class="table  table-hover">
-                  <thead class="thead-light">
-                <tr>
-              <th style="font-size: 14px; color:white;" width="10%" class="text-left">ลำดับ</th>
-             <th style="font-size: 14px; color:white;" width="20%" class="text-left">ด้านพฤติกรรม</th>
-
-                     <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
-                    <th style="font-size: 14px; color:white;" width="20%"class="text-left">หัวข้อย่อย</th>
-                     <th style="font-size: 14px; color:white;"  width="20%" class="text-left">วันที่</th>
-                       <th style="font-size: 14px; color:white;" width="20%" class="text-left">การจัดการ</th>
-                   
-                </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-$strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการเรียน' ";
-$i = 1;
-$count = 1;
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-        
-                   <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
-                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?></td>
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                     </tr>
+                  </thead>
                   
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
-                    
+                  <tbody align="center">
+      <?php
 
-    <td>
+              $my_id = $_GET['id'];
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ORDER BY add_behavior.id_std DESC LIMIT 3 ";
+      $count = 1;
 
-                      </center>
+        ?>
+
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+                             <td class="text-center" style="font-size: 14px;" >
+  <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-danger btn-xs">
+                       บทลงโทษ</a>  </td>
+
+                 
+            </tr>
 
 
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i></button>
+            <?php
+              }
+               }
+                   ?>
+                   
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
-
-
-                    </td>
-                    </tr>
-
+                   <tr>
                     <?php
-$i++;
-    }
-}
-?>
+         
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id'   ";
 
-                </table>
-            </div>
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                      <td colspan="5" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+
+                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+            
 </div>
 </div>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
-              
-       
-              <!-- /.tab-pane -->
+          
+      
+     <?php
 
-           
-            </div>
-            <!-- /.tab-content -->
-          </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+    }
+}
+?>
 
 
-    </section>
 
-
+    </section> 
+  
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-   <footer class="main-footer">
+  <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
@@ -545,8 +520,7 @@ $i++;
   </footer>
 
  
-
-  <!-- Control Sidebar -->
+ 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -593,17 +567,14 @@ $i++;
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable()
-
-    $('#example3').DataTable({
+    $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,

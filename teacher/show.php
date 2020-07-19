@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../connect/connection.php');
-
+include 'function.php';
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +90,7 @@ include('../connect/connection.php');
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+ <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -114,42 +113,41 @@ include('../connect/connection.php');
 
    <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
           <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
-         <li class="active treeview">
+      <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-         <li class="active treeview">
+            <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                      <li class="active">
-<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -171,8 +169,7 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-        
-             <!-- 
+         <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -192,11 +189,10 @@ include('../connect/connection.php');
 
      <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
-
 
 
         <li >
@@ -211,15 +207,16 @@ include('../connect/connection.php');
 
     
 
-        <li>
+           <li class="active ">
+
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -233,12 +230,14 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        รายการที่นักเรียนทำผิด
         
+       รายการที่นักเรียนทำผิดกฎระเบียบ
+
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+     <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">แสดงผล</li>
+         <li class="active">รายการที่นักเรียนทำผิดระเบียบ</li>
       </ol>
     </section>
    
@@ -348,7 +347,6 @@ if ($result = $db->query($strSQL)) {
                         <span class="username">
                            <div class="col-xs-12">
 
-      
 
 
    <div class="modal-footer">
@@ -356,15 +354,39 @@ if ($result = $db->query($strSQL)) {
             </div>
        
       <!-- /.row (main row) -->
+
+                    <?php
+
+            $my_id = $_GET['id'];
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                     
+    
+                       
+                  
+                 
+                     <div align="center"> 
+                <?php echo status_01_file_2($sum); ?>
+                  </div>
+           
 <div class="box-body">
             <table id="example1" class="table  table-hover" >
                 <thead class="thead-light">
                   <tr>
                                <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
+                       <th style="font-size: 14px; color:white;" width="14%"class="text-left">ประเภทบทลงโทษ</th>
+                       <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
+
                      </tr>
                   </thead>
                   
@@ -373,7 +395,7 @@ if ($result = $db->query($strSQL)) {
 
               $my_id = $_GET['id'];
 
-$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.penalty FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
      WHERE add_behavior.id_std = '$my_id' ";
       $count = 1;
@@ -389,7 +411,8 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
-              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->penalty; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail_penalty; ?>   </td>
                
                  
             </tr>
@@ -413,7 +436,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                       $sum= $row['total'];
                      }
                     ?>
-                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+                      <td colspan="5" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
 
                       <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
                        
@@ -563,15 +586,14 @@ var myChart = new Chart(ctx, {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
- 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed

@@ -55,7 +55,7 @@ include('../connect/connection.php');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ระบบจัดการพฤติกรรม</b></span>
+      <span class="logo-sm"><b>ระบบบันทึกพฤติกรรมนักเรียน</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -114,28 +114,28 @@ include('../connect/connection.php');
 
    <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
           <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
       <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -190,7 +190,7 @@ include('../connect/connection.php');
 
      <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
@@ -210,13 +210,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -388,8 +388,8 @@ echo ' <p> ใบลา  </p>';
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
  

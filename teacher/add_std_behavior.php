@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../connect/connection.php');
-
+include 'function.php';
 ?>
 
 <!DOCTYPE html>
@@ -114,42 +114,43 @@ include('../connect/connection.php');
 
    <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
           <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
-         <li class="active treeview">
+<li class=" active treeview">
+
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-         <li class="active treeview">
+<li class=" active ">
+
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                      <li class="active ">
-<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -171,8 +172,7 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-        
-             <!-- 
+         <!-- 
          <li class=" treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
@@ -192,12 +192,10 @@ include('../connect/connection.php');
 
      <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
-
-
 
 
         <li >
@@ -214,13 +212,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -237,8 +235,9 @@ include('../connect/connection.php');
         เลือกรายการที่นักเรียนทำผิด
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">รายชื่อนักเรียนทั้งหมด</li>
+           <li class="active">มัธยมต้น</li>
       </ol>
     </section>
    
@@ -304,6 +303,7 @@ if ($result = $db->query($strSQL)) {
                            <a href="../class study/m1_1.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
             </div>
 
+
       <div class="row">
    
               <div class="col-md-12">
@@ -311,7 +311,8 @@ if ($result = $db->query($strSQL)) {
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab" >ด้านการพฤติกรรม</a></li>
               <li><a href="#timeline" data-toggle="tab">ด้านการเรียน</a></li>
-                <li><a href="#time" data-toggle="tab">แสดงผล</a></li>
+                <li><a href="#time" data-toggle="tab">แสดงผลรายการนักเรียนทำผิดกฏระเบียบ</a></li>
+                  <li><a href="#behavior" data-toggle="tab">ระเบียบการลงโทษนักเรียนที่ทำผิดระเบียบวินัย</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
@@ -329,16 +330,12 @@ if ($result = $db->query($strSQL)) {
 }
 </style>
 
-
-
-
        
       <!-- /.row (main row) -->
-       <form id="add" name="add" method="post" action="check_side_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-
+   <form id="add" name="add" method="post" action="check_side_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
   <div class="box-body">
-            <table id="example1" class="table  table-hover">
-                  <thead class="thead-light">
+       <table id="example1" class="table  table-hover">
+           <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
@@ -475,10 +472,6 @@ $i++;
 ?>
 
 
- <?php
-}
-}
-?>
 
     
                 </table>
@@ -511,14 +504,32 @@ $i++;
               <div class="tab-pane" id="time">
                 <!-- The timeline -->
                  
-                    <div align="center"> 
-                  <img src="../dist/img/smie.gif" width=160 height=150 >
-                  </div>
                         <span class="username">
                            <div class="col-xs-12">
 
 
-       
+          <tr>
+                    <?php
+
+            $my_id = $_GET['id'];
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                     
+    
+                       
+                  
+                 
+                     <div align="center"> 
+                <?php echo status_01_file_2($sum); ?>
+                  </div>
+
       <!-- /.row (main row) -->
 <div class="box-body">
             <table id="example1" class="table  table-hover" >
@@ -553,7 +564,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
-              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%  </td>
                
                  
             </tr>
@@ -567,6 +578,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
 
                    <tr>
                     <?php
+
          
   $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
@@ -579,10 +591,30 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                     ?>
                       <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
 
-                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                      <td class="text-center " style="font-size: 15px;" >  
+
+                        <?php echo $sum; ?>%  </td>
                        
                      </tr>
+
+                     <tr>  <td colspan="2" class="text-center "  style="font-size: 15px;"> </td>
+
+                      <td class="text-center " style="font-size: 15px;" >  
+
+                       <?php echo status_01_file_2($sum); ?> </td></tr>
                   
+                   <tr>
+                 
+                      <td colspan="4"></td>
+
+                     
+                   
+                     </tr>
+                  
+ <?php
+}
+}
+?>
                 </tbody>
               </table>
               
@@ -590,140 +622,241 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
 </div>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
+
+         </span>
+                    
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="row margin-bottom">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+    
+              <div class="tab-pane" id="behavior">
+                <!-- The timeline -->
+                 
+                        <span class="username">
+ 
+      <div class="box-body">
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+
+                                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                     </tr>
+                  </thead>
+                  
+                  <tbody >
+      <?php
+
+              $my_id = $_GET['id'];
+
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.id_add_behavior,behavior.id_behavior,add_behavior.id_behavior FROM behavior
+
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+  LEFT JOIN student ON add_behavior.id_std = student.id_std
+
+     WHERE add_behavior.id_std = '$my_id'  ";
+
+$i = 1;
+$count = 1;
+        ?>
+
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+            ?>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
+              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
+                            
+            
+
+
+                             <td class="text-left" style="font-size: 14px;" >
+
+
+  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                          data-target="#editsub<?php echo $i; ?>">
+                       บทลงโทษ</button>
+
+
+
+
+                        <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
+                          aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header bg-info">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
+                                  เพิ่มทบลงโทษ</h4>
+                              </div>
+
+
+
+
+                              <div class="modal-body">
+                          
+<form class="form-horizontal" method="post" action="check_edit_behavior.php">
+
+                                  <div class="form-group row">
+                                    <div class="col-md-4">
+
+                                      <label class="control-label ">ประเภทด้านพฤติกรรม</label>
+                                    </div>
+                                    <div class="col-md-3">
+             <input type="text" name="id_add_behavior"
+                                        value="  <?php echo $objResult->id_add_behavior; ?>">
+                                    <?php echo $objResult->types_behavior; ?>
+                                  </div>
+                                </div>
+
+
+                                  <div class="form-group row">
+                                    <div class="col-md-4">
+                                      <label class="control-label ">หัวข้อหลัก</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                 
+                             
+                                        <?php echo $objResult->topic; ?>  
+
+
+                                    </div>
+                                  </div>
+
+
+                                  <div class="form-group row">
+                                    <div class="col-md-4">
+                                      <label class="control-label ">หัวข้อย่อย</label>
+                                    </div>
+                                    <div class="col-md-3">
+          
+                                        <?php echo $objResult->detail; ?>  
+
+
+                                    </div>
+                                  </div>
+
+                              
+
+ <div class="form-group row">
+                                    <div class="col-md-4">
+                                      <label class="control-label ">เลือกประเภทบทลงโทษ</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                 
+                                 
+                <input type="checkbox" name="penalty" id="penalty"   value="บำเพ็ญประโยชน์" />&nbsp;&nbsp;&nbsp;&nbsp;บำเพ็ญประโยชน์
+                            &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="penalty" id="penalty"   value="ตักเตือน" />&nbsp;&nbsp;&nbsp;&nbsp;ตักเตือน &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="penalty" id="penalty"   value="เชิญผู้ปกครอง" />&nbsp;&nbsp;&nbsp;&nbsp;เชิญผู้ปกครอง
+                        </div>
+                                    </div>
+
+                      
+
+
+                           
+    <div class="form-group row">
+                                    <div class="col-md-4">
+                                      <label class="control-label ">รายละเอียดบทลงโทษ</label>
+                                    </div>
+                                    <div class="col-md-8">
+
+
+
+                                      <textarea type="text" rows="8" class="form-control" id="announcement_detail"
+                                        name="detail_penalty"> <?php echo $objResult->detail_penalty; ?> </textarea>
+
+                                    </div>
+                                  </div>
+
+
+
+
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="glyphicon glyphicon-remove"></i>
+                                      Cancle</button>
+                                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
+                                      Edit</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+
+
+                         </td>
+
+                 
+            </tr>
+
+
+            <?php
+            $i++;
+
+              }
+               }
+                   ?>
+                   
+
+                   <tr>
+                    <?php
+         
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id'   ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+
+                      <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+
+
+
+
+                </tbody>
+              </table> 
+            </div>
+          </span>
+                  <!-- timeline item -->
               
     </section>
     <!-- /.content -->
-            <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-
-     
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ </title>
-</head>
-<?php
-$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
-
-mysqli_query($con, "SET NAMES 'utf8' ");
-
- $my_id = $_GET['id'];
-
-
-
-$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std = '$my_id'
-     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
-
-
-
-
-$result = mysqli_query($con, $query);
-$resultchart = mysqli_query($con, $query);  
-
-
- //for chart
-$date_time = array();
-$percent = array();
-
-while($rs = mysqli_fetch_array($resultchart)){ 
-  $date_time[] = "\"".$rs['date_time']."\""; 
-  $percent[] = "\"".$rs['percent']."\""; 
-}
-$date_time = implode(",", $date_time); 
-$percent = implode(",", $percent); 
- 
-?>
-
-<h3 align="center">รายงานในแบบกราฟ</h3>
-<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
-  <thead>
-  <tr>
-    <th width="10%"  class="text-center">เดือน</th>
-    <th width="10%" class="text-center">เปอรเซ็นต์</th>
-  </tr>
-  </thead>
-  
-
-  
-  <?php while($row = mysqli_fetch_array($result)) { ?>
-    <tr>
-      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
-      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
-    </tr>
-    <?php } ?>
-
-</table>
-<?php mysqli_close($con);?>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-<hr>
-<p align="center">
-
- <!--devbanban.com-->
-
-<canvas id="myChart" width="800px" height="300px"></canvas>
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [<?php echo $date_time;?>
-    
-        ],
-        datasets: [{
-            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
-            data: [<?php echo $percent;?>
-            ],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-</script>  
-</p> 
-  <!--devbanban.com-->
-</html>
-
+         
 
             
 
-
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-            
-</html>
-</div>
-</div>
-</div>
 
 
 
@@ -734,10 +867,11 @@ var myChart = new Chart(ctx, {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
+ 
  
  
   <!-- /.control-sidebar -->

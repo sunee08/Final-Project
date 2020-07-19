@@ -91,7 +91,6 @@ include('../connect/connection.php');
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -112,30 +111,31 @@ include('../connect/connection.php');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
-        <li>
+
+   <li>
              <a href="add_user.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
+            <i class="fa fa-users"></i>
+            <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
-      <li class="active treeview">
+                <li class="active ">
         <a href="add_student.php">
-            <i class="fa fa-pie-chart"></i>
-            <span>เพิ่มข้อมูลนักเรียน</span>
+            <i class="fa fa-user-plus"></i>
+            <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
-          <li >
+          <li>
           <a href="profile.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
 
       <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -170,7 +170,6 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-     
          <!-- 
          <li class=" treeview">
           <a href="#">
@@ -191,7 +190,7 @@ include('../connect/connection.php');
 
      <li>
           <a href="add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
@@ -211,13 +210,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+            <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="report.php">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -231,12 +230,12 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        เพิ่มรายชื่อนักเรียน
+        การจัดการรายชื่อนักเรียน
  
       </h1>
      <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">เพิ่มข้อมูลนักเรียน</li>
+        <li class="active">การจัดการรายชื่อนักเรียน</li>
       </ol>
     </section>
 
@@ -304,12 +303,12 @@ $(document).ready(function() {
          <table id="example1" class="table  table-hover">
                   <thead class="thead-light">
                  <th style="font-size: 14px; color:white;"   width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;"  width="9%" class="text-left">เลขประจำตัวนักเรียน</th>
-                  <th style="font-size: 14px; color:white;"   width="15%"class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;"  width="7%" class="text-left">รหัสนักเรียน</th>
+                  <th style="font-size: 14px; color:white;"   width="13%"class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 14px; color:white;"  width="3%" class="text-left">ห้องเรียน</th>
                   <th style="font-size: 14px; color:white;" width="5%" class="text-left">ว.ด.ป. เกิด</th>
                   <th style="font-size: 14px; color:white;"  width="7%" class="text-left">สถานะ</th>
-                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;"  width="5%" class="text-left">การจัดการ</th>
   </tr>
                   </thead>
                   <tbody align="center">
@@ -317,7 +316,7 @@ $(document).ready(function() {
                     <?php
 include('../connect/connection.php');
 
-$strSQL = "SELECT * FROM student  ORDER BY id_std desc ";
+$strSQL = "SELECT * FROM student  ORDER BY id_std desc limit 50";
 $i = 1;
 $count = 1;
 ?>
@@ -560,9 +559,11 @@ $i++;
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
+
+ 
 
   <!-- Control Sidebar -->
  

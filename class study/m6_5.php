@@ -230,50 +230,55 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
+      <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        รายชื่อนักเรียน มัธยมศึกษาปีที่ 1
-        <small>Control panel</small>
+        รายชื่อนักเรียน มัธยมศึกษาปีที่ 6
+
+         <a href="../class study/m6_1.php"><small>(ม.6/1)</a></small>
+   <a href="../class study/m6_2.php" ><small>(ม.6/2)</small></a>
+        <a href="../class study/m6_3.php" ><small>(ม.6/3)</small></a>
+           <a href="../class study/m6_4.php"><small>(ม.6/4)</small></a>
+           <small><b>   <a href="../class study/m6_5.php">(ม.6/5)</small></b></a>
+           
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">รายชื่อนักเรียนทั้งหมด</li>
+          <li class="active">มัธยมปลาย</li>
+         <li class="active">ม.6</li>
       </ol>
-    </section>
+  </section>
 
-    <!-- Main content -->
      <section class="content">
       <div class="row">
+      
+ 
         <div class="col-xs-12">
-          <div class="box">  <div class="modal-footer">
-           
-<a href="../class study/m6_1.php"><button type="submit" class="btn bg-red">ม.6/1</button></a>
-<a href="../class study/m6_2.php"> <button type="submit" class="btn bg-red">ม.6/2</button></a>
-<a href="../class study/m6_3.php"><button type="submit" class="btn bg-red">ม.6/3</button></a>
-<a href="../class study/m6_4.php"> <button type="submit" class="btn bg-red">ม.6/4</button></a>
-<a href="../class study/m6_5.php"> <button type="submit" class="btn bg-red">ม.6/5</button></a>
+          <div class="box">
+    <!-- Main content -->
 
-             
-              </div>
+          <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
 
-            <div class="box-header">
-  
-        <!-- /.modal -->
             <!-- /.box-header -->
             <div class="box-body">
-             <table id="example1" class="table table-hover">
-                  <thead class="thead-light">
+                <table id="example1" class="table  table-hover">
+          <thead class="thead-light">
                 <tr>
-                  <th style="font-size: 15px;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 15px;" width="6%" class="text-left">รหัสนักเรียน</th>
-                  <th style="font-size: 15px;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 15px;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 13px;" width="14%" class="text-left">จัดการ</th>
-
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>

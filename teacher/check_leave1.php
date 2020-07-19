@@ -1,23 +1,17 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rws_manage_std";
+session_start();
 
-$db = mysqli_connect($severname,$username,$password,$dbname);
-
-if(!$db){
-	die("Connetion failed:".mysqli_connect_error('Could not connected to the DB'));
-}
-
+require '../connect/connection.php';
 $id_teacher = $_POST['id_teacher'];
 $times_leaves = $_POST['times_leaves'];
 $id_std = $_POST['id_std'];
 $date_time = $_POST['date_time'];
+$std_name  = $_POST['std_name'];
 
 
 
-$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time)values('$times_leaves','$id_teacher','$id_std','$date_time')";
+
+$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,std_name)values('$times_leaves','$id_teacher','$id_std','$date_time','$std_name')";
 
 if ($rs = $db->query($sql)) {
     $db->close();
