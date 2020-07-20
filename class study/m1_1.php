@@ -303,25 +303,22 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-                  
-
+            
     <td>
-            <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
                        ดูประวัติ</button>
                         
                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
                         แก้ไขประวัติ</button>
-
-
-
-                   <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
+                                           
+       <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+                       ลบข้อมูล</a>
+        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">
                         ทำผิดกฎระเบียบ</a>
 
-  <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-danger btn-xs">
-                       บทลงโทษ</a>
 
                     
 

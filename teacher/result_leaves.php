@@ -299,6 +299,8 @@ if ($result = $db->query($strSQL)) {
 
  <input type="checkbox" name="id_std" id="id_std" style="width: 3em" value="<?php echo $objResult->id_std; ?>">
       <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
+      <input type="hidden" name="times" value="<?php echo date("H-i-s"); ?>">
+
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objResult->fullname; ?>" >
 
 <input type="hidden"  name="times_leaves" id="times_leaves" value="1" >

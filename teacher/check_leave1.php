@@ -8,10 +8,11 @@ $id_std = $_POST['id_std'];
 $date_time = $_POST['date_time'];
 $std_name  = $_POST['std_name'];
 
+$times  = $_POST['times'];
 
 
 
-$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,std_name)values('$times_leaves','$id_teacher','$id_std','$date_time','$std_name')";
+$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,std_name,times)values('$times_leaves','$id_teacher','$id_std','$date_time','$std_name','$times')";
 
 if ($rs = $db->query($sql)) {
     $db->close();

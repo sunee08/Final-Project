@@ -17,7 +17,8 @@ $sql = "UPDATE add_behavior SET penalty = '$penalty', detail_penalty ='$detail_p
 
 if ($db->query($sql)) {
     $db->close();
-        echo "<script>alert('สำเร็จ');window.location = \"penalty.php?id=' . $id_std . '\";</script>";
+             echo '<script> window.location="penalty.php?id=' . $id_std . '"</script> ';
+
 } else {
     echo $db->error;
     $db->close();

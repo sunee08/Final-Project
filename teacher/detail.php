@@ -347,10 +347,8 @@ if ($result = $db->query($strSQL)) {
                         <span class="username">
                            <div class="col-xs-12">
 
-
-
    <div class="modal-footer">
-                           <a href="add_std_behavior.php?id=<?php echo $objectResult->id_std; ?>"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+                           <a href="result.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
             </div>
        
       <!-- /.row (main row) -->

@@ -312,7 +312,7 @@ if ($result = $db->query($strSQL)) {
               <li class="active"><a href="#activity" data-toggle="tab" >ด้านการพฤติกรรม</a></li>
               <li><a href="#timeline" data-toggle="tab">ด้านการเรียน</a></li>
                 <li><a href="#time" data-toggle="tab">แสดงผลรายการนักเรียนทำผิดกฏระเบียบ</a></li>
-                  <li><a href="#behavior" data-toggle="tab">ระเบียบการลงโทษนักเรียนที่ทำผิดระเบียบวินัย</a></li>
+                  <li><a href="#behavior" data-toggle="tab">แสดงผลรายการลงโทษนักเรียนที่ทำผิดระเบียบวินัย</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
@@ -589,7 +589,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                       $sum= $row['total'];
                      }
                     ?>
-                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม</td>
 
                       <td class="text-center " style="font-size: 15px;" >  
 
@@ -597,20 +597,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                        
                      </tr>
 
-                     <tr>  <td colspan="2" class="text-center "  style="font-size: 15px;"> </td>
-
-                      <td class="text-center " style="font-size: 15px;" >  
-
-                       <?php echo status_01_file_2($sum); ?> </td></tr>
-                  
-                   <tr>
-                 
-                      <td colspan="4"></td>
-
-                     
-                   
-                     </tr>
-                  
+                         
  <?php
 }
 }
@@ -646,13 +633,14 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
             <table id="example1" class="table  table-hover" >
                 <thead class="thead-light">
                   <tr>
-                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
 
-                                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
+                       <th style="font-size: 14px; color:white;" width="14%"class="text-left">ประเภทบทลงโทษ</th>
+                       <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
+                 
                      </tr>
                   </thead>
                   
@@ -661,7 +649,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
 
               $my_id = $_GET['id'];
 
-$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.id_add_behavior,behavior.id_behavior,add_behavior.id_behavior FROM behavior
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.id_add_behavior,behavior.id_behavior,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.penalty FROM behavior
 
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
   LEFT JOIN student ON add_behavior.id_std = student.id_std
@@ -676,140 +664,15 @@ $count = 1;
      if($result = $db->query($strSQL)){
              while($objResult = $result->fetch_object()){
             ?>
-            <tr>
-                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+            <tr>   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
-              <td class="text-center" style="font-size: 14px;" ><?php echo $objResult->percent; ?>%   </td>
-                            
+                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->penalty; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail_penalty; ?>   </td>
+                     
             
 
-
-                             <td class="text-left" style="font-size: 14px;" >
-
-
-  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                          data-target="#editsub<?php echo $i; ?>">
-                       บทลงโทษ</button>
-
-
-
-
-                        <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
-                          aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                              <div class="modal-header bg-info">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
-                                  เพิ่มทบลงโทษ</h4>
-                              </div>
-
-
-
-
-                              <div class="modal-body">
-                          
-<form class="form-horizontal" method="post" action="check_edit_behavior.php">
-
-                                  <div class="form-group row">
-                                    <div class="col-md-4">
-
-                                      <label class="control-label ">ประเภทด้านพฤติกรรม</label>
-                                    </div>
-                                    <div class="col-md-3">
-             <input type="text" name="id_add_behavior"
-                                        value="  <?php echo $objResult->id_add_behavior; ?>">
-                                    <?php echo $objResult->types_behavior; ?>
-                                  </div>
-                                </div>
-
-
-                                  <div class="form-group row">
-                                    <div class="col-md-4">
-                                      <label class="control-label ">หัวข้อหลัก</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                 
-                             
-                                        <?php echo $objResult->topic; ?>  
-
-
-                                    </div>
-                                  </div>
-
-
-                                  <div class="form-group row">
-                                    <div class="col-md-4">
-                                      <label class="control-label ">หัวข้อย่อย</label>
-                                    </div>
-                                    <div class="col-md-3">
-          
-                                        <?php echo $objResult->detail; ?>  
-
-
-                                    </div>
-                                  </div>
-
-                              
-
- <div class="form-group row">
-                                    <div class="col-md-4">
-                                      <label class="control-label ">เลือกประเภทบทลงโทษ</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                 
-                                 
-                <input type="checkbox" name="penalty" id="penalty"   value="บำเพ็ญประโยชน์" />&nbsp;&nbsp;&nbsp;&nbsp;บำเพ็ญประโยชน์
-                            &nbsp;&nbsp;&nbsp;
-                <input type="checkbox" name="penalty" id="penalty"   value="ตักเตือน" />&nbsp;&nbsp;&nbsp;&nbsp;ตักเตือน &nbsp;&nbsp;&nbsp;
-                <input type="checkbox" name="penalty" id="penalty"   value="เชิญผู้ปกครอง" />&nbsp;&nbsp;&nbsp;&nbsp;เชิญผู้ปกครอง
-                        </div>
-                                    </div>
-
-                      
-
-
-                           
-    <div class="form-group row">
-                                    <div class="col-md-4">
-                                      <label class="control-label ">รายละเอียดบทลงโทษ</label>
-                                    </div>
-                                    <div class="col-md-8">
-
-
-
-                                      <textarea type="text" rows="8" class="form-control" id="announcement_detail"
-                                        name="detail_penalty"> <?php echo $objResult->detail_penalty; ?> </textarea>
-
-                                    </div>
-                                  </div>
-
-
-
-
-
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
-                                        class="glyphicon glyphicon-remove"></i>
-                                      Cancle</button>
-                                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
-                                      Edit</button>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-
-
-
-
-                         </td>
 
                  
             </tr>
@@ -835,7 +698,7 @@ $count = 1;
                       $sum= $row['total'];
                      }
                     ?>
-                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม%</td>
+                      <td colspan="4" class="text-center btn-default"  style="font-size: 15px;"> รวม</td>
 
                       <td class="text-center " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
                        

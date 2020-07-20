@@ -270,7 +270,7 @@ include('../connect/connection.php');
            
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">วันที่ </th>
 
-           <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
+           <th style="font-size: 14px; color:white;" width="14%" class="text-left">การจัดการ</th>
 
 
                 </tr>
@@ -305,9 +305,9 @@ if ($result = $db->query($strSQL)) {
 
            
          </td> 
-<td><a href="../teacher/show.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        รายละเอียด</a>
+<td>
+    <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-warning btn-sm">
+                      รายละเอียดและเพิ่มบทลงโทษ</a>
 </td>
       </tr>
   
