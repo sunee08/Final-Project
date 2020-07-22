@@ -268,7 +268,6 @@ include('../connect/connection.php');
             <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
            
-              <th style="font-size: 14px; color:white;" width="10%"class="text-left">วันที่ </th>
 
            <th style="font-size: 14px; color:white;" width="14%" class="text-left">การจัดการ</th>
 
@@ -279,8 +278,8 @@ include('../connect/connection.php');
 
 
  <?php
-include('../connect/connection.php');
-       $strSQL = "SELECT DISTINCT add_behavior.id_std,student.fullname,student.id_std_card,student.class_room,add_behavior.date_time FROM add_behavior 
+
+       $strSQL = "SELECT DISTINCT add_behavior.id_std,student.fullname,student.id_std_card,student.class_room FROM add_behavior 
  LEFT JOIN behavior ON add_behavior.id_behavior = behavior.id_behavior
 INNER JOIN  student ON add_behavior.id_std = student.id_std  
      WHERE add_behavior.id_std
@@ -301,7 +300,7 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+      
 
            
          </td> 
@@ -332,6 +331,131 @@ if ($result = $db->query($strSQL)) {
       <!-- /.row (main row) -->
 
     </section>
+
+
+     <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
+<?php
+$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+ 
+
+
+
+$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std 
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
+
+
+
+
+$result = mysqli_query($con, $query);
+$resultchart = mysqli_query($con, $query);  
+
+
+ //for chart
+$date_time = array();
+$percent = array();
+
+while($rs = mysqli_fetch_array($resultchart)){ 
+  $date_time[] = "\"".$rs['date_time']."\""; 
+  $percent[] = "\"".$rs['percent']."\""; 
+}
+$date_time = implode(",", $date_time); 
+$percent = implode(",", $percent); 
+ 
+?>
+
+<h3 align="center">รายงานในแบบกราฟ</h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+  <thead>
+  <tr>
+    <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">เปอรเซ็นต์</th>
+  </tr>
+  </thead>
+  
+
+  
+  <?php while($row = mysqli_fetch_array($result)) { ?>
+    <tr>
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
+    </tr>
+    <?php } ?>
+
+</table>
+<?php mysqli_close($con);?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+<hr>
+<p align="center">
+
+ <!--devbanban.com-->
+
+<canvas id="myChart" width="400px" height="100px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
+            data: [<?php echo $percent;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+</p> 
+  <!--devbanban.com-->
+</html>
+            
+</div>
+</div>
+</div>
+
+
     <!-- /.content -->
   </div>  <!-- /.content-wrapper -->
   <footer class="main-footer">

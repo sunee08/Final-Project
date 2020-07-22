@@ -17,7 +17,7 @@ $sql = "INSERT INTO add_behavior(id_behavior,id_std,id_teacher,std_name,date_tim
 
 if ($rs = $db->query($sql)) {
     $db->close();
-     echo '<script> window.location="show.php?id=' . $id_std . '"</script> ';
+     echo '<script> window.location="add_std_behavior.php?id=' . $id_std . '"</script> ';
 
 } else {
     echo $db->error;

@@ -1,7 +1,8 @@
 <?php
 session_start();
 include('../connect/connection.php');
-
+  date_default_timezone_set('Asia/Bangkok');
+  $date_time = date(' h:i:s a', time());
 ?>
 
 <!DOCTYPE html>
@@ -358,6 +359,8 @@ if ($result = $db->query($strSQL)) {
                   <tr>
                                <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="20%" class="text-left" >วันที่ซื้อใบลา</th>
+                                            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >เวลาซื้อใบลา</th>
+
                        <th style="font-size: 14px; color:white;" width="10%"class="text-left">จำนวน</th>
                      </tr>
                   </thead>
@@ -369,7 +372,7 @@ if ($result = $db->query($strSQL)) {
           
               $my_id = $_GET['id'];
 
-$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,student.id_std FROM leaves
+$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,student.id_std,leaves.times FROM leaves
  LEFT JOIN student ON leaves.id_std = student.id_std
       WHERE leaves.id_std = '$my_id' ";
       $count = 1;
@@ -378,10 +381,15 @@ $strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_ca
         <?php
      if($result = $db->query($strSQL)){
              while($objResult = $result->fetch_object()){
+                       
+
             ?>
+
             <tr>
                   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
                    <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
+
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
  
             </tr>

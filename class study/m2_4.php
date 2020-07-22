@@ -57,7 +57,7 @@ include('../connect/connection.php');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ระบบจัดการพฤติกรรม</b></span>
+      <span class="logo-lg"><b>ระบบบันทึกพฤติกรรมนักเรียน</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -116,20 +116,20 @@ include('../connect/connection.php');
 
    <li>
              <a href="../teacher/add_user.php">
-            <i class="fa fa-pie-chart"></i>
+ <i class="fa fa-users"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="../teacher/add_student.php">
-            <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-user-plus"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
           <li >
           <a href="../teacher/profile.php">
-            <i class="fa fa-pie-chart"></i>
+               <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
@@ -137,7 +137,7 @@ include('../connect/connection.php');
       
 <li class=" active treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+          <i class="fa fa-folder"></i>  <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -150,9 +150,9 @@ include('../connect/connection.php');
                 </span>
               </a>
               <ul class="treeview-menu">
-                   <li>
-             <a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
-                 <li class="active "><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
+                 <li>
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                <li class="active "><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
               </ul>
@@ -172,6 +172,7 @@ include('../connect/connection.php');
             </li>
           </ul>
         </li>
+
 
 
 
@@ -196,7 +197,7 @@ include('../connect/connection.php');
 
      <li>
           <a href="../teacher/add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i>  <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
@@ -217,13 +218,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="../teacher/result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+              <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="../teacher/report.php">
-            <i class="fa fa-pie-chart"></i>
+ <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>
@@ -231,7 +232,6 @@ include('../connect/connection.php');
     </section>
     <!-- /.sidebar -->
   </aside>
-
 
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -306,21 +306,26 @@ if ($result = $db->query($strSQL)) {
                   
 
     <td>
-            <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+            
+
+                    
+ <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-eye"></i>ดูประวัติ</button>
+                     ดูประวัติ</button>
                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                         data-target="#show<?php echo $i; ?>">
-                        <i class="fa fa-edit"></i>แก้ไขประวัติ</button>
+                      แก้ไขประวัติ</button>
 
   <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i>ลบข้อมูล</a>
+                      ลบข้อมูล</a>
 
 
-                   <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
+                   <a href="../teacher/add_std_behavior2.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">
-                        ระเบียบที่ทำผิด</a>
+                        ทำผิดกฎระเบียบ</a>
 
+
+                    
 
 
                     

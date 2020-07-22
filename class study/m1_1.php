@@ -57,7 +57,7 @@ include('../connect/connection.php');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ระบบจัดการพฤติกรรม</b></span>
+      <span class="logo-lg"><b>ระบบบันทึกพฤติกรรมนักเรียน</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -116,20 +116,20 @@ include('../connect/connection.php');
 
    <li>
              <a href="../teacher/add_user.php">
-            <i class="fa fa-pie-chart"></i>
+ <i class="fa fa-users"></i>
             <span>จัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
         <a href="../teacher/add_student.php">
-            <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-user-plus"></i>
             <span>เพิ่มข้อมูลนักเรียน</span>
           </a>
         </li>
           <li >
           <a href="../teacher/profile.php">
-            <i class="fa fa-pie-chart"></i>
+               <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
         </li>
@@ -137,7 +137,7 @@ include('../connect/connection.php');
       
 <li class=" active treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+          <i class="fa fa-folder"></i>  <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -197,7 +197,7 @@ include('../connect/connection.php');
 
      <li>
           <a href="../teacher/add_behavior.php">
-            <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
+            <i class="fa fa-th"></i>  <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
@@ -218,13 +218,13 @@ include('../connect/connection.php');
 
         <li>
           <a href="../teacher/result.php">
-            <i class="fa fa-th"></i> <span>แสดงผล</span>
+              <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
           <a href="../teacher/report.php">
-            <i class="fa fa-pie-chart"></i>
+ <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
         </li>

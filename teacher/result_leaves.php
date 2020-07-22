@@ -285,6 +285,8 @@ $count = 1;
                     <?php
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
+              date_default_timezone_set('Asia/Bangkok');
+            $date_time = date('d/m/Y h:i:s a', time());
         ?>
 
          <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
@@ -299,7 +301,7 @@ if ($result = $db->query($strSQL)) {
 
  <input type="checkbox" name="id_std" id="id_std" style="width: 3em" value="<?php echo $objResult->id_std; ?>">
       <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
-      <input type="hidden" name="times" value="<?php echo date("H-i-s"); ?>">
+      <input type="hidden" name="times" value="<?php echo  date("h:i:sa"); ?>">
 
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objResult->fullname; ?>" >
 

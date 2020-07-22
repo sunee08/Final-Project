@@ -407,7 +407,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
   LEFT JOIN student ON add_behavior.id_std = student.id_std
 
-     WHERE add_behavior.id_std = '$my_id'  ";
+     WHERE add_behavior.id_std = '$my_id' limit 3 ";
 
 $i = 1;
 $count = 1;
@@ -439,7 +439,7 @@ $count = 1;
 
           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                           data-target="#editsub<?php echo $i; ?>" disabled="disabled">
-                       เพิ่มบทลงโทษ</button>
+                       เพิ่มบทลงโทษแล้ว</button>
 
           <?php } else {?>
 
@@ -478,7 +478,7 @@ $count = 1;
                                       <label class="control-label ">ประเภทด้านพฤติกรรม</label>
                                     </div>
                                     <div class="col-md-3">
-             <input type="text" name="id_add_behavior"
+             <input type="hidden" name="id_add_behavior"
                                         value="  <?php echo $objResult->id_add_behavior; ?>">
                                     <?php echo $objResult->types_behavior; ?>
                                   </div>

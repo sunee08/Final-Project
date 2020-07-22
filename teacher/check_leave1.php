@@ -14,6 +14,7 @@ $times  = $_POST['times'];
 
 $sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,std_name,times)values('$times_leaves','$id_teacher','$id_std','$date_time','$std_name','$times')";
 
+
 if ($rs = $db->query($sql)) {
     $db->close();
     header("Location: leave.php?success=1");
