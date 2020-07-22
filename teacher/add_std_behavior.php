@@ -354,7 +354,7 @@ if ($result = $db->query($strSQL)) {
 
 $strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการพฤติกรรม' and id_behavior";
            
-
+      $count = 1;
 
 ?>
                     <?php
@@ -363,8 +363,8 @@ if ($result = $db->query($strSQL)) {
               date_default_timezone_set('Asia/Bangkok');
             $date_time = date('d/m/Y h:i:s a', time());
         ?>
-        
-                <td class="text-left" style="font-size: 14px;"> <?php echo $objResult->id_behavior; ?></td>
+                           <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
+
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
@@ -375,6 +375,7 @@ if ($result = $db->query($strSQL)) {
          <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
       <input type="hidden" name="time" value="<?php echo  date("h:i:sa"); ?>">
+   <input type="text" name="status" class="form-control" value="1" >
 
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
@@ -463,7 +464,7 @@ if ($result = $db->query($strSQL)) {
      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
            <input type="hidden" name="time" value="<?php echo  date("h:i:sa"); ?>">
 
-
+   <input type="hidden" name="status" class="form-control" value=" <?php echo $count++; ?>" >
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
 
@@ -880,12 +881,20 @@ var myChart = new Chart(ctx, {
     google.charts.setOnLoadCallback(bar_chart);
     google.charts.setOnLoadCallback(line_chart);
       
-  
+    <?php
+
+$strSQL = "SELECT * FROM add_behavior WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
 
     function column_chart() {
         
         var jsonData = $.ajax({
-            url: 'column_chart.php',
+            url: 'column_chart.php?id=<?php echo $objectResult->id_std; ?>',
             dataType:"json",
             async: false,
             success: function(jsonData)
@@ -897,7 +906,10 @@ var myChart = new Chart(ctx, {
                 }   
             }).responseText;
   }
-      
+      <?php
+}
+}
+?>
     </script>
   </head>
 
@@ -906,9 +918,81 @@ var myChart = new Chart(ctx, {
 
    <div style="font: 21px arial; padding: 10px 0 0 100px;">Column Chart</div>
     <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
-
+ 
+      
   </body>
 </html>
+
+    <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-edit"></i>
+                Workload</h3>
+            </div> <!-- /.card-body -->
+            <div class="card-body">
+                 <?php
+
+$strSQL = "SELECT * FROM add_behavior WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+                    <script type="text/javascript">
+                $(document).ready(function () {
+
+                  $.getJSON("get_data.php?id=<?php echo $objectResult->id_std; ?>", function (result) {
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                      animationEnabled: true,
+                      title: {
+                        text: "Project Monitoring"
+                      },
+                      axisY: {
+                        title: "",
+                        prefix: "",
+                        suffix: ""
+                      },
+                      data: [{
+                        type: "column",
+                        yValueFormatString: "",
+                        indexLabel: "",
+                        indexLabelPlacement: "",
+                        indexLabelFontWeight: "",
+                        indexLabelFontColor: "",
+                        dataPoints: result
+                      }]
+                    });
+                    chart.render();
+                  });
+                });
+              </script>
+
+              <div class="body">
+                <div id="chartContainer"style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              </div>
+
+
+                         
+ <?php
+}
+}
+?>
+      
+               </section>
+      <!-- /.content -->
+
+
 
   </div>
   <!-- /.content-wrapper -->
