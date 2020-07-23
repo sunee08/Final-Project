@@ -306,7 +306,7 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>
          </td> 
-<td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
+<td><a href="table_chart.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">
                         สถิติการซื้อใบลา</a>
 </td>

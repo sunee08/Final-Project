@@ -1,7 +1,8 @@
 <?php
 session_start();
 include('../connect/connection.php');
-
+  date_default_timezone_set('Asia/Bangkok');
+  $date_time = date(' h:i:s a', time());
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +91,6 @@ include('../connect/connection.php');
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -225,28 +225,94 @@ include('../connect/connection.php');
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+   <section class="content-header">
       <h1>
-            แสดงผลรายชื่อนักเรียนที่ซื้อใบลา
+            แสดงผลรายการที่ซื้อใบลา
+
       </h1>
-        <ol class="breadcrumb">
+           <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">การติดต่อซื้อใบลา</li>
+        <li class="active">แสดงผลรายการที่ซื้อใบลา</li>
+
       </ol>
     </section>
-
-     <section class="content">
+       <section class="content">
       <div class="row">
-      
- 
         <div class="col-xs-12">
           <div class="box">
-    <!-- Main content -->
+   <?php
 
-          <style>
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
+                  </div>
+                         <p>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> ชื่อ - นามสกุล </th>
+                            <td><?php echo $objectResult->fullname; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                            <td><?php echo $objectResult->id_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                            <td><?php echo $objectResult->id_std_card; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
+                            <td><?php echo $objectResult->class_room; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                            <td><?php echo $objectResult->birthday; ?></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                            <td><?php echo $objectResult->types; ?></td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+                            <td><?php echo $objectResult->status; ?></td>
+                        </tr>
+                    </tbody>
+                </table>       
+ 
+   <div class="row">
+   
+              <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">แสดงผล</a></li>
+              
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <!-- Post -->
+             <div class="tab-pane" id="activity">
+                   <span class="username">
+                  <div class="col-xs-14">
+    <style>
 .table .thead-light th {
   color: #401500;
   background-color: #3c8dbc
@@ -254,220 +320,133 @@ include('../connect/connection.php');
   border-color: #3c8dbc;
 }
 </style>
-   <div class="modal-footer">
-
-            <a href="result_leaves.php"
-                          class="btn btn-success btn-l">
-                        เพิ่มนักเรียนซื้อใบลา</a>
-
-              </div>
-        <!-- /.modal -->
-            <!-- /.box-header -->
-          
-  <form id="add" name="add" method="post" action="check_leave1.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
-  <div class="box-body">
-    <table id="example1" class="table  table-hover">
-          <thead class="thead-light">
-                <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">รหัสนักเรียน</th>
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
-              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
-               <th style="font-size: 14px; color:white;" width="10%" class="text-left">จำนวน</th>
-           <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
-                </tr>
-                </thead>
-                <tbody>
-
-         <?php
-include('../connect/connection.php');
-
-
-
-
-$strSQL = "SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves,(student.fullname) AS fullname ,student.fullname,student.id_std_card,student.class_room,leaves.id_std FROM student
- LEFT JOIN leaves ON student.id_std = leaves.id_std
-     WHERE leaves.id_std
-     GROUP BY (student.id_std)  ";
-
-
+       
+      <!-- /.row (main row) -->
     
+  <div class="box-body">
+      
+         </span>
+                    
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="row margin-bottom">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+    
+              <div class="tab-pane" id="time">
+                <!-- The timeline -->
+           
+                        <span class="username">
+                           <div class="col-xs-12">
+
+      
+
+
+   <div class="modal-footer">
+                           <a href="leave.php?id=<?php echo $objectResult->id_std; ?>"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+            </div>
+       
+      <!-- /.row (main row) -->
+<div class="box-body">
+            <table id="example1" class="table  table-hover" >
+                <thead class="thead-light">
+                  <tr>
+                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >วันที่ซื้อใบลา</th>
+                                            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >เวลาซื้อใบลา</th>
+
+                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">จำนวน</th>
+                     </tr>
+                  </thead>
+                  
+                  <tbody align="center">
+ 
+ <?php
+
+          
+              $my_id = $_GET['id'];
+
+$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,student.id_std,leaves.times FROM leaves
+ LEFT JOIN student ON leaves.id_std = student.id_std
+      WHERE leaves.id_std = '$my_id' ";
       $count = 1;
+
         ?>
+        <?php
+     if($result = $db->query($strSQL)){
+             while($objResult = $result->fetch_object()){
+                       
 
+            ?>
 
-  <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>
-         </td> 
-<td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        สถิติการซื้อใบลา</a>
-</td>
-      </tr>
+            <tr>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                   <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
 
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
+ 
+            </tr>
+            <?php
+              }
+               }
+                   ?>
+                   <tr>
                     <?php
+ $my_id = $_GET['id'];
+$query = "
+SELECT SUM(times_leaves) AS times_leaves, DATE_FORMAT(date_time, '%Y') AS date_time
+FROM leaves 
+WHERE id_std = '$my_id' 
+GROUP BY DATE_FORMAT(date_time, '%Y%')
+";
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['times_leaves'];
+                     }
+                    ?>
+                      <td colspan="2" class="text-center btn-default"  style="font-size: 15px;"> รวมจำนวนกี่รอบ</td>
+
+                      <td class="text-left " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
+                       
+                     </tr>
+                  
+                </tbody>
+              </table>
+              
+            
+</div>
+</div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+              
+   
+    <!-- /.content -->
+           
+ <?php
+
     }
 }
 ?>
-            </table>
-                   
-            </div>
-</div>
-</div>
-</form>
-            </div>
+   
 
 
-            <!-- /.box-body -->
-    
-          <!-- /.box -->
-        <!-- right col -->
 
-      <!-- /.row (main row) -->
 
     </section>
-     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ</title>
-</head>
-<?php
-$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
-
-mysqli_query($con, "SET NAMES 'utf8' ");
-
-
-$query = "SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves,(student.fullname) AS fullname  FROM student
- LEFT JOIN leaves ON student.id_std = leaves.id_std
-     WHERE leaves.id_std
-     GROUP BY (student.id_std)  ";
-
-
-
-
-
-
-
-$result = mysqli_query($con, $query);
-$resultchart = mysqli_query($con, $query);  
-
-
- //for chart
-$fullname = array();
-
-$times_leaves = array();
-
-while($rs = mysqli_fetch_array($resultchart)){ 
-  $fullname[] = "\"".$rs['fullname']."\""; 
-
-  $times_leaves[] = "\"".$rs['times_leaves']."\""; 
-}
-$fullname = implode(",", $fullname); 
-
-$times_leaves = implode(",", $times_leaves); 
- 
-?>
-
-<h3 align="center">รายงานในแบบกราฟ</h3>
-<table  border="1" cellpadding="0"  cellspacing="0" align="center">
-  <thead>
-  <tr>
-        <th width="50%" class="text-center">หัวช้อ</th>
-    <th width="10%" class="text-center">กี่ครั้ง</th>
-  </tr>
-  </thead>
-  
-
-  
-  <?php while($row = mysqli_fetch_array($result)) { ?>
-    <tr>
-            <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['fullname'];?></td>
-      <td align="right" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format($row['times_leaves']);?></td> 
-    </tr>
-    <?php } ?>
-
-</table>
-<?php mysqli_close($con);?>
-
-
-
-
- <!--devbanban.com-->
-
-
-</p> 
-
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h3 class="card-title">
-          
-            </div> <!-- /.card-body -->
-            <div class="card-body">
-             
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
-
-                  $.getJSON("get_data_leave.php", function (result) {
-
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                      animationEnabled: true,
-                      title: {
-                        text: "Project Monitoring"
-                      },
-                      axisY: {
-                        title: "",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "column",
-                        yValueFormatString: "",
-                        indexLabel: "",
-                        indexLabelPlacement: "",
-                        indexLabelFontWeight: "",
-                        indexLabelFontColor: "",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
-                });
-              </script>
-
-              <div class="body">
-                <div id="chartContainer"style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-              </div>
-
-   
-      <!-- /.content -->
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-
-  
     <!-- /.content -->
+
+
+
+
+
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -479,7 +458,7 @@ $times_leaves = implode(",", $times_leaves);
   </footer>
 
  
-  <!-- Control Sidebar -->
+ 
  
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -526,8 +505,10 @@ $times_leaves = implode(",", $times_leaves);
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -540,17 +521,6 @@ $times_leaves = implode(",", $times_leaves);
       'autoWidth'   : false
     })
   })
-
-
-$('.tex').keyup(function() {
-     var sum = 0;
-    $('.tex').each(function() {
-        sum += Number($(this).val());
-    });
-    $('#totals').val(sum);
-
-});
-
 </script>
 </body>
 </html>
