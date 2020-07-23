@@ -303,6 +303,10 @@ if ($result = $db->query($strSQL)) {
                 </table>       
     <div class="modal-footer">
                            <a href="../class study/m1_1.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+
+
+                            <a href="result.php" class="btn btn-success pull-right">
+                     ไปหน้าเพิ่มบทลงโทษ</a>
             </div>
 
 
@@ -375,7 +379,7 @@ if ($result = $db->query($strSQL)) {
          <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
       <input type="hidden" name="time" value="<?php echo  date("h:i:sa"); ?>">
-   <input type="text" name="status" class="form-control" value="1" >
+   <input type="hidden" name="status" class="form-control" value="1" >
 
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
@@ -442,7 +446,7 @@ if ($result = $db->query($strSQL)) {
                     <?php
 
 $strSQL = "SELECT * FROM behavior WHERE types_behavior='ด้านการเรียน' ";
-$i = 1;
+
 $count = 1;
 ?>
                     <?php
@@ -463,8 +467,8 @@ if ($result = $db->query($strSQL)) {
           <input type="checkbox"  name="id_behavior" id="id_behavior" value="<?php echo $objResult->id_behavior; ?>" >
      <input type="hidden" name="date_time" value="<?php echo date("Y-m-d"); ?>">
            <input type="hidden" name="time" value="<?php echo  date("h:i:sa"); ?>">
+   <input type="hidden" name="status" class="form-control" value="1" >
 
-   <input type="hidden" name="status" class="form-control" value=" <?php echo $count++; ?>" >
      <input type="hidden" name="id_std" class="form-control" value="<?php echo $objectResult->id_std; ?>" >
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objectResult->fullname; ?>" >
 
@@ -476,7 +480,6 @@ if ($result = $db->query($strSQL)) {
                     </tr>
 
                     <?php
-$i++;
     }
 }
 ?>
@@ -756,12 +759,14 @@ $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . 
 mysqli_query($con, "SET NAMES 'utf8' ");
 
  $my_id = $_GET['id'];
-
-$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+$query = "SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail  FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std = '$my_id'
-     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
+     GROUP BY (add_behavior.id_behavior) ";
+
+
+
 
 
 
@@ -771,24 +776,27 @@ $resultchart = mysqli_query($con, $query);
 
 
  //for chart
-$date_time = array();
-$percent = array();
+$detail = array();
+
+$status = array();
 
 while($rs = mysqli_fetch_array($resultchart)){ 
-  $date_time[] = "\"".$rs['date_time']."\""; 
-  $percent[] = "\"".$rs['percent']."\""; 
+  $detail[] = "\"".$rs['detail']."\""; 
+
+  $status[] = "\"".$rs['status']."\""; 
 }
-$date_time = implode(",", $date_time); 
-$percent = implode(",", $percent); 
+$detail = implode(",", $detail); 
+
+$status = implode(",", $status); 
  
 ?>
 
 <h3 align="center">รายงานในแบบกราฟ</h3>
-<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+<table  border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
-    <th width="10%"  class="text-center">เดือน</th>
-    <th width="10%" class="text-center">เปอรเซ็นต์</th>
+        <th width="50%" class="text-center">หัวช้อ</th>
+    <th width="10%" class="text-center">กี่ครั้ง</th>
   </tr>
   </thead>
   
@@ -796,132 +804,22 @@ $percent = implode(",", $percent);
   
   <?php while($row = mysqli_fetch_array($result)) { ?>
     <tr>
-      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
-      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
+            <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['detail'];?></td>
+      <td align="right" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format($row['status']);?></td> 
     </tr>
     <?php } ?>
 
 </table>
 <?php mysqli_close($con);?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-<hr>
-<p align="center">
+
+
 
  <!--devbanban.com-->
 
-<canvas id="myChart" width="400px" height="100px"></canvas>
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [<?php echo $date_time;?>
-    
-        ],
-        datasets: [{
-            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
-            data: [<?php echo $percent;?>
-            ],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-</script>  
+
 </p> 
   <!--devbanban.com-->
-</html>
-            
-</div>
-</div>
-</div>
-
-
-<html>
-  <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <script type="text/javascript">
-    
-    // Load the Visualization API and the piechart package.
-    google.charts.load('current', {'packages':['corechart']});
-      
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(column_chart);
-    google.charts.setOnLoadCallback(bar_chart);
-    google.charts.setOnLoadCallback(line_chart);
-      
-    <?php
-
-$strSQL = "SELECT * FROM add_behavior WHERE id_std='" . $_GET['id'] . "'";
-
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objectResult = $result->fetch_object()) {
-        ?>
-
-    function column_chart() {
-        
-        var jsonData = $.ajax({
-            url: 'column_chart.php?id=<?php echo $objectResult->id_std; ?>',
-            dataType:"json",
-            async: false,
-            success: function(jsonData)
-                {
-                    var data = new google.visualization.arrayToDataTable(jsonData); 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
-                    chart.draw(data);
-                    
-                }   
-            }).responseText;
-  }
-      <?php
-}
-}
-?>
-    </script>
-  </head>
-
-  <body>
-    <!--Div that will hold the pie chart-->
-
-   <div style="font: 21px arial; padding: 10px 0 0 100px;">Column Chart</div>
-    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
- 
-      
-  </body>
-</html>
 
     <!-- Main content -->
       <section class="content">
@@ -929,8 +827,7 @@ if ($result = $db->query($strSQL)) {
           <div class="card card-primary card-outline">
             <div class="card-header">
               <h3 class="card-title">
-                <i class="fas fa-edit"></i>
-                Workload</h3>
+          
             </div> <!-- /.card-body -->
             <div class="card-body">
                  <?php
@@ -989,10 +886,139 @@ if ($result = $db->query($strSQL)) {
 }
 ?>
       
-               </section>
+      
       <!-- /.content -->
+</div>
+</div>
+</div>
+</section>
+        
+        </h3>
+      </div>
+      </div>
+    </div>
+<section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
+<?php
+$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+ $my_id = $_GET['id'];
 
 
+
+$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std = '$my_id'
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
+
+
+
+
+$result = mysqli_query($con, $query);
+$resultchart = mysqli_query($con, $query);  
+
+
+ //for chart
+$date_time = array();
+$percent = array();
+
+while($rs = mysqli_fetch_array($resultchart)){ 
+  $date_time[] = "\"".$rs['date_time']."\""; 
+  $percent[] = "\"".$rs['percent']."\""; 
+}
+$date_time = implode(",", $date_time); 
+$percent = implode(",", $percent); 
+ 
+?>
+
+<h3 align="center">รายงานในแบบกราฟ</h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+  <thead>
+  <tr>
+    <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">เปอรเซ็นต์</th>
+  </tr>
+  </thead>
+  
+
+  
+  <?php while($row = mysqli_fetch_array($result)) { ?>
+    <tr>
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
+    </tr>
+    <?php } ?>
+
+</table>
+<?php mysqli_close($con);?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+
+<hr>
+<p align="center">
+
+ <!--devbanban.com-->
+
+<canvas id="myChart" width="400px" height="100px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
+            data: [<?php echo $percent;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+</p> 
+  <!--devbanban.com-->
+</html>
+            
+</div>
+</div>
+</div>
 
   </div>
   <!-- /.content-wrapper -->

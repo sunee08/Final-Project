@@ -615,6 +615,81 @@ $count = 1;
     </section> 
   
     <!-- /.content -->
+
+    <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-edit"></i>
+                Workload</h3>
+            </div> <!-- /.card-body -->
+            <div class="card-body">
+                 <?php
+
+$strSQL = "SELECT * FROM add_behavior WHERE id_std='" . $_GET['id'] . "'";
+
+?>
+                    <?php
+if ($result = $db->query($strSQL)) {
+    while ($objectResult = $result->fetch_object()) {
+        ?>
+
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+                    <script type="text/javascript">
+                $(document).ready(function () {
+
+                  $.getJSON("get_data.php?id=<?php echo $objectResult->id_std; ?>", function (result) {
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                      animationEnabled: true,
+                      title: {
+                        text: "Project Monitoring"
+                      },
+                      axisY: {
+                        title: "",
+                        prefix: "",
+                        suffix: ""
+                      },
+                      data: [{
+                        type: "column",
+                        yValueFormatString: "",
+                        indexLabel: "",
+                        indexLabelPlacement: "",
+                        indexLabelFontWeight: "",
+                        indexLabelFontColor: "",
+                        dataPoints: result
+                      }]
+                    });
+                    chart.render();
+                  });
+                });
+              </script>
+
+              <div class="body">
+                <div id="chartContainer"style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              </div>
+
+
+                         
+ <?php
+}
+}
+?>
+      
+      
+      <!-- /.content -->
+</div>
+</div>
+</div>
+</section>
+
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">

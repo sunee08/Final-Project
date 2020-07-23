@@ -10,13 +10,11 @@ if (mysqli_connect_errno($con)) {
 } else {
     $data_points = array();
 
-    $my_id = $_GET['id'];
-
 
     $result = mysqli_query($con, "SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail  FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std = '$my_id'
+     WHERE add_behavior.id_std
      GROUP BY (add_behavior.id_behavior)  ")
 
     ;

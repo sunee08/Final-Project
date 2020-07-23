@@ -10,10 +10,11 @@ $id_teacher  = $_POST['id_teacher'];
 $std_name  = $_POST['std_name'];
 $date_time  = $_POST['date_time'];
 $time  = $_POST['time'];
+$status  = $_POST['status'];
 
 
 
-$sql = "INSERT INTO add_behavior(id_behavior,id_std,id_teacher,std_name,date_time,time)values('$id_behavior','$id_std','$id_teacher','$std_name','$date_time','$time')";
+$sql = "INSERT INTO add_behavior(id_behavior,id_std,id_teacher,std_name,date_time,time,status)values('$id_behavior','$id_std','$id_teacher','$std_name','$date_time','$time','$status')";
 
 
 if ($rs = $db->query($sql)) {
@@ -25,5 +26,5 @@ if ($rs = $db->query($sql)) {
     $db->close();
 
     echo "<script>alert('Try Again')</script>";
-    echo "<script>window.open('add_std_behavior6.php','_self')</script>";
+    echo "<script>window.open('add_std_behavior.php','_self')</script>";
 }
