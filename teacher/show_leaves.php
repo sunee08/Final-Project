@@ -434,15 +434,11 @@ GROUP BY DATE_FORMAT(date_time, '%Y%')
     }
 }
 ?>
-   
-
-
-
+  
 
     </section>
-    <!-- /.content -->
 
-     <section class="content">
+         <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -461,10 +457,11 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
 
 
-$query = "SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time  FROM student 
- LEFT JOIN leaves ON student.id_std = leaves.id_std
-     WHERE leaves.id_std  = '$my_id'
-     GROUP BY (student.id_std)";
+$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%D') AS date_time FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std= '$my_id'
+     GROUP BY DATE_FORMAT(leaves.date_time, '%D%') ";
+
 
 
 $result = mysqli_query($con, $query);
@@ -483,7 +480,7 @@ $date_time = implode(",", $date_time);
 $times_leaves = implode(",", $times_leaves); 
 ?>
 
-<h3 align="center">รายงานในแบบกราฟ </h3>
+<h3 align="center">รายงานในแบบกราฟแต่ละวัน</h3>
 <table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
@@ -512,7 +509,7 @@ $times_leaves = implode(",", $times_leaves);
 
  <!--devbanban.com-->
 
-<canvas id="myChart" width="800px" height="300px"></canvas>
+<canvas id="myChart" style="height: 150px; width: 70%;"></canvas>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
@@ -561,7 +558,130 @@ var myChart = new Chart(ctx, {
 </div>
 </div>
 </div>
+</section>
+    <!-- /.content -->
 
+     <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
+<?php
+$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+                   
+ $my_id = $_GET['id'];
+
+
+
+$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std= '$my_id'
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M%') ";
+
+
+
+$result = mysqli_query($con, $query);
+$resultchart = mysqli_query($con, $query);  
+
+
+ //for chart
+$date_time = array();
+$times_leaves = array();
+
+while($rs = mysqli_fetch_array($resultchart)){ 
+  $date_time[] = "\"".$rs['date_time']."\""; 
+  $times_leaves[] = "\"".$rs['times_leaves']."\""; 
+}
+$date_time = implode(",", $date_time); 
+$times_leaves = implode(",", $times_leaves); 
+?>
+
+<h3 align="center">รายงานในแบบกราฟแต่เดือน</h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
+  <thead>
+  <tr>
+
+        <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">จำนาน</th>
+  </tr>
+  </thead>
+  
+
+  
+  <?php while($row = mysqli_fetch_array($result)) { ?>
+    <tr>
+
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['times_leaves']);?></td> 
+    </tr>
+    <?php } ?>
+
+</table>
+<?php mysqli_close($con);?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+<hr>
+<p align="center">
+
+ <!--devbanban.com-->
+
+<canvas id="myChart1" style="height: 150px; width: 70%;"></canvas>
+<script>
+var ctx = document.getElementById("myChart1").getContext('2d');
+var myChart1 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (จำนวน)',
+            data: [<?php echo $times_leaves;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+</p> 
+  <!--devbanban.com-->
+</html>
+</div>
+</div>
+</div>
+</section>
 
   </div>
   <!-- /.content-wrapper -->

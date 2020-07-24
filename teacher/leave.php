@@ -336,14 +336,16 @@ if ($result = $db->query($strSQL)) {
       <!-- /.row (main row) -->
 
     </section>
-     <section class="content">
+
+
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
 <html>
 <head>
     <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ</title>
+    <title>รายงานในแบบกราฟแต่ละเดือน</title>
 </head>
 <?php
 $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
@@ -351,13 +353,13 @@ $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . 
 mysqli_query($con, "SET NAMES 'utf8' ");
 
 
-$query = "SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves,(student.fullname) AS fullname  FROM student
- LEFT JOIN leaves ON student.id_std = leaves.id_std
-     WHERE leaves.id_std
-     GROUP BY (student.id_std)  ";
 
 
 
+$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std 
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M%') ";
 
 
 
@@ -367,27 +369,24 @@ $resultchart = mysqli_query($con, $query);
 
 
  //for chart
-$fullname = array();
-
+$date_time = array();
 $times_leaves = array();
 
 while($rs = mysqli_fetch_array($resultchart)){ 
-  $fullname[] = "\"".$rs['fullname']."\""; 
-
+  $date_time[] = "\"".$rs['date_time']."\""; 
   $times_leaves[] = "\"".$rs['times_leaves']."\""; 
 }
-$fullname = implode(",", $fullname); 
-
+$date_time = implode(",", $date_time); 
 $times_leaves = implode(",", $times_leaves); 
  
 ?>
 
-<h3 align="center">รายงานในแบบกราฟ</h3>
-<table  border="1" cellpadding="0"  cellspacing="0" align="center">
+<h3 align="center">รายงานในแบบกราฟแต่ละเดือน</h3>
+<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
-        <th width="50%" class="text-center">หัวช้อ</th>
-    <th width="10%" class="text-center">กี่ครั้ง</th>
+    <th width="10%"  class="text-center">เดือน</th>
+    <th width="10%" class="text-center">เปอรเซ็นต์</th>
   </tr>
   </thead>
   
@@ -395,69 +394,67 @@ $times_leaves = implode(",", $times_leaves);
   
   <?php while($row = mysqli_fetch_array($result)) { ?>
     <tr>
-            <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['fullname'];?></td>
-      <td align="right" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format($row['times_leaves']);?></td> 
+      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
+      <td align="right" class="text-center"><?php echo number_format($row['times_leaves']);?>%</td> 
     </tr>
     <?php } ?>
 
 </table>
 <?php mysqli_close($con);?>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
 
-
+<hr>
+<p align="center">
 
  <!--devbanban.com-->
 
-
+<canvas id="myChart" width="400px" height="100px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
+            data: [<?php echo $times_leaves;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
 </p> 
-
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h3 class="card-title">
-          
-            </div> <!-- /.card-body -->
-            <div class="card-body">
-             
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
-
-                  $.getJSON("get_data_leave.php", function (result) {
-
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                      animationEnabled: true,
-                      title: {
-                        text: "Project Monitoring"
-                      },
-                      axisY: {
-                        title: "",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "column",
-                        yValueFormatString: "",
-                        indexLabel: "",
-                        indexLabelPlacement: "",
-                        indexLabelFontWeight: "",
-                        indexLabelFontColor: "",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
-                });
-              </script>
-
-              <div class="body">
-                <div id="chartContainer"style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-              </div>
+  <!--devbanban.com-->
+</html>
 
    
       <!-- /.content -->
@@ -465,9 +462,6 @@ $times_leaves = implode(",", $times_leaves);
 </div>
 </div>
 </section>
-</div>
-</div>
-</div>
 
   
     <!-- /.content -->

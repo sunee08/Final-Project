@@ -248,28 +248,7 @@ include('../connect/connection.php');
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-            
-
-                              <?php
-$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
-$con->set_charset("utf8");
-$query = "SELECT id_std FROM student ORDER BY id_std";
-$query_num = mysqli_query($con, $query);
-$row = mysqli_num_rows($query_num);
-echo '<h3>' . $row . '</h3>';
-echo ' <p> นักเรียนทั้งหมด  </p>';
-?>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-   <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
-          </div>
-        </div>
+  
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -344,7 +323,7 @@ echo ' <p> คุณครู  </p>';
         <!-- ./col -->
               <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-red">
+          <div class="small-box bg-aqua">
             <div class="inner">
                       <?php
 $con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
@@ -378,7 +357,64 @@ echo ' <p> ใบลา  </p>';
           <!-- Custom tabs (Charts with tabs)-->
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
+    <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+          
+            </div> <!-- /.card-body -->
+            <div class="card-body">
+              
 
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+                    <script type="text/javascript">
+                $(document).ready(function () {
+
+                  $.getJSON("get.php", function (result) {
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                      animationEnabled: true,
+                      title: {
+                        text: "Project Monitoring"
+                      },
+                      axisY: {
+                        title: "",
+                        prefix: "",
+                        suffix: ""
+                      },
+                      data: [{
+                        type: "pie",
+                        yValueFormatString: "",
+                        indexLabel: "",
+                        indexLabelPlacement: "",
+                        indexLabelFontWeight: "",
+                        indexLabelFontColor: "",
+                        dataPoints: result
+                      }]
+                    });
+                    chart.render();
+                  });
+                });
+              </script>
+
+              <div class="body">
+                <div id="chartContainer"style="height: 200px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              </div>
+
+
+                         
+
+      
+      <!-- /.content -->
+</div>
+</div>
+</div>
+</section>
 
         </section>
         <!-- right col -->
