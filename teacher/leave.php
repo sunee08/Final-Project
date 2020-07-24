@@ -274,6 +274,7 @@ include('../connect/connection.php');
             <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
                <th style="font-size: 14px; color:white;" width="10%" class="text-left">จำนวน</th>
+                     <th style="font-size: 14px; color:white;" width="10%" class="text-left">%</th>
            <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
                 </tr>
                 </thead>
@@ -305,6 +306,8 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>
+         </td>
+          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?>/100
          </td> 
 <td><a href="../teacher/show_leaves.php?id=<?php echo $objResult->id_std; ?>"
                           class="btn btn-warning btn-xs">

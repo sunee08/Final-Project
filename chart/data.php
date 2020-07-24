@@ -18,6 +18,8 @@
 	//เรียกข้อมูลจาก ตาราง chart 
 	$get_data = $mysqli->query("SELECT province as name, (men + wemen) as y FROM `chart` ");
 	
+
+	
 	while($data = $get_data->fetch_assoc()){
 		
 		$result[] = $data;

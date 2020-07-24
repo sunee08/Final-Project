@@ -1,66 +1,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link class="include" rel="stylesheet" type="text/css" href="jquery.jqplot.min.css" />
-        <title>ทดสอบ jqplot</title>       
-        <script class="include" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><!--  เรียกไฟล์ jquery-->
-        <script class="include" type="text/javascript" src="jquery.jqplot.min.js"></script><!-- core หลักของ jqplot-->
-         <script class="include" type="text/javascript" src="plugins/jqplot.categoryAxisRenderer.min.js"></script><!-- plugin แสดงแท่ง chart แบบแยกเป็นกลุ่มหรือประเภท (category)-->
-        <script class="include" type="text/javascript" src="plugins/jqplot.pointLabels.min.js"></script><!-- plugin แสดงค่าบนแท่ง chart-->
-        <script class="include" type="text/javascript" src="plugins/jqplot.barRenderer.min.js"></script><!-- ชนิด chart ในที่นี้คือ bar chart -->
-        <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]--><!-- เพื่อรองรับ IE6-9-->
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var s1 = [212, 625, 736, 1004];//แกน Y กลุ่มที่ 1 คือ ต้นทุน
-                var s2 = [750, 5050, 3020, 2014];//แกน Y กลุ่มที่ 2 คือ รายรับ
-                var label = [{label: 'ต้นทุน'}, {label: 'รายรับ'}];//แสดงใน label
-                var ticks = ['2009', '2010', '2011', '2012'];//แกน X ชื่อกลุ่ม
-                plot2 = $.jqplot('showchart', [s1, s2], {//showcart คือ id="showchart" ของ div
-                    seriesDefaults: {
-                        renderer: $.jqplot.BarRenderer,//ประเภท Chart ในที่นี้ผมเลือกใช้ Bar Chart
-                        shadow: false,//ไม่แสดงเงาบนแท่งชาร์ต
-                        pointLabels: {show: true}//แสดงค่าบนแท่งชาร์ต
-                    },
-                    axes: {
-                        xaxis: {//แกน X
-                            renderer: $.jqplot.CategoryAxisRenderer,//เรียกประเภทการแสดงผลบน Bar Chart
-                            ticks: ticks//แสดงค่าปี 2009-2012
-                        }
-                    },
-                    series: label, //เชตชื่อ Label
-                    legend: {
-                        show: true//แสดง Label
-                    }
-                });
-               $('#showchart').CanvasHack();//แก้ปัญหาตอน print บน IE
-            });
-            $.fn.CanvasHack = function() {//function แก้ปัญหาตอน print บน IE
-                var canvases = this.find('canvas').filter(function() {
-                    return $(this).css('position') == 'absolute';
-                });
-                canvases.wrap(function() {
-                    var canvas = $(this);
-                    var div = $('<div />').css({
-                        position: 'absolute',
-                        top: canvas.css('top'),
-                        left: canvas.css('left')
-                    });
-                    canvas.css({
-                        top: '0',
-                        left: '0'
-                    });
-                    return div;
-                });
-                return this;
-            };
-        </script>
-    </head>
- 
-    <body>
-    <div style="margin-left:50px;">
-    <h3>Chart แสดงรายได้ประจำปี</h3>
-        <div id="showchart" style="width:500px;"></div>
-     </div>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-874" />
+<title>Untitled Document</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <?php
+include('../connect/connection.php');
+    $strSQL="SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves,(student.fullname) AS fullname  FROM student
+ LEFT JOIN leaves ON student.id_std = leaves.id_std
+     WHERE leaves.id_std
+     GROUP BY (student.id_std)  ";   
+    mysql_query("set NAMES tis620"); 
+    $objQuery = mysql_query($strSQL);
+    $objResult = mysql_fetch_array($objQuery);
+    $vn = $objResult["Money"];
+    ?>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'ฝาก', 'ถอน', 'โอน'],
+          ['มกราคม',  <?=$vn?>,      938,         522],
+          ['กุมภาพันธ์',  135,      1120,        599],
+          ['มีนาคม',  157,      1167,        587],
+          ['เมษายน',  139,      1110,        615],
+          ['พฤษภาคม',  136,      691,         629]
+        ]);
+
+        var options = {
+          title : 'สถิติประจำปี พ.ศ. 2557',
+          vAxis: {title: "Cups"},
+          hAxis: {title: "เดือน"},
+          seriesType: "bars",
+          series: {5: {type: "line"}}
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
 </html>

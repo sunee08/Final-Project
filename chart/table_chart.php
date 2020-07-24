@@ -14,12 +14,32 @@
 		die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
 	}
 		//เรียกข้อมูลจาก ตาราง chart 
-		$get_data = $mysqli->query("SELECT * FROM chart");
+		$get_data = $mysqli->query("SELECT DISTINCT add_behavior.date_time, SUM(behavior.status) AS status, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std 
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')  ");
 		
+
+$get_data1 = $mysqli->query(" SELECT  SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time  FROM leaves 
+ LEFT JOIN student ON student.id_std = leaves.id_std
+  WHERE leaves.id_std 
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M%') 
+
+ ");
+
+
 		while($data = $get_data->fetch_assoc()){
 			
 			$result[] = $data;
 		}
+
+			while($data1 = $get_data1->fetch_assoc()){
+			
+				$result1[] = $data1;
+		}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -45,26 +65,31 @@
   <body>
     <h1>Hello, world! ข้อมูลทดสอบ</h1>
 
-		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+		<div id="container" style="min-width: 100px; height: 400px; margin: 0 auto"></div>
 		
 		<table class="table" id="datatable">
 			<thead>
 				<tr>
 					<th></th>
-					<th>ประชากรหญิง</th>
-					<th>ประชากรชาย</th>
+					<th>พฤติกรรม </th>
+					<th>ใบลา</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
 					foreach($result as $result_tb){
-						echo"<tr>";
-							echo "<td>".$result_tb['province']."</td>";
-							echo "<td>".$result_tb['men']."</td>";
-							echo "<td>".$result_tb['wemen']."</td>";
+				foreach($result1 as $result_tb1){
+						echo"<tr> ";
+							echo "<td>".$result_tb['date_time']."</td>";
+							echo "<td>".$result_tb['status']."</td>";
+
+							echo "<td>".$result_tb1['times_leaves']."</td>";
+
 							
 						echo"</tr>";
 					}
+					}
+									
 				?>
 			
 			</tbody>
@@ -83,7 +108,7 @@
 		$('#container').highcharts({
 			data: {
 				//กำหนดให้ ตรงกับ id ของ table ที่จะแสดงข้อมูล
-				table: 'datatable'
+				table: 'datatable' 
 			},
 			chart: {
 				type: 'column'

@@ -458,12 +458,14 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
                    
  $my_id = $_GET['id'];
-$query = "
-SELECT SUM(times_leaves) AS times_leaves, DATE_FORMAT(date_time, '%M') AS date_time
-FROM leaves 
-WHERE id_std = '$my_id' 
-GROUP BY DATE_FORMAT(date_time, '%M%')
-";
+
+
+
+$query = "SELECT DISTINCT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time  FROM student 
+ LEFT JOIN leaves ON student.id_std = leaves.id_std
+     WHERE leaves.id_std  = '$my_id'
+     GROUP BY (student.id_std)";
+
 
 $result = mysqli_query($con, $query);
 $resultchart = mysqli_query($con, $query);  
@@ -479,14 +481,14 @@ while($rs = mysqli_fetch_array($resultchart)){
 }
 $date_time = implode(",", $date_time); 
 $times_leaves = implode(",", $times_leaves); 
- 
 ?>
 
 <h3 align="center">รายงานในแบบกราฟ </h3>
 <table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
   <thead>
   <tr>
-    <th width="10%"  class="text-center">เดือน</th>
+
+        <th width="10%"  class="text-center">เดือน</th>
     <th width="10%" class="text-center">จำนาน</th>
   </tr>
   </thead>
@@ -495,6 +497,7 @@ $times_leaves = implode(",", $times_leaves);
   
   <?php while($row = mysqli_fetch_array($result)) { ?>
     <tr>
+
       <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
       <td align="right" class="text-center"><?php echo number_format($row['times_leaves']);?></td> 
     </tr>

@@ -184,8 +184,6 @@ include('../connect/connection.php');
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
-
-
                  end task item -->
 
      <li>
@@ -268,6 +266,7 @@ include('../connect/connection.php');
             <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
               <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
            
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">% </th>
 
            <th style="font-size: 14px; color:white;" width="14%" class="text-left">การจัดการ</th>
 
@@ -279,13 +278,18 @@ include('../connect/connection.php');
 
  <?php
 
-       $strSQL = "SELECT DISTINCT add_behavior.id_std,student.fullname,student.id_std_card,student.class_room FROM add_behavior 
- LEFT JOIN behavior ON add_behavior.id_behavior = behavior.id_behavior
-INNER JOIN  student ON add_behavior.id_std = student.id_std  
+$strSQL =
+
+
+
+ "SELECT DISTINCT (student.fullname) AS fullname , SUM(behavior.percent) AS percent
+ , student.fullname,student.id_std_card,student.class_room,add_behavior.id_std  FROM student
+ LEFT JOIN add_behavior ON student.id_std = add_behavior.id_std
+ LEFT JOIN behavior ON behavior.id_behavior = add_behavior.id_behavior
      WHERE add_behavior.id_std
-     ORDER BY add_behavior.id_std ASC  ";
+     GROUP BY (add_behavior.id_std)   ";
       $count = 1;
-        ?>
+        ?> 
 
      
 
@@ -300,7 +304,8 @@ if ($result = $db->query($strSQL)) {
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-      
+               <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?>/100</td> 
+
 
            
          </td> 
