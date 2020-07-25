@@ -239,7 +239,7 @@ include('../connect/connection.php');
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
@@ -351,21 +351,151 @@ echo ' <p> ใบลา  </p>';
       </div>
       <!-- /.row -->
       <!-- Main row -->
-      <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-    <!-- Main content -->
       <section class="content">
-        <div class="container-fluid">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h3 class="card-title">
-          
-            </div> <!-- /.card-body -->
-            <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- AREA CHART -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+             <div class="card-body">
+              
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+                    <script type="text/javascript">
+                $(document).ready(function () {
+
+                  $.getJSON("get_behavior.php", function (result) {
+
+                    var chart = new CanvasJS.Chart("chartContainer1", {
+                      animationEnabled: true,
+                      title: {
+                        text: "ร้อยละการผิดกฏระเบียบ"
+                      },
+                      axisY: {
+                       title: "เดือน",
+                        prefix: "",
+                        suffix: ""
+                      },
+                      data: [{
+                        type: "column",
+                         yValueFormatString: "# เปอร์เซ็นต์",
+                        indexLabel: "{y}",
+                        indexLabelPlacement: "inside",
+                        indexLabelFontWeight: "bolder",
+                        indexLabelFontColor: "white",
+                        dataPoints: result
+                      }]
+                    });
+                    chart.render();
+                  });
+                });
+              </script>
+
+              <div class="body">
+                <div id="chartContainer1"style="height:300px"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              </div>
+
+
+                         
+
+      
+      <!-- /.content -->
+</div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+
+
+          <!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">สถิติของการซื้อใบลา</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+            
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+                    <script type="text/javascript">
+                $(document).ready(function () {
+
+                  $.getJSON("get_leave_percent.php", function (result) {
+
+                    var chart = new CanvasJS.Chart("chartContainer2", {
+                      animationEnabled: true,
+                      title: {
+                        text: "จำนวนนักเรียนที่ซื้อใบลาแต่ละเดือน"
+                      },
+                      axisY: {
+                        title: "",
+                        prefix: "",
+                        suffix: ""
+                      },
+                      data: [{
+                        type: "column",
+                   yValueFormatString: "# คน",
+                        indexLabel: "{y}",
+                        indexLabelPlacement: "inside",
+                        indexLabelFontWeight: "bolder",
+                        indexLabelFontColor: "white",
+                        dataPoints: result
+                      }]
+                    });
+                    chart.render();
+                  });
+                });
+              </script>
+
+              <div class="body">
+                <div id="chartContainer2"style="height:300px"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              </div>
+
+
+                         
+
+      
+      <!-- /.content -->
+</div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (LEFT) -->
+         <div class="col-md-6">
+          <!-- AREA CHART -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+         <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+             <div class="card-body">
               
 
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -378,7 +508,7 @@ echo ' <p> ใบลา  </p>';
                     var chart = new CanvasJS.Chart("chartContainer", {
                       animationEnabled: true,
                       title: {
-                        text: "Project Monitoring"
+                        text: "รายการผิดกฏระเบียบ"
                       },
                       axisY: {
                         title: "",
@@ -386,12 +516,12 @@ echo ' <p> ใบลา  </p>';
                         suffix: ""
                       },
                       data: [{
-                        type: "pie",
-                        yValueFormatString: "",
-                        indexLabel: "",
-                        indexLabelPlacement: "",
-                        indexLabelFontWeight: "",
-                        indexLabelFontColor: "",
+                        type: "line",
+                        yValueFormatString: "# กี่ครั้ง ",
+                        indexLabel: "{y}",
+                        indexLabelPlacement: "inside",
+                        indexLabelFontWeight: "bolder",
+                        indexLabelFontColor: "white",
                         dataPoints: result
                       }]
                     });
@@ -401,8 +531,9 @@ echo ' <p> ใบลา  </p>';
               </script>
 
               <div class="body">
-                <div id="chartContainer"style="height: 200px; width: 100%;"></div>
+                <div id="chartContainer"style="height:300px"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 
               </div>
 
@@ -412,15 +543,39 @@ echo ' <p> ใบลา  </p>';
       
       <!-- /.content -->
 </div>
-</div>
-</div>
-</section>
 
-        </section>
-        <!-- right col -->
+            <!-- /.box-body -->
+          </div>
+
+          <!-- BAR CHART -->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bar Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (RIGHT) -->
       </div>
-      <!-- /.row (main row) -->
+      <!-- /.row -->
 
+    </section>
+   
+
+        
     </section>
     <!-- /.content -->
   </div>
@@ -480,8 +635,9 @@ echo ' <p> ใบลา  </p>';
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../bower_components/chart.js/Chart.js"></script>
+<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
