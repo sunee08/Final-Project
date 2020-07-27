@@ -24,7 +24,7 @@ WHERE id_add_behavior = '$id_add_behavior'";
 
 if ($rs = $db->query($sql)) {
     $db->close();
-    header("Location: result.php?success=1");
+    header("Location: penalty.php?success=1");
 } 
 }else {
     echo $db->error;

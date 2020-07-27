@@ -300,7 +300,11 @@ if ($result = $db->query($strSQL)) {
                             <th>ประเภทนักเรียน</th>
                             <td><?php echo $objectResult->status; ?></td>
                         </tr>
-                
+                  <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ครูประจำชั้น</th>
+                            <td><?php echo $objectResult->teacher; ?></td>
+                        </tr>
 
    
      </p>
@@ -348,7 +352,9 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
 
 
-$query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS date_time FROM behavior
+
+
+$query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std = '$my_id'
@@ -358,13 +364,13 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
             $resultchart = mysqli_query($con, $query);
             //for chart
             $date_time = array();
-            $percent = array();
+            $status = array();
             while($rs = mysqli_fetch_array($resultchart)){
             $date_time[] = "\"".$rs['date_time']."\"";
-            $percent[] = "\"".number_format($rs['percent'])."\"";
+            $status[] = "\"".number_format($rs['status'])."\"";
             }
             $date_time = implode(",", $date_time);
-            $percent = implode(",", $percent);
+            $status = implode(",", $status);
             
             ?>
                         <h3 align="center">รายงานแยกตามวันทำผิดกฏระเบียบ</h3>
@@ -384,7 +390,7 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
                 ],
                 datasets: [{
                 label: 'รายงานรายได้ แยกตามวัน ',
-                data: [<?php echo $percent;?>,
+                data: [<?php echo $status;?>,
                 ],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -490,6 +496,8 @@ if ($result = $db->query($strSQL)) {
     }
 }
 ?>
+
+                 
             </table>
                    
             </div>

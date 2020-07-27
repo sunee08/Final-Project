@@ -743,7 +743,8 @@ $count = 1;
               
     </section>
     <!-- /.content -->
-         
+ 
+
  <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -753,273 +754,211 @@ $count = 1;
     <meta charset="utf-8">
     <title>รายงานในแบบกราฟ</title>
 </head>
-<?php
-$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 
-mysqli_query($con, "SET NAMES 'utf8' ");
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+     <h3 align="center"></h3>
 
- $my_id = $_GET['id'];
-$query = "SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time  FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std = '$my_id'
-     GROUP BY (add_behavior.id_behavior) ";
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 
+   <?php
 
-
-
-
-
-
-$result = mysqli_query($con, $query);
-$resultchart = mysqli_query($con, $query);  
-
-
- //for chart
-$detail = array();
-
-$status = array();
-
-while($rs = mysqli_fetch_array($resultchart)){ 
-  $detail[] = "\"".$rs['detail']."\""; 
-
-  $status[] = "\"".$rs['status']."\""; 
-}
-$detail = implode(",", $detail); 
-
-$status = implode(",", $status); 
- 
-?>
-
-<h3 align="center">รายงานในแบบกราฟ</h3>
-<table  border="1" cellpadding="0"  cellspacing="0" align="center">
-  <thead>
-  <tr>
-        <th width="50%" class="text-center">หัวช้อ</th>
-    <th width="10%" class="text-center">กี่ครั้ง</th>
-  </tr>
-  </thead>
-  
-
-  
-  <?php while($row = mysqli_fetch_array($result)) { ?>
-    <tr>
-       <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['date_time'];?></td>
-            <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['detail'];?></td>
-      <td align="right" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format($row['status']);?></td> 
-    </tr>
-    <?php } ?>
-
-</table>
-<?php mysqli_close($con);?>
-
-
-
-
- <!--devbanban.com-->
-
-
-</p> 
-  <!--devbanban.com-->
-
-    <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h3 class="card-title">
-          
-            </div> <!-- /.card-body -->
-            <div class="card-body">
-                 <?php
-
-$strSQL = "SELECT * FROM add_behavior WHERE id_std='" . $_GET['id'] . "'";
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
 
 ?>
                     <?php
 if ($result = $db->query($strSQL)) {
-    while ($objectResult = $result->fetch_object()) {
+    while ($objResult = $result->fetch_object()) {
         ?>
 
-
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
-
-                  $.getJSON("get_data.php?id=<?php echo $objectResult->id_std; ?>", function (result) {
-
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                      animationEnabled: true,
-                      title: {
-                        text: "Project Monitoring"
-                      },
-                      axisY: {
-                        title: "",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "column",
-                        yValueFormatString: "",
-                        indexLabel: "",
-                        indexLabelPlacement: "",
-                        indexLabelFontWeight: "",
-                        indexLabelFontColor: "",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
-                });
-              </script>
-
-              <div class="body">
-                <div id="chartContainer"style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-              </div>
-
-
-                         
+      <a href="penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
+      <a href="../function/penalty_mon.php?id=<?php echo $objResult->id_std; ?>"  class="btn btn-success">รายเดือน</a> 
+      <a href="../function/penalty_year.php?id=<?php echo $objResult->id_std; ?>"  class="btn btn-warning">รายปี</a> 
+    </div>
+  </div>
+</div>
  <?php
-}
+    }
 }
 ?>
-      
-      
-      <!-- /.content -->
-</div>
-</div>
-</div>
-</section>
-        
-        </h3>
-      </div>
-      </div>
-    </div>
-<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ</title>
-</head>
-<?php
-$con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 mysqli_query($con, "SET NAMES 'utf8' ");
 
- $my_id = $_GET['id'];
+      $my_id = $_GET['id'];
 
 
 
-$query = "SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+
+
+$query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std = '$my_id'
-     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%') ";
+     GROUP BY (add_behavior.id_add_behavior) DESC";
 
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $status = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $status[] = "\"".number_format($rs['status'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $status = implode(",", $status);
+            
+            ?>
+                        <h3 align="center">รายงานแยกตามวันทำผิดกฏระเบียบ</h3>
 
-
-
-$result = mysqli_query($con, $query);
-$resultchart = mysqli_query($con, $query);  
-
-
- //for chart
-$date_time = array();
-$percent = array();
-
-while($rs = mysqli_fetch_array($resultchart)){ 
-  $date_time[] = "\"".$rs['date_time']."\""; 
-  $percent[] = "\"".$rs['percent']."\""; 
-}
-$date_time = implode(",", $date_time); 
-$percent = implode(",", $percent); 
- 
-?>
-
-<h3 align="center">รายงานในแบบกราฟ</h3>
-<table width="200" border="1" cellpadding="0"  cellspacing="0" align="center">
-  <thead>
-  <tr>
-    <th width="10%"  class="text-center">เดือน</th>
-    <th width="10%" class="text-center">เปอรเซ็นต์</th>
-  </tr>
-  </thead>
-  
-
-  
-  <?php while($row = mysqli_fetch_array($result)) { ?>
-    <tr>
-      <td align="center" class="text-center"><?php echo $row['date_time'];?></td>
-      <td align="right" class="text-center"><?php echo number_format($row['percent']);?>%</td> 
-    </tr>
-    <?php } ?>
-
-</table>
-<?php mysqli_close($con);?>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-
-<hr>
-<p align="center">
-
- <!--devbanban.com-->
-
-<canvas id="myChart" width="400px" height="100px"></canvas>
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [<?php echo $date_time;?>
-    
-        ],
-        datasets: [{
-            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
-            data: [<?php echo $percent;?>
-            ],
-            backgroundColor: [
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+            <hr>
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart" width="800px" height="200px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามวัน ',
+                data: [<?php echo $status;?>,
+                ],
+                backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
+                ],
+                borderColor: [
                 'rgba(255,99,132,1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                beginAtZero:true
                 }
-            }]
-        }
+                }]
+                }
+                }
+                });
+                </script>
+            </p>
+  
+
+          <div class="box">
+    <!-- Main content -->
+
+          <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
+  
+        <!-- /.modal -->
+            <!-- /.box-header -->
+          
+
+  <div class="box-body">
+    <table id="example2" class="table  table-hover" class="center">
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
+                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
+
+              <th style="font-size: 14px; color:white;" width="30%"class="text-left">ทำผิดกฏระเบียบ</th>
+           
+       
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+ 
+
+
+                 <?php 
+                $my_id = $_GET['id'];
+       $strSQL = "
+           SELECT   SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time,student.fullname,behavior.detail,DATE_FORMAT(add_behavior.date_time, '%d-%m-%Y') AS date_time,add_behavior.time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std='$my_id'
+     GROUP BY (add_behavior.id_add_behavior) DESC
+            ";      
+             $count = 1;
+               
+
+
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+
+
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
+                  <td class="text-left" style="font-size: 15px;"><?php echo $objResult->time; ?></td>
+
+
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->detail; ?></td> 
+       
+
+
+           
+       
+      </tr>
+  
+                    <?php
     }
-});
-</script>  
-</p> 
-  <!--devbanban.com-->
-</html>
-            
+}
+?>
+                   
+
+            </table>
+                   
+            </div>
 </div>
 </div>
-</div>
+</form>
+            </div>
+
+
+            <!-- /.box-body -->
+    
+          <!-- /.box -->
+        <!-- right col -->
+
+      <!-- /.row (main row) -->
+
+    </section>
 
   </div>
   <!-- /.content-wrapper -->

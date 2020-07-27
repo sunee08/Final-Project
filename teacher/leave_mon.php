@@ -376,7 +376,7 @@ if ($result = $db->query($strSQL)) {
 mysqli_query($con, "SET NAMES 'utf8' ");
 
             $query = "     
-       SELECT SUM(leaves.percent) AS percent, DATE_FORMAT(leaves.date_time, '%M') AS date_time FROM leaves
+       SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time FROM leaves
  LEFT JOIN student ON student.id_std = leaves.id_std
      WHERE leaves.id_std 
      GROUP BY DATE_FORMAT(leaves.date_time, '%M%') DESC
@@ -386,15 +386,15 @@ mysqli_query($con, "SET NAMES 'utf8' ");
             $resultchart = mysqli_query($con, $query);
             //for chart
         $date_time = array();
-$percent = array();
+$times_leaves = array();
 
             while($rs = mysqli_fetch_array($resultchart)){
             $date_time[] = "\"".$rs['date_time']."\"";
-                          $percent[] = "\"".number_format($rs['percent'])."\"";
+                          $times_leaves[] = "\"".number_format($rs['times_leaves'])."\"";
 
             }
             $date_time = implode(",", $date_time);
-            $percent = implode(",", $percent);
+            $times_leaves = implode(",", $times_leaves);
             
             ?>
                         <h3 align="center">รายงานแยกตามเดือน</h3>
@@ -414,7 +414,7 @@ $percent = array();
                 ],
                 datasets: [{
                 label: 'รายงานรายได้ แยกตามเดือน',
-                data: [<?php echo $percent;?>
+                data: [<?php echo $times_leaves;?>
                 ],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -477,7 +477,7 @@ $percent = array();
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
               <th style="font-size: 14px; color:white;" width="15%" class="text-left">เดือน</th>
-                            <th style="font-size: 14px; color:white;" width="15%" class="text-left"></th>
+           <th style="font-size: 14px; color:white;" width="15%" class="text-left">จำนวน</th>
 
            
        
@@ -493,7 +493,7 @@ $percent = array();
                  <?php 
           
        $strSQL = "
-             SELECT SUM(leaves.percent) AS percent, DATE_FORMAT(leaves.date_time, '%M-%Y') AS date_time,student.fullname,leaves.times FROM leaves
+             SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M-%Y') AS date_time,student.fullname,leaves.times FROM leaves
  LEFT JOIN student ON student.id_std = leaves.id_std
      WHERE leaves.id_std 
 
@@ -509,7 +509,7 @@ if ($result = $db->query($strSQL)) {
 
   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
-              <td align="right" class="text-left"><?php echo number_format($objResult->percent);?>%</td> 
+              <td align="right" class="text-left"><?php echo number_format($objResult->times_leaves);?></td> 
        
 
 

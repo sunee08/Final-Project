@@ -51,7 +51,7 @@ include('../connect/connection.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.php" class="logo">
+    <a href="../teacher/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -113,21 +113,21 @@ include('../connect/connection.php');
        
 
    <li>
-             <a href="add_user.php">
+             <a href="../teacher/add_user.php">
             <i class="fa fa-users"></i>
             <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
-        <a href="add_student.php">
+        <a href="../teacher/add_student.php">
             <i class="fa fa-user-plus"></i>
             <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
           <li>
-          <a href="profile.php">
+          <a href="../teacher/profile.php">
             <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
@@ -187,15 +187,16 @@ include('../connect/connection.php');
                  end task item -->
 
      <li>
-          <a href="add_behavior.php">
+          <a href="../teacher/add_behavior.php">
             <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
         
 
 
-        <li >
-          <a href="leave.php">
+           <li class="active ">
+
+          <a href="../teacher/leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
@@ -207,14 +208,14 @@ include('../connect/connection.php');
     
 
            <li  >
-          <a href="result.php">
+          <a href="../teacher/result.php">
             <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
-           <li class="active ">
+           <li>
 
-          <a href="report.php">
+          <a href="../teacher/report.php">
             <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
@@ -231,7 +232,7 @@ include('../connect/connection.php');
     <section class="content-header">
       <h1>
         
-        แสดงผลรวมรายการที่ทำผิดกฎระเบียบและการซื้อใบลา
+        แสดงผลรวมรายการที่ทำผิดกฎระเบียบ
       </h1>
         <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -300,6 +301,11 @@ if ($result = $db->query($strSQL)) {
                             <th>ประเภทนักเรียน</th>
                             <td><?php echo $objectResult->status; ?></td>
                         </tr>
+                         <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ครูประจำชั้น</th>
+                            <td><?php echo $objectResult->teacher; ?></td>
+                        </tr>
                 
 
    
@@ -328,9 +334,9 @@ if ($result = $db->query($strSQL)) {
      <h3 align="center"></h3>
 
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      <a href="total.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
-      <a href="../function/total_mon.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-success">รายเดือน</a> 
-      <a href="../function/total_year.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-warning">รายปี</a> 
+      <a href="../teacher/show_leaves.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
+      <a href="../function/total_leave_mon.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-success">รายเดือน</a> 
+      <a href="../function/total_leave_year.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-warning">รายปี</a> 
     </div>
   </div>
 </div>
@@ -339,20 +345,20 @@ if ($result = $db->query($strSQL)) {
 <div class="container">
     <div class="row">
         <div class="col-md-11">
-            <?php
+          <?php
 
               $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 mysqli_query($con, "SET NAMES 'utf8' ");
 
-      $my_id = $_GET['id'];
+   $my_id = $_GET['id'];
+$query = "
+             SELECT SUM(leaves.percent) AS percent, DATE_FORMAT(leaves.date_time, '%M-%Y') AS date_time,student.fullname,leaves.times FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std ='$my_id'
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M-%Y') DESC
+            ";      
 
 
-
-$query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS date_time FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std = '$my_id'
-     GROUP BY (add_behavior.date_time) DESC";
 
             $result = mysqli_query($con, $query);
             $resultchart = mysqli_query($con, $query);
@@ -367,23 +373,23 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
             $percent = implode(",", $percent);
             
             ?>
-                        <h3 align="center">รายงานแยกตามวันทำผิดกฏระเบียบ</h3>
+                        <h3 align="center">รายงานแยกตามเดือน (ใบลา)</h3>
 
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
             <hr>
             <p align="center">
                 <!--devbanban.com-->
-                <canvas id="myChart" width="800px" height="200px"></canvas>
+                <canvas id="myChart1" width="800px" height="200px"></canvas>
                 <script>
-                var ctx = document.getElementById("myChart").getContext('2d');
-                var myChart = new Chart(ctx, {
+                var ctx = document.getElementById("myChart1").getContext('2d');
+                var myChart1 = new Chart(ctx, {
                 type: 'bar',
                 data: {
                 labels: [<?php echo $date_time;?>
                 
                 ],
                 datasets: [{
-                label: 'รายงานรายได้ แยกตามวัน ',
+                label: 'รายงานรายได้ แยกตามเดือน(ใบลา)',
                 data: [<?php echo $percent;?>,
                 ],
                 backgroundColor: [
@@ -418,6 +424,7 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
                 </script>
             </p>
   
+       
 
           <div class="box">
     <!-- Main content -->
@@ -434,17 +441,14 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
         <!-- /.modal -->
             <!-- /.box-header -->
           
-
-  <div class="box-body">
-    <table id="example2" class="table  table-hover" class="center">
+ <div class="box-body">
+    <table id="example1" class="table  table-hover" class="center">
           <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
-                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">เดือน -ปี</th>
+                            <th style="font-size: 14px; color:white;" width="15%" class="text-left">ร้อยละ</th>
 
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
-              <th style="font-size: 14px; color:white;" width="30%"class="text-left">ทำผิดกฏระเบียบ</th>
            
        
 
@@ -457,14 +461,16 @@ $query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS d
 
 
                  <?php 
-                $my_id = $_GET['id'];
+                                $my_id = $_GET['id'];
+
        $strSQL = "
-           SELECT   SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time,student.fullname,behavior.detail,DATE_FORMAT(add_behavior.date_time, '%d-%m-%Y') AS date_time,add_behavior.time FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std='$my_id'
-     GROUP BY (add_behavior.id_behavior) DESC
+             SELECT SUM(leaves.percent) AS percent, DATE_FORMAT(leaves.date_time, '%M-%Y') AS date_time,student.fullname,leaves.times FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std ='$my_id'
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M-%Y') DESC
             ";      
+
+
              $count = 1;
                
 
@@ -476,12 +482,11 @@ if ($result = $db->query($strSQL)) {
 
          <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
-                  <td class="text-left" style="font-size: 15px;"><?php echo $objResult->time; ?></td>
+           <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?></td>
 
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
 
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->detail; ?></td> 
        
+
 
 
            
@@ -510,189 +515,7 @@ if ($result = $db->query($strSQL)) {
 
     </section>
 
-   <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ</title>
-</head>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-7">
-     <h3 align="center"></h3>
-
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      <a href="total.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
-      <a href="../function/total_leave_mon.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-success">รายเดือน</a> 
-      <a href="../function/total_year.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-warning">รายปี</a> 
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-11">
-            <?php
-
-              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
-mysqli_query($con, "SET NAMES 'utf8' ");
-
-   $my_id = $_GET['id'];
-
-
-
-$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_time) AS date_time FROM leaves
- LEFT JOIN student ON student.id_std = leaves.id_std
-     WHERE leaves.id_std= '$my_id'
-     GROUP BY (leaves.date_time) DESC";    
-
-
-            $result = mysqli_query($con, $query);
-            $resultchart = mysqli_query($con, $query);
-            //for chart
-            $date_time = array();
-            $times_leaves = array();
-            while($rs = mysqli_fetch_array($resultchart)){
-            $date_time[] = "\"".$rs['date_time']."\"";
-            $times_leaves[] = "\"".number_format($rs['times_leaves'])."\"";
-            }
-            $date_time = implode(",", $date_time);
-            $times_leaves = implode(",", $times_leaves);
-            
-            ?>
-                        <h3 align="center">รายงานแยกตามวันที่ซื้อใบลา</h3>
-
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-            <hr>
-            <p align="center">
-                <!--devbanban.com-->
-                <canvas id="myChart1" width="800px" height="200px"></canvas>
-                <script>
-                var ctx = document.getElementById("myChart1").getContext('2d');
-                var myChart1 = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                labels: [<?php echo $date_time;?>
-                
-                ],
-                datasets: [{
-                label: 'รายงานรายได้ แยกตามวัน ',
-                data: [<?php echo $times_leaves;?>,
-                ],
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-                }]
-                },
-                options: {
-                scales: {
-                yAxes: [{
-                ticks: {
-                beginAtZero:true
-                }
-                }]
-                }
-                }
-                });
-                </script>
-            </p>
   
-
-          <div class="box">
-    <!-- Main content -->
-
-          <style>
-.table .thead-light th {
-  color: #401500;
-  background-color: #3c8dbc
-;
-  border-color: #3c8dbc;
-}
-</style>
-  
-        <!-- /.modal -->
-            <!-- /.box-header -->
-          
-
-  <div class="box-body">
-    <table id="example1" class="table  table-hover" class="center">
-          <thead class="thead-light">
-                <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
-                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
-
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >จำนวน</th>
-           
-       
-
-                </tr>
-                </thead>
-                <tbody>
-
-  <?php 
-
-            $my_id = $_GET['id'];
-
-
-
-$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_time) AS date_time,leaves.times FROM leaves
- LEFT JOIN student ON student.id_std = leaves.id_std
-     WHERE leaves.id_std= '$my_id'
-     GROUP BY (leaves.date_time) ";    
-
-             $count = 1;
-               
-
-
-if ($result = $db->query($query)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-
-
-        <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-                   <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
-
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
- 
-       
-
-
-           
-       
-      </tr>
-  
-                    <?php
-    }
-}
-?>
-            </table>
-                   
-            </div>
-</div>
-</div>
-</form>
-            </div>
  <?php
 }
 }

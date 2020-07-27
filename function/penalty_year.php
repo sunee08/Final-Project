@@ -1,8 +1,7 @@
 <?php
 session_start();
 include('../connect/connection.php');
-include 'function.php';
-
+include '../teacher/function.php';
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +51,7 @@ include 'function.php';
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.php" class="logo">
+    <a href="../teacher/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -114,21 +113,21 @@ include 'function.php';
        
 
    <li>
-             <a href="add_user.php">
+             <a href="../teacher/add_user.php">
             <i class="fa fa-users"></i>
             <span>การจัดการผู้ที่มีสิทธิเข้าใช้งาน</span>
           </a>
         </li>
 
          <li >
-        <a href="add_student.php">
+        <a href="../teacher/add_student.php">
             <i class="fa fa-user-plus"></i>
             <span>การจัดการรายชื่อนักเรียน</span>
           </a>
         </li>
 
           <li>
-          <a href="profile.php">
+          <a href="../teacher/profile.php">
             <i class="fa fa-user-circle"></i>
             <span>ข้อมูลผู้ดูแลระบบ</span>
           </a>
@@ -190,7 +189,7 @@ include 'function.php';
                  end task item -->
 
      <li>
-          <a href="add_behavior.php">
+          <a href="../teacher/add_behavior.php">
             <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
@@ -198,7 +197,7 @@ include 'function.php';
 
 
         <li >
-          <a href="leave.php">
+          <a href="../teacher/leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
             <span class="pull-right-container">
@@ -210,13 +209,13 @@ include 'function.php';
     
 
      <li class="active ">
-          <a href="result.php">
+          <a href="../teacher/result.php">
             <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
 
         <li>
-          <a href="report.php">
+          <a href="../teacher/report.php">
             <i class="fa fa-book"></i>
             <span>รายงาน</span>
           </a>
@@ -331,7 +330,7 @@ if ($result = $db->query($strSQL)) {
 </style>
 
           <div class="modal-footer">
-                           <a href="result.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
+                           <a href="../teacher/result.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
             </div>
 
 
@@ -386,7 +385,9 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
 
      WHERE add_behavior.id_std = '$my_id' ";
 
-$i = 1;
+
+
+
 $count = 1;
         ?>
 
@@ -543,7 +544,7 @@ $count = 1;
 
 
             <?php
-            $i++;
+           
 
               }
                }
@@ -869,13 +870,13 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
 
 
-
-
-$query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS date_time FROM behavior
+          $query = "     
+        SELECT SUM(behavior.status) AS status, DATE_FORMAT(add_behavior.date_time, '%Y') AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std = '$my_id'
-     GROUP BY (add_behavior.id_add_behavior) DESC";
+     WHERE add_behavior.id_std='$my_id'
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%Y%')DESC";
+
 
             $result = mysqli_query($con, $query);
             $resultchart = mysqli_query($con, $query);
@@ -906,7 +907,7 @@ $query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS dat
                 
                 ],
                 datasets: [{
-                label: 'รายงานรายได้ แยกตามวัน ',
+                label: 'รายงานรายได้ แยกตามปี ',
                 data: [<?php echo $status;?>,
                 ],
                 backgroundColor: [
@@ -962,11 +963,9 @@ $query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS dat
     <table id="example2" class="table  table-hover" class="center">
           <thead class="thead-light">
                 <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
-                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
-
-              <th style="font-size: 14px; color:white;" width="30%"class="text-left">ทำผิดกฏระเบียบ</th>
+                      <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="10%" class="text-left">ว/ด/ป</th>
+              <th style="font-size: 14px; color:white;" width="6%"class="text-left">เปอร์เซ็น</th>
            
        
 
@@ -980,14 +979,17 @@ $query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS dat
 
                  <?php 
                 $my_id = $_GET['id'];
-       $strSQL = "
-           SELECT   SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time,student.fullname,behavior.detail,DATE_FORMAT(add_behavior.date_time, '%d-%m-%Y') AS date_time,add_behavior.time FROM behavior
+      
+               $strSQL = "
+         SELECT SUM(behavior.status) AS status, DATE_FORMAT(add_behavior.date_time, '%Y') AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std='$my_id'
-     GROUP BY (add_behavior.id_add_behavior) DESC
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%Y') DESC
             ";      
              $count = 1;
+               
+
                
 
 
@@ -998,12 +1000,7 @@ if ($result = $db->query($strSQL)) {
 
          <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
-                  <td class="text-left" style="font-size: 15px;"><?php echo $objResult->time; ?></td>
-
-
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->detail; ?></td> 
-       
-
+              <td align="right" class="text-left"><?php echo number_format($objResult->status);?>%</td> 
 
            
        

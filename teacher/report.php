@@ -229,7 +229,7 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            แสดงผลรวมรายชื่อนักเรียนที่ทำผิดกฏระเบียบและการซื้อใบลา
+            รายงาน
       </h1>
            <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -363,11 +363,11 @@ $strSQL =
 
 
 $strSQL = "SELECT DISTINCT (student.fullname) AS fullname ,SUM(behavior.percent) AS percent, student.fullname,student.id_std_card,student.class_room,student.id_std FROM student
- LEFT JOIN leaves ON student.id_std = leaves.id_std
+
   LEFT JOIN add_behavior ON student.id_std = add_behavior.id_std
   LEFT JOIN behavior ON behavior.id_behavior = add_behavior.id_behavior
 
-     GROUP BY add_behavior.id_std,leaves.id_std
+     GROUP BY add_behavior.id_std
       ";
       $count = 1;
         ?> 

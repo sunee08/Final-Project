@@ -194,7 +194,8 @@ include('../connect/connection.php');
         
 
 
-        <li >
+           <li class="active ">
+
           <a href="../teacher/leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
@@ -212,7 +213,7 @@ include('../connect/connection.php');
           </a>
         </li>
 
-           <li class="active ">
+           <li>
 
           <a href="../teacher/report.php">
             <i class="fa fa-book"></i>
@@ -231,7 +232,7 @@ include('../connect/connection.php');
     <section class="content-header">
       <h1>
         
-        แสดงผลรวมรายการที่ทำผิดกฎระเบียบและการซื้อใบลา
+        แสดงผลรวมรายการที่ทำผิดกฎระเบียบ
       </h1>
         <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -300,6 +301,11 @@ if ($result = $db->query($strSQL)) {
                             <th>ประเภทนักเรียน</th>
                             <td><?php echo $objectResult->status; ?></td>
                         </tr>
+                         <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ครูประจำชั้น</th>
+                            <td><?php echo $objectResult->teacher; ?></td>
+                        </tr>
                 
 
    
@@ -328,9 +334,9 @@ if ($result = $db->query($strSQL)) {
      <h3 align="center"></h3>
 
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      <a href="total.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
-      <a href="../function/total_mon.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-success">รายเดือน</a> 
-      <a href="../function/total_year.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-warning">รายปี</a> 
+      <a href="show_leaves.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-info">รายวัน</a> 
+      <a href="../function/total_leave_mon.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-success">รายเดือน</a> 
+      <a href="../function/total_leave_year.php?id=<?php echo $objectResult->id_std; ?>"  class="btn btn-warning">รายปี</a> 
     </div>
   </div>
 </div>
