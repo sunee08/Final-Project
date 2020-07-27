@@ -759,7 +759,7 @@ $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . 
 mysqli_query($con, "SET NAMES 'utf8' ");
 
  $my_id = $_GET['id'];
-$query = "SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail  FROM behavior
+$query = "SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time  FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std = '$my_id'
@@ -804,6 +804,7 @@ $status = implode(",", $status);
   
   <?php while($row = mysqli_fetch_array($result)) { ?>
     <tr>
+       <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['date_time'];?></td>
             <td align="center" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row['detail'];?></td>
       <td align="right" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format($row['status']);?></td> 
     </tr>

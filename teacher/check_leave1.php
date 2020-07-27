@@ -6,13 +6,12 @@ $id_teacher = $_POST['id_teacher'];
 $times_leaves = $_POST['times_leaves'];
 $id_std = $_POST['id_std'];
 $date_time = $_POST['date_time'];
-$std_name  = $_POST['std_name'];
 
 $times  = $_POST['times'];
 
+$percent  = $_POST['percent'];
 
-
-$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,std_name,times)values('$times_leaves','$id_teacher','$id_std','$date_time','$std_name','$times')";
+$sql = "INSERT INTO leaves(times_leaves,id_teacher,id_std,date_time,times,percent)values('$times_leaves','$id_teacher','$id_std','$date_time','$times','$percent')";
 
 
 if ($rs = $db->query($sql)) {

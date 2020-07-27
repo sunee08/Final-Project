@@ -1,8 +1,7 @@
 <?php
 session_start();
 include('../connect/connection.php');
-  date_default_timezone_set('Asia/Bangkok');
-  $date_time = date(' h:i:s a', time());
+
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +90,7 @@ include('../connect/connection.php');
       </div>
     </nav>
   </header>
+  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -184,8 +184,6 @@ include('../connect/connection.php');
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
-
-
                  end task item -->
 
      <li>
@@ -195,7 +193,8 @@ include('../connect/connection.php');
         </li>
         
 
-           <li class="active ">
+
+        <li >
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
             <span>การติดต่อซื้อใบลา</span>
@@ -207,7 +206,7 @@ include('../connect/connection.php');
 
     
 
-        <li>
+           <li class="active ">
           <a href="result.php">
             <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
@@ -224,95 +223,28 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-   <section class="content-header">
+    <section class="content-header">
       <h1>
-            แสดงผลรายการที่ซื้อใบลา
-
+            แสดงผลรายชื่อนักเรียนที่ทำผิดกฎระเบียบ
       </h1>
            <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">การติดต่อซื้อใบลา</li>
-        <li class="active">แสดงผลรายการที่ซื้อใบลา</li>
-
+        <li class="active">แสดงผล</li>
       </ol>
     </section>
-       <section class="content">
+
+     <section class="content">
       <div class="row">
+      
+ 
         <div class="col-xs-12">
           <div class="box">
-   <?php
+    <!-- Main content -->
 
-$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
-
-?>
-                    <?php
-if ($result = $db->query($strSQL)) {
-    while ($objectResult = $result->fetch_object()) {
-        ?>
-     <table class="table table-hover">
-                    <tbody>
-                      <p>
-                      <div align="center"> 
-                  <img src="../dist/img/user1.png" width=150 height=150 >
-                  </div>
-                         <p>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th> ชื่อ - นามสกุล </th>
-                            <td><?php echo $objectResult->fullname; ?></td>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th> เลขประจำตัวประชาชน</th>
-                            <td><?php echo $objectResult->id_card; ?></td>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th> เลขประจำตัวนักเรียน</th>
-                            <td><?php echo $objectResult->id_std_card; ?></td>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th>ห้องเรียน</th>
-                            <td><?php echo $objectResult->class_room; ?></td>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th>ว.ด.ป. เกิด</th>
-                            <td><?php echo $objectResult->birthday; ?></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th>สถานะนักเรียน</th>
-                            <td><?php echo $objectResult->types; ?></td>
-                        </tr>
-                        <tr>
-                            <th align="right" scope="row">&nbsp;</th>
-                            <th>ประเภทนักเรียน</th>
-                            <td><?php echo $objectResult->status; ?></td>
-                        </tr>
-                    </tbody>
-                </table>       
- 
-   <div class="row">
-   
-              <div class="col-md-12">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">แสดงผล</a></li>
-              
-            </ul>
-            <div class="tab-content">
-              <div class="active tab-pane" id="activity">
-                <!-- Post -->
-             <div class="tab-pane" id="activity">
-                   <span class="username">
-                  <div class="col-xs-14">
-    <style>
+          <style>
 .table .thead-light th {
   color: #401500;
   background-color: #3c8dbc
@@ -320,135 +252,293 @@ if ($result = $db->query($strSQL)) {
   border-color: #3c8dbc;
 }
 </style>
-       
-      <!-- /.row (main row) -->
-    
-  <div class="box-body">
-      
-         </span>
-                    
-                  </div>
-                  <!-- /.user-block -->
-                  <div class="row margin-bottom">
-                    <div class="col-sm-6">
-                      <div class="row">
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-                    </div>
-                    <!-- /.col -->
-                  </div>
-    
-              <div class="tab-pane" id="time">
-                <!-- The timeline -->
-           
-                        <span class="username">
-                           <div class="col-xs-12">
-
-      
-
-
-   <div class="modal-footer">
-                           <a href="leave.php?id=<?php echo $objectResult->id_std; ?>"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
-            </div>
-       
-      <!-- /.row (main row) -->
-<div class="box-body">
-            <table id="example1" class="table  table-hover" >
-                <thead class="thead-light">
-                  <tr>
-                               <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >วันที่ซื้อใบลา</th>
-                                            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >เวลาซื้อใบลา</th>
-
-                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">จำนวน</th>
-                     </tr>
-                  </thead>
-                  
-                  <tbody align="center">
- 
- <?php
-
+  
+        <!-- /.modal -->
+            <!-- /.box-header -->
           
-              $my_id = $_GET['id'];
 
-$strSQL = "SELECT leaves.*,student.fullname,student.class_room,student.id_std_card,leaves.times_leaves,leaves.date_time,student.id_std,leaves.times FROM leaves
- LEFT JOIN student ON leaves.id_std = student.id_std
-      WHERE leaves.id_std = '$my_id' ";
-      $count = 1;
-
-        ?>
-        <?php
-     if($result = $db->query($strSQL)){
-             while($objResult = $result->fetch_object()){
-                       
-
-            ?>
-
-            <tr>
-                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-                   <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
-
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
- 
-            </tr>
-            <?php
-              }
-               }
-                   ?>
-                   <tr>
-                    <?php
- $my_id = $_GET['id'];
-$query = "
-SELECT SUM(times_leaves) AS times_leaves, DATE_FORMAT(date_time, '%Y') AS date_time
-FROM leaves 
-WHERE id_std = '$my_id' 
-GROUP BY DATE_FORMAT(date_time, '%Y%')
-";
-                    $query_result=mysqli_query($db,$query);
-                     while ($row=mysqli_fetch_assoc($query_result)) {
-                      $sum= $row['times_leaves'];
-                     }
-                    ?>
-                      <td colspan="2" class="text-center btn-default"  style="font-size: 15px;"> รวมจำนวนกี่รอบ</td>
-
-                      <td class="text-left " style="font-size: 15px;" ><?php echo $sum; ?>%</td>
-                       
-                     </tr>
-                  
-                </tbody>
-              </table>
-              
-            
-</div>
-</div>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-              
-   
-    <!-- /.content -->
+  <div class="box-body">
+    <table id="example1" class="table  table-hover">
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">รหัสนักเรียน</th>
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ห้องเรียน </th>
            
+              <th style="font-size: 14px; color:white;" width="10%"class="text-left">% </th>
+
+           <th style="font-size: 14px; color:white;" width="14%" class="text-left">การจัดการ</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+
  <?php
 
+$strSQL =
+
+
+
+ "SELECT DISTINCT (student.fullname) AS fullname , SUM(behavior.percent) AS percent
+ , student.fullname,student.id_std_card,student.class_room,add_behavior.id_std  FROM student
+ LEFT JOIN add_behavior ON student.id_std = add_behavior.id_std
+ LEFT JOIN behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std
+     GROUP BY (add_behavior.id_std)   ";
+      $count = 1;
+        ?> 
+
+     
+
+  <?php
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+
+
+
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
+
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
+               <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?>/100</td> 
+
+
+           
+         </td> 
+<td>
+    <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-warning btn-sm">
+                      รายละเอียดและเพิ่มบทลงโทษ</a>
+</td>
+      </tr>
+  
+                    <?php
     }
 }
 ?>
-   
+            </table>
+                   
+            </div>
+</div>
+</div>
+</form>
+            </div>
 
 
+            <!-- /.box-body -->
+    
+          <!-- /.box -->
+        <!-- right col -->
 
+      <!-- /.row (main row) -->
 
     </section>
-    <!-- /.content -->
 
 
+ 
+            <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+     <h3 align="center"></h3>
 
-
-
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+      <a href="result.php?p=daily" class="btn btn-info">รายวัน</a> 
+      <a href="re_mon.php?p=monthy" class="btn btn-success">รายเดือน</a> 
+      <a href="re_year.php?p=yearly" class="btn btn-warning">รายปี</a> 
+    </div>
   </div>
-  <!-- /.content-wrapper -->
+</div>
+
+  
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $percent = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+                        $percent[] = "\"".number_format($rs['percent'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $percent = implode(",", $percent);
+            
+            ?>
+                        <h3 align="center">รายงานแยกตามเดือน</h3>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+            <hr>
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart" width="800px" height="200px"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $date_time;?>
+    
+        ],
+        datasets: [{
+            label: 'รายงานภาพรวม แยกตามเดือน (เปอร์เซ็นต์)',
+            data: [<?php echo $percent;?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>  
+
+
+
+
+
+            </p>
+
+
+
+          <div class="box">
+    <!-- Main content -->
+
+          <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
+  
+        <!-- /.modal -->
+            <!-- /.box-header -->
+          
+       <div class="col-md-6">
+  <div class="box-body">
+    <table id="example2" class="table  table-hover" >
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="10%" class="text-left">ว/ด/ป</th>
+              <th style="font-size: 14px; color:white;" width="6%"class="text-left">เปอร์เซ็น</th>
+           
+       
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+ 
+
+
+                 <?php 
+          
+       $strSQL = "
+         SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M-%Y') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M') DESC
+            ";      
+             $count = 1;
+               
+
+
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+
+
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
+              <td align="right" class="text-left"><?php echo number_format($objResult->percent);?>%</td> 
+
+       
+
+
+           
+       
+      </tr>
+  
+                    <?php
+    }
+}
+?>
+            </table>
+                   
+            </div>
+</div>
+</div>
+</form>
+            </div>
+
+
+            <!-- /.box-body -->
+    
+          <!-- /.box -->
+        <!-- right col -->
+
+      <!-- /.row (main row) -->
+
+    </section>
+
+
+    <!-- /.content -->
+  </div>  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
@@ -457,7 +547,6 @@ GROUP BY DATE_FORMAT(date_time, '%Y%')
     reserved.</center>
   </footer>
 
- 
  
  
   <!-- /.control-sidebar -->
@@ -505,14 +594,13 @@ GROUP BY DATE_FORMAT(date_time, '%Y%')
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
-<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
+       $('#example2').DataTable()
+    $('#example3').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
@@ -521,6 +609,17 @@ GROUP BY DATE_FORMAT(date_time, '%Y%')
       'autoWidth'   : false
     })
   })
+
+
+$('.tex').keyup(function() {
+     var sum = 0;
+    $('.tex').each(function() {
+        sum += Number($(this).val());
+    });
+    $('#totals').val(sum);
+
+});
+
 </script>
 </body>
 </html>

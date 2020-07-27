@@ -33,8 +33,8 @@ include('../connect/connection.php');
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-   <!-- DataTables -->
-  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,7 +55,7 @@ include('../connect/connection.php');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ระบบจัดการพฤติกรรม</b></span>
+      <span class="logo-sm"><b>ระบบบันทึกพฤติกรรมนักเรียน</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -184,6 +184,8 @@ include('../connect/connection.php');
               <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
           </ul>
         </li>
+
+
                  end task item -->
 
      <li>
@@ -206,11 +208,16 @@ include('../connect/connection.php');
 
     
 
-           <li class="active ">
+        <li>
           <a href="result.php">
             <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
         </li>
+
+
+
+
+
 
         <li>
           <a href="report.php">
@@ -223,189 +230,178 @@ include('../connect/connection.php');
     <!-- /.sidebar -->
   </aside>
 
-   <!-- Content Header (Page header) -->
-   <div class="content-wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            แสดงผลรายชื่อนักเรียนที่ทำผิดกฎระเบียบ
+        Dashboard
+        <small>Control panel</small>
       </h1>
-           <ol class="breadcrumb">
+      <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">แสดงผล</li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
 
-     <section class="content">
-      <div class="row">
-      
- 
-        <div class="col-xs-12">
-          <div class="box">
     <!-- Main content -->
-
-          <style>
-.table .thead-light th {
-  color: #401500;
-  background-color: #3c8dbc
-;
-  border-color: #3c8dbc;
-}
-</style>
-  
-        <!-- /.modal -->
-            <!-- /.box-header -->
-          
-
-  <div class="box-body">
-    <table id="example1" class="table  table-hover">
-          <thead class="thead-light">
-                <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="7%" class="text-left">รหัสนักเรียน</th>
-            <th style="font-size: 14px; color:white;" width="15%" class="text-left" >ชื่อ - นามสกุล</th>
-              <th style="font-size: 14px; color:white;" width="5%"class="text-left">ห้องเรียน </th>
-           
-              <th style="font-size: 14px; color:white;" width="10%"class="text-left">ตัดคะแนนพฤติกรรม </th>
-
-           <th style="font-size: 14px; color:white;" width="9%" class="text-left">การจัดการ</th>
-
-
-                </tr>
-                </thead>
-                <tbody>
-
-
- <?php
-
-$strSQL =
-
-
-
- "SELECT DISTINCT (student.fullname) AS fullname , SUM(behavior.percent) AS percent
- , student.fullname,student.id_std_card,student.class_room,add_behavior.id_std  FROM student
- LEFT JOIN add_behavior ON student.id_std = add_behavior.id_std
- LEFT JOIN behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std
-     GROUP BY (add_behavior.id_std)   ";
-      $count = 1;
-        ?> 
-
-     
-
-  <?php
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-
-
-
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-               <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?></td> 
-
-
-           
-         </td> 
-<td>
-    <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-warning btn-xs">
-                      เพิ่มบทลงโทษ</a>
-                       <a href="../function/delete_behavior.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-danger btn-xs" onclick="return confirm('Are You sure Delete?')">
-                        ลบ</a>
-
-</td>
-      </tr>
-  
-                    <?php
-    }
-}
-?>
-            </table>
-                   
-            </div>
-</div>
-</div>
-</form>
-            </div>
-
-
-            <!-- /.box-body -->
-    
-          <!-- /.box -->
-        <!-- right col -->
-
-      <!-- /.row (main row) -->
-
-    </section>
-
-
- 
-            <section class="content">
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>รายงานในแบบกราฟ</title>
-</head>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-     <h3 align="center"></h3>
-
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      <a href="result.php?p=daily" class="btn btn-info">รายวัน</a> 
-      <a href="re_mon.php?p=monthy" class="btn btn-success">รายเดือน</a> 
-      <a href="re_year.php?p=yearly" class="btn btn-warning">รายปี</a> 
-    </div>
-  </div>
-</div>
-
   
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+                                 <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std
+                        FROM student
+                        WHERE types ='มัธยมต้น'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> นักเรียนชั้นมัธยมต้น  </p>';
+?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-11">
-            <?php
+            </div>
+            <div class="icon">
+              <i class="fa fa-user"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+                <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std
+                        FROM student
+                        WHERE types ='มัธยมปลาย'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> นักเรียนชั้นมัธยมปลาย  </p>';
+?>
+
+            </div>
+            <div class="icon">
+              <i class="fa fa-user"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+                      <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_teacher FROM teacher ORDER BY id_teacher";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> คุณครู  </p>';
+?>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+              <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+                      <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+
+
+$query = "SELECT id_std FROM leaves
+                        WHERE times_leaves
+                        ORDER BY id_std";
+
+
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo '<h3>' . $row . '</h3>';
+echo ' <p> ใบลา  </p>';
+?>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-"></i></a>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.row -->
+      <!-- Main row -->
+      <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- AREA CHART -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+             <div class="card-body">
+                <h3 align="center"></h3>
+            
+
+   <?php
 
               $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 mysqli_query($con, "SET NAMES 'utf8' ");
 
             $query = "     
-        SELECT  SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time  FROM behavior
+        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
  LEFT JOIN student ON student.id_std = add_behavior.id_std
      WHERE add_behavior.id_std
-     GROUP BY (add_behavior.id_behavior)DESC
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
 
             ";
             $result = mysqli_query($con, $query);
             $resultchart = mysqli_query($con, $query);
             //for chart
             $date_time = array();
-            $status = array();
+            $percent = array();
             while($rs = mysqli_fetch_array($resultchart)){
             $date_time[] = "\"".$rs['date_time']."\"";
-          
-                        $status[] = "\"".number_format($rs['status'])."\"";
-
+            $percent[] = "\"".number_format($rs['percent'])."\"";
             }
             $date_time = implode(",", $date_time);
-            $status = implode(",", $status);
+            $percent = implode(",", $percent);
             
             ?>
-                        <h3 align="center">รายงานแยกตามวัน</h3>
+                    
 
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-            <hr>
+     
             <p align="center">
                 <!--devbanban.com-->
-                <canvas id="myChart" width="800px" height="200px"></canvas>
+                <canvas id="myChart" width="800px" height="400px"></canvas>
                 <script>
                 var ctx = document.getElementById("myChart").getContext('2d');
                 var myChart = new Chart(ctx, {
@@ -415,7 +411,218 @@ mysqli_query($con, "SET NAMES 'utf8' ");
                 
                 ],
                 datasets: [{
-                label: 'รายงานรายได้ แยกตามวัน (บาท)',
+                label: 'รายงานรายได้ แยกตามเดือน ',
+                data: [<?php echo $percent;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
+                });
+                </script>
+
+
+
+                         
+
+      
+      <!-- /.content -->
+</div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+
+
+          <!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">สถิติของการซื้อใบลา</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+          <div class="card-body">
+                <h3 align="center"></h3>
+            
+
+   <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $percent = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $percent[] = "\"".number_format($rs['percent'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $percent = implode(",", $percent);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+            <p aign="center">
+                <!--devbanban.com-->
+                <canvas id="myChart3" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart3").getContext('2d');
+                var myChart3 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามเดือน ',
+                data: [<?php echo $percent;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
+                });
+                </script>
+
+
+            
+                         
+
+      
+      <!-- /.content -->
+</div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (LEFT) -->
+         <div class="col-md-6">
+          <!-- AREA CHART -->
+          <!-- AREA CHART -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             <h3 class="box-title">รายการผิดกฏระเบียบ</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+             <div class="card-body">
+                <h3 align="center"></h3>
+
+
+   <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail  FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY (add_behavior.id_behavior) DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $detail = array();
+            $status = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $detail[] = "\"".$rs['detail']."\"";
+            $status[] = "\"".$rs['status']."\"";
+            }
+            $detail = implode(",", $detail);
+            $status = implode(",", $status);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart1" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart1").getContext('2d');
+                var myChart1 = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                labels: [<?php echo $detail;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามวัน',
                 data: [<?php echo $status;?>
                 ],
                 backgroundColor: [
@@ -451,106 +658,48 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
 
 
+                         
 
-
-            </p>
-
-
-
-          <div class="box">
-    <!-- Main content -->
-
-          <style>
-.table .thead-light th {
-  color: #401500;
-  background-color: #3c8dbc
-;
-  border-color: #3c8dbc;
-}
-</style>
-  
-        <!-- /.modal -->
-            <!-- /.box-header -->
-          
-
-  <div class="box-body">
-    <table id="example2" class="table  table-hover" class="center">
-          <thead class="thead-light">
-                <tr >
-             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
-                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
-
-            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >ชื่อ - นามสกุล</th>
-              <th style="font-size: 14px; color:white;" width="30%"class="text-left">ทำผิดกฏระเบียบ</th>
-           
-       
-
-                </tr>
-                </thead>
-                <tbody>
-
-
- 
-
-
-                 <?php 
-          
-       $strSQL = "
-           SELECT   SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time,student.fullname,behavior.detail,DATE_FORMAT(add_behavior.date_time, '%d-%m-%Y') AS date_time,add_behavior.time FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std
-     GROUP BY (add_behavior.id_behavior) DESC
-            ";      
-             $count = 1;
-               
-
-
-if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
-        ?>
-
-
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
-                  <td class="text-left" style="font-size: 15px;"><?php echo $objResult->time; ?></td>
-
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->detail; ?></td> 
-       
-
-
-           
-       
-      </tr>
-  
-                    <?php
-    }
-}
-?>
-            </table>
-                   
-            </div>
+      
+      <!-- /.content -->
 </div>
-</div>
-</form>
-            </div>
-
 
             <!-- /.box-body -->
-    
+          </div>
           <!-- /.box -->
-        <!-- right col -->
+          <!-- BAR CHART -->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bar Chart</h3>
 
-      <!-- /.row (main row) -->
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (RIGHT) -->
+      </div>
+      <!-- /.row -->
 
     </section>
+   
 
-
+        
+    </section>
     <!-- /.content -->
-  </div>  <!-- /.content-wrapper -->
+  </div>
+  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.18
@@ -606,13 +755,15 @@ if ($result = $db->query($strSQL)) {
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- DataTables -->
+<script src="../bower_components/chart.js/Chart.js"></script>
 <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable()
-       $('#example2').DataTable()
-    $('#example3').DataTable({
+    $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
@@ -621,17 +772,6 @@ if ($result = $db->query($strSQL)) {
       'autoWidth'   : false
     })
   })
-
-
-$('.tex').keyup(function() {
-     var sum = 0;
-    $('.tex').each(function() {
-        sum += Number($(this).val());
-    });
-    $('#totals').val(sum);
-
-});
-
 </script>
 </body>
 </html>

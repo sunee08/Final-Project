@@ -304,6 +304,7 @@ if ($result = $db->query($strSQL)) {
       <input type="hidden" name="times" value="<?php echo  date("h:i:sa"); ?>">
 
      <input type="hidden" name="std_name" class="form-control" value="<?php echo $objResult->fullname; ?>" >
+<input type="hidden"  name="percent" id="percent" value="8.3" >
 
 <input type="hidden"  name="times_leaves" id="times_leaves" value="1" >
  <input type="hidden" name="id_teacher" id='id_teacher' class="form-control select2" value="<?php echo $_SESSION['id']; ?>" >

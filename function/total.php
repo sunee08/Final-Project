@@ -339,7 +339,200 @@ if ($result = $db->query($strSQL)) {
 <div class="container">
     <div class="row">
         <div class="col-md-11">
-          <?php
+            <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+      $my_id = $_GET['id'];
+
+
+
+$query = "SELECT SUM(behavior.percent) AS percent, (add_behavior.date_time) AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std = '$my_id'
+     GROUP BY (add_behavior.id_add_behavior) DESC";
+
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $percent = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $percent[] = "\"".number_format($rs['percent'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $percent = implode(",", $percent);
+            
+            ?>
+                        <h3 align="center">รายงานแยกตามวันทำผิดกฏระเบียบ</h3>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+            <hr>
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart" width="800px" height="200px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามวัน ',
+                data: [<?php echo $percent;?>,
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
+                });
+                </script>
+            </p>
+  
+
+          <div class="box">
+    <!-- Main content -->
+
+          <style>
+.table .thead-light th {
+  color: #401500;
+  background-color: #3c8dbc
+;
+  border-color: #3c8dbc;
+}
+</style>
+  
+        <!-- /.modal -->
+            <!-- /.box-header -->
+          
+
+  <div class="box-body">
+    <table id="example2" class="table  table-hover" class="center">
+          <thead class="thead-light">
+                <tr >
+             <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+              <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
+                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
+
+              <th style="font-size: 14px; color:white;" width="30%"class="text-left">ทำผิดกฏระเบียบ</th>
+           
+       
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+ 
+
+
+                 <?php 
+                $my_id = $_GET['id'];
+       $strSQL = "
+           SELECT   SUM(add_behavior.status) AS status,(behavior.detail) AS detail, add_behavior.date_time,student.fullname,behavior.detail,DATE_FORMAT(add_behavior.date_time, '%d-%m-%Y') AS date_time,add_behavior.time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std='$my_id'
+     GROUP BY (add_behavior.id_add_behavior) DESC
+            ";      
+             $count = 1;
+               
+
+
+if ($result = $db->query($strSQL)) {
+    while ($objResult = $result->fetch_object()) {
+        ?>
+
+
+         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
+                  <td class="text-left" style="font-size: 15px;"><?php echo $objResult->time; ?></td>
+
+
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->detail; ?></td> 
+       
+
+
+           
+       
+      </tr>
+  
+                    <?php
+    }
+}
+?>
+            </table>
+                   
+            </div>
+</div>
+</div>
+</form>
+            </div>
+
+
+            <!-- /.box-body -->
+    
+          <!-- /.box -->
+        <!-- right col -->
+
+      <!-- /.row (main row) -->
+
+    </section>
+
+   <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>รายงานในแบบกราฟ</title>
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+     <h3 align="center"></h3>
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <?php
 
               $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
 mysqli_query($con, "SET NAMES 'utf8' ");
@@ -348,9 +541,9 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
 
 
-$query = "       SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_time) AS date_time FROM leaves
+$query = "SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_time) AS date_time FROM leaves
  LEFT JOIN student ON student.id_std = leaves.id_std
-     WHERE leaves.id_std ='$my_id'
+     WHERE leaves.id_std= '$my_id'
      GROUP BY (leaves.id_leave) DESC";    
 
 
@@ -418,7 +611,6 @@ $query = "       SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_t
                 </script>
             </p>
   
-       
 
           <div class="box">
     <!-- Main content -->
@@ -435,14 +627,16 @@ $query = "       SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_t
         <!-- /.modal -->
             <!-- /.box-header -->
           
- <div class="box-body">
+
+  <div class="box-body">
     <table id="example1" class="table  table-hover" class="center">
           <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
               <th style="font-size: 14px; color:white;" width="15%" class="text-left">ว/ด/ป</th>
-                            <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
+                    <th style="font-size: 14px; color:white;" width="15%" class="text-left">เวลา</th>
 
+            <th style="font-size: 14px; color:white;" width="20%" class="text-left" >จำนวน</th>
            
        
 
@@ -450,12 +644,9 @@ $query = "       SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_t
                 </thead>
                 <tbody>
 
+  <?php 
 
- 
-
-
-                 <?php 
-                                $my_id = $_GET['id'];
+       $my_id = $_GET['id'];
 
        $strSQL = "
              SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%d-%m-%Y') AS date_time,student.fullname,leaves.times FROM leaves
@@ -464,7 +655,6 @@ $query = "       SELECT SUM(leaves.times_leaves) AS times_leaves, (leaves.date_t
      GROUP BY (leaves.id_leave) DESC
             ";      
              $count = 1;
-               
 
 
 if ($result = $db->query($strSQL)) {
@@ -472,13 +662,13 @@ if ($result = $db->query($strSQL)) {
         ?>
 
 
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td>
-           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td>
+        <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                   <td class="text-left" style="font-size: 15px;"><?php echo $objResult->date_time; ?></td> 
+           <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times; ?></td> 
 
-
+         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->times_leaves; ?></td> 
+ 
        
-
 
 
            
@@ -496,18 +686,6 @@ if ($result = $db->query($strSQL)) {
 </div>
 </form>
             </div>
-
-
-            <!-- /.box-body -->
-    
-          <!-- /.box -->
-        <!-- right col -->
-
-      <!-- /.row (main row) -->
-
-    </section>
-
-  
  <?php
 }
 }

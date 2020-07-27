@@ -366,45 +366,85 @@ echo ' <p> ใบลา  </p>';
               </div>
             </div>
              <div class="card-body">
-              
+                <h3 align="center"></h3>
+            
 
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
+   <?php
 
-                  $.getJSON("get_behavior.php", function (result) {
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
 
-                    var chart = new CanvasJS.Chart("chartContainer1", {
-                      animationEnabled: true,
-                      title: {
-                        text: "ร้อยละการผิดกฏระเบียบ"
-                      },
-                      axisY: {
-                       title: "เดือน",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "column",
-                         yValueFormatString: "# เปอร์เซ็นต์",
-                        indexLabel: "{y}",
-                        indexLabelPlacement: "inside",
-                        indexLabelFontWeight: "bolder",
-                        indexLabelFontColor: "white",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
+            $query = "     
+        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $percent = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $percent[] = "\"".number_format($rs['percent'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $percent = implode(",", $percent);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+     
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามเดือน ',
+                data: [<?php echo $percent;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
                 });
-              </script>
+                </script>
 
-              <div class="body">
-                <div id="chartContainer1"style="height:300px"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-              </div>
 
 
                          
@@ -430,47 +470,86 @@ echo ' <p> ใบลา  </p>';
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
-            <div class="box-body">
+          <div class="card-body">
+                <h3 align="center"></h3>
             
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
 
-                  $.getJSON("get_leave_percent.php", function (result) {
+   <?php
 
-                    var chart = new CanvasJS.Chart("chartContainer2", {
-                      animationEnabled: true,
-                      title: {
-                        text: "จำนวนนักเรียนที่ซื้อใบลาแต่ละเดือน"
-                      },
-                      axisY: {
-                        title: "",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "column",
-                   yValueFormatString: "# คน",
-                        indexLabel: "{y}",
-                        indexLabelPlacement: "inside",
-                        indexLabelFontWeight: "bolder",
-                        indexLabelFontColor: "white",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT SUM(leaves.times_leaves) AS times_leaves, DATE_FORMAT(leaves.date_time, '%M') AS date_time FROM leaves
+ LEFT JOIN student ON student.id_std = leaves.id_std
+     WHERE leaves.id_std 
+     GROUP BY DATE_FORMAT(leaves.date_time, '%M%')  DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $times_leaves = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $times_leaves[] = "\"".number_format($rs['times_leaves'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $times_leaves = implode(",", $times_leaves);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+            <p aign="center">
+                <!--devbanban.com-->
+                <canvas id="myChart3" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart3").getContext('2d');
+                var myChart3 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามเดือน ',
+                data: [<?php echo $times_leaves;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
                 });
-              </script>
-
-              <div class="body">
-                <div id="chartContainer2"style="height:300px"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-              </div>
+                </script>
 
 
+            
                          
 
       
@@ -485,9 +564,10 @@ echo ' <p> ใบลา  </p>';
         <!-- /.col (LEFT) -->
          <div class="col-md-6">
           <!-- AREA CHART -->
+          <!-- AREA CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-         <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
+             <h3 class="box-title">รายการผิดกฏระเบียบ</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -496,46 +576,85 @@ echo ' <p> ใบลา  </p>';
               </div>
             </div>
              <div class="card-body">
-              
+                <h3 align="center"></h3>
 
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-                    <script type="text/javascript">
-                $(document).ready(function () {
 
-                  $.getJSON("get.php", function (result) {
+   <?php
 
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                      animationEnabled: true,
-                      title: {
-                        text: "รายการผิดกฏระเบียบ"
-                      },
-                      axisY: {
-                        title: "",
-                        prefix: "",
-                        suffix: ""
-                      },
-                      data: [{
-                        type: "line",
-                        yValueFormatString: "# กี่ครั้ง ",
-                        indexLabel: "{y}",
-                        indexLabelPlacement: "inside",
-                        indexLabelFontWeight: "bolder",
-                        indexLabelFontColor: "white",
-                        dataPoints: result
-                      }]
-                    });
-                    chart.render();
-                  });
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT DISTINCT SUM(add_behavior.status) AS status,(behavior.detail) AS detail  FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY (add_behavior.id_behavior) DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $detail = array();
+            $status = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $detail[] = "\"".$rs['detail']."\"";
+            $status[] = "\"".$rs['status']."\"";
+            }
+            $detail = implode(",", $detail);
+            $status = implode(",", $status);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart1" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart1").getContext('2d');
+                var myChart1 = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                labels: [<?php echo $detail;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามวัน',
+                data: [<?php echo $status;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
                 });
-              </script>
+                </script>
 
-              <div class="body">
-                <div id="chartContainer"style="height:300px"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
-              </div>
 
 
                          
@@ -546,7 +665,7 @@ echo ' <p> ใบลา  </p>';
 
             <!-- /.box-body -->
           </div>
-
+          <!-- /.box -->
           <!-- BAR CHART -->
           <div class="box box-success">
             <div class="box-header with-border">
