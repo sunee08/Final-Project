@@ -261,22 +261,10 @@ $count = 1;
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
-        
-         <td class="text-center" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-center" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-         <td class="text-center">
-         <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>"><i class="fa fa-eye" title="ดูประวัติ"></i></button>
-                        
-        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>"><i class="fa fa-edit" title="แก้ไขข้อมูล"></i></button>
-                                           
-        <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-        <i class="fa fa-trash" title="ลบข้อมูล"></i></a>
-        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"class="btn btn-warning btn-xs">
-        <i class="fa fa-plus" title="เพิ่มพฤติกรรมนักเรียน"></i></a>
+       <th style="font-size: 14px; color:white;" width="3%" class="text-center">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">รหัสนักเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ห้องเรียน</th>
 
             
                       <div class="modal fade" id="show<?php echo $i; ?>" tabindex="-1" role="dialog"
