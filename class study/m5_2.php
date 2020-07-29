@@ -281,11 +281,11 @@ include('../connect/connection.php');
                 <table id="example1" class="table  table-hover">
           <thead class="thead-light">
                 <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
+                <th style="font-size: 14px; color:white;" width="3%" class="text-center">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">รหัสนักเรียน</th>
                   <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -535,10 +535,9 @@ $i++;
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
   <!-- Control Sidebar -->

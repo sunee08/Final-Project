@@ -279,12 +279,12 @@ include('../connect/connection.php');
             <div class="box-body">
                 <table id="example1" class="table  table-hover">
           <thead class="thead-light">
-                <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
+                <tr>   
+                <th style="font-size: 14px; color:white;" width="3%" class="text-center">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">รหัสนักเรียน</th>
                   <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -301,11 +301,12 @@ if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
         
-        
-                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+                
+        <td class="text-center" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-center" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
+<<<<<<< HEAD
             
     <td>  
 
@@ -322,6 +323,194 @@ if ($result = $db->query($strSQL)) {
 
 
      
+=======
+         <td class="text-center">
+         <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-eye" title="ดูประวัติ"></i></button>
+                        
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-edit" title="แก้ไขข้อมูล"></i></button>
+                                           
+        <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+        <i class="fa fa-trash" title="ลบข้อมูล"></i></a>
+        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"class="btn btn-warning btn-xs">
+        <i class="fa fa-plus" title="เพิ่มพฤติกรรมนักเรียน"></i></a>
+
+
+
+                      <div class="modal fade" id="show<?php echo $i; ?>" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header bg-info">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h5 class="modal-title">View Proposal</h5>
+                            </div>
+
+                            <div class="modal-body">
+                              <form class="form-horizontal" method="post" action="check_edit_member.php">
+                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
+
+                                <div class="card-body">
+                                  <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
+                                    <div class="col-sm-10">
+                                      <?php echo $objResult->member_idcard; ?>
+                                    </div>
+                                  </div>
+
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
+                                    <div class="col-sm-10">
+                                      <?php echo $objResult->member_username; ?> </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
+                                    <div class="col-sm-10">
+                                      <?php echo $objResult->member_fullname; ?>
+                                    </div>
+                                  </div>
+
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                      <?php echo $objResult->member_email; ?>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                    <div class="col-sm-10">
+
+                                      <?php echo $objResult->member_phone; ?> </div>
+                                  </div>
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 ">Gender</label>
+                                    <div class="col-sm-10">
+
+                                      <?php echo $objResult->member_gender; ?> </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
+                                    <div class="col-sm-10">
+
+                                      <?php echo $objResult->member_pos; ?> </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal -->
+
+
+
+
+
+                      <div class="modal fade" id="editsub<?php echo $i; ?>" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+
+                          <div class="modal-content">
+                            <div class="modal-header bg-info">
+                              <h5 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i>
+                                View Member</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                  aria-hidden="true">&times;</span></button>
+                              
+                            </div>
+
+                            <div class="modal-body">
+                              <form class="form-horizontal" method="post" action="check_edit_member.php">
+                                <input type="hidden" name="member_id" value=" <?php echo $objResult->member_id; ?>">
+
+                                <div class="card-body">
+                                  <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ID Studen</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="member_idcard" name="member_idcard"
+                                        value="  <?php echo $objResult->member_idcard; ?>">
+                                    </div>
+                                  </div>
+
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="member_username"
+                                        name="member_username" value="<?php echo $objResult->member_username; ?>">
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Student Name</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="member_fullname"
+                                        name="member_fullname" value="<?php echo $objResult->member_fullname; ?>">
+                                    </div>
+                                  </div>
+
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="member_email" name="member_email"
+                                        value="<?php echo $objResult->member_email; ?>"> </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="member_phone" name="member_phone"
+                                        value="<?php echo $objResult->member_phone; ?>"> </div>
+                                  </div>
+
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 ">Gender</label>
+                                    <div class="col-sm-10">
+
+                                      <?php echo $objResult->member_gender; ?> </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 ">Position</label>
+                                    <div class="col-sm-10">
+
+                                      <?php echo $objResult->member_pos; ?> </div>
+                                  </div>
+
+
+
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="glyphicon glyphicon-remove"></i>
+                                      Cancle</button>
+                                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i>
+                                      Edit</button>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+>>>>>>> 79b32212e5017cf07d04983b63feac3eea027772
                     </td>
                     </tr>
 
@@ -348,10 +537,9 @@ if ($result = $db->query($strSQL)) {
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
   <!-- Control Sidebar -->

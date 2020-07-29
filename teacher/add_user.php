@@ -160,32 +160,11 @@ include('../connect/connection.php');
           </ul>
         </li>
 
-         <!-- 
-         <li class=" treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
-          </ul>
-        </li>
-
-
-                 end task item -->
-
      <li>
           <a href="add_behavior.php">
             <i class="fa fa-th"></i> <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
-        
-
-
         <li >
           <a href="leave.php">
             <i class="fa fa-files-o"></i>
@@ -194,9 +173,6 @@ include('../connect/connection.php');
             </span>
           </a>
         </li>
-
-
-    
 
         <li>
           <a href="result.php">
@@ -513,7 +489,6 @@ $i++;
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
     </div>
     <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
     reserved.</center>

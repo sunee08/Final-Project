@@ -3,13 +3,12 @@ session_start();
 include('../connect/connection.php');
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>RWS</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -55,9 +54,9 @@ include('../connect/connection.php');
     <!-- Logo -->
     <a href="../teacher/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>R</b>WS</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>ระบบบันทึกพฤติกรรมนักเรียน</b></span>
+      <span class="logo-lg"><b>การบันทึกพฤติกรรมนักเรียน</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -75,18 +74,6 @@ include('../connect/connection.php');
         </li>
 
           <li class="dropdown messages-menu">
-           
-          
-     
-                  <!-- end task item -->
-    
-                  <!-- end task item -->
-              
-          <!-- User Account: style can be found in dropdown.less -->
-     
-              <!-- Menu Body -->
-          
-          <!-- Control Sidebar Toggle Button -->
         
         </ul>
       </div>
@@ -174,35 +161,12 @@ include('../connect/connection.php');
         </li>
 
 
-
-
-
-       <!-- 
-         <li class=" treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>การจัดการพฤติกรรมนักเรียน</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class=""><a href="std_behavior1_3.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมต้น</a></li>
-            <li class=""><a href="std_behavior4_6.php"><i class="fa fa-circle-o"></i>พฤติกรรมนักเรียนมัธยมปลาย</a></li>
-              <li class=""><a href="add_behavior.php"><i class="fa fa-circle-o"></i>เพิ่มพฤติกรรม</a></li>
-          </ul>
-        </li>
-
-
-                 end task item -->
-
      <li>
           <a href="../teacher/add_behavior.php">
             <i class="fa fa-th"></i>  <span>การจัดการพฤติกรรมของนักเรียน</span>
           </a>
         </li>
-        
-
-
+     
      
         <li >
           <a href="../teacher/leave.php">
@@ -213,8 +177,6 @@ include('../connect/connection.php');
           </a>
         </li>
 
-
-    
 
         <li>
           <a href="../teacher/result.php">
@@ -276,11 +238,11 @@ include('../connect/connection.php');
                 <table id="example1" class="table  table-hover">
           <thead class="thead-light">
                 <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
+                <th style="font-size: 14px; color:white;" width="3%" class="text-center">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">รหัสนักเรียน</th>
                   <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -297,38 +259,22 @@ $count = 1;
 if ($result = $db->query($strSQL)) {
     while ($objResult = $result->fetch_object()) {
         ?>
-        
-        
-                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+          
+          <td class="text-center" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-center" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-                  
-
-    <td>
-           
- <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                     ดูประวัติ</button>
-                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                      แก้ไขประวัติ</button>
-
-  <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                      ลบข้อมูล</a>
-
-
-                   <a href="../teacher/add_std_behavior4.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        ทำผิดกฎระเบียบ</a>
-
-
-                    
-
-                    
-
-                    
-
+         <td class="text-center">
+         <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-eye" title="ดูประวัติ"></i></button>
+                        
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-edit" title="แก้ไขข้อมูล"></i></button>
+                                           
+        <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+        <i class="fa fa-trash" title="ลบข้อมูล"></i></a>
+        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"class="btn btn-warning btn-xs">
+        <i class="fa fa-plus" title="เพิ่มพฤติกรรมนักเรียน"></i></a>
 
 
 
@@ -532,10 +478,9 @@ $i++;
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
   <!-- Control Sidebar -->

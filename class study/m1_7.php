@@ -277,11 +277,11 @@ include('../connect/connection.php');
                 <table id="example1" class="table  table-hover">
           <thead class="thead-light">
                 <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-center">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">รหัสนักเรียน</th>
                   <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ห้องเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="6%" class="text-center">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -299,35 +299,21 @@ if ($result = $db->query($strSQL)) {
         ?>
         
         
-                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
+         <td class="text-center" style="font-size: 15px;"> <?php echo $count++; ?></td>
+         <td class="text-center" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-                  
-
-    <td>
-            <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                       ดูประวัติ</button>
+         <td class="text-center">
+         <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-eye" title="ดูประวัติ"></i></button>
                         
-                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
-                        แก้ไขประวัติ</button>
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
+                        data-target="#show<?php echo $i; ?>"><i class="fa fa-edit" title="แก้ไขข้อมูล"></i></button>
                                            
-       <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                       ลบข้อมูล</a>
-        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        ทำผิดกฎระเบียบ</a>
-
-
-
-                    
-
-                    
-
-
-
+        <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
+        <i class="fa fa-trash" title="ลบข้อมูล"></i></a>
+        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"class="btn btn-warning btn-xs">
+        <i class="fa fa-plus" title="เพิ่มพฤติกรรมนักเรียน"></i></a>
 
 
 
@@ -352,8 +338,6 @@ if ($result = $db->query($strSQL)) {
                                     </div>
                                   </div>
 
-
-
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
@@ -366,8 +350,6 @@ if ($result = $db->query($strSQL)) {
                                       <?php echo $objResult->member_fullname; ?>
                                     </div>
                                   </div>
-
-
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
@@ -382,7 +364,6 @@ if ($result = $db->query($strSQL)) {
 
                                       <?php echo $objResult->member_phone; ?> </div>
                                   </div>
-
 
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 ">Gender</label>
@@ -436,8 +417,6 @@ if ($result = $db->query($strSQL)) {
                                     </div>
                                   </div>
 
-
-
                                   <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
@@ -485,9 +464,6 @@ if ($result = $db->query($strSQL)) {
                                       <?php echo $objResult->member_pos; ?> </div>
                                   </div>
 
-
-
-
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal"><i
                                         class="glyphicon glyphicon-remove"></i>
@@ -500,17 +476,14 @@ if ($result = $db->query($strSQL)) {
                           </div>
                         </div>
 
-
-
-
                     </td>
                     </tr>
 
                     <?php
-$i++;
-    }
-}
-?>
+                      $i++;
+                          }
+                      }
+                      ?>
 
                 </table>
             </div>
@@ -529,10 +502,9 @@ $i++;
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong > <center>Copyright &copy; 2020 <a href="index.php">Student behavior management system</a>.</strong> All rights
+    reserved.</center>
   </footer>
 
   <!-- Control Sidebar -->
