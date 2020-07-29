@@ -150,9 +150,9 @@ include('../connect/connection.php');
                 </span>
               </a>
               <ul class="treeview-menu">
-                 <li>
+                  <li>  
 <a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
-                <li class="active "><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
+            <li class="active "> <a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
               </ul>
@@ -238,108 +238,118 @@ include('../connect/connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        รายชื่อนักเรียน มัธยมศึกษาปีที่ 2
-             <small><b>  <a href="../class study/m2_1.php">(ม.2/1)</small></b></a>
-     <a href="../class study/m2_2.php"> <small>(ม.2/2)</small></a>
-<a href="../class study/m2_3.php"><small>(ม.2/3)</a></small>
-   <a href="../class study/m2_4.php"><small>(ม.2/4)</a></small>
-      <a href="../class study/m2_5.php"><small>(ม.2/5)</a></small>
-              <a href="../class study/m2_6.php"><small>(ม.2/6)</a></small>
-               <a href="../class study/m2_7.php"><small>(ม.2/7)</a></small>
+       แก้ไขประวัตินักเรียน
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">รายชื่อนักเรียนทั้งหมด</li>
           <li class="active">มัธยมต้น</li>
-         <li class="active">ม.2</li>
+
       </ol>
   </section>
 
     <section class="content">
       <div class="row">
-      
- 
         <div class="col-xs-12">
           <div class="box">
-    <!-- Main content -->
+                <form action="check_edit2.php?id=<?php echo $_GET["id"]; ?>" name="fromEdit" method="post"
+                  onsubmit="return checkForm()">
+   <?php
 
-          <style>
-.table .thead-light th {
-  color: #401500;
-  background-color: #3c8dbc
-;
-  border-color: #3c8dbc;
-}
-</style>
+              $my_id = $_GET['id'];
 
-            <!-- /.box-header -->
-            <div class="box-body">
-                <table id="example1" class="table  table-hover">
-          <thead class="thead-light">
-                <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">รหัสนักเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="15%" class="text-left">ชื่อ - นามสกุล</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
-                </tr>
-                </thead>
-                <tbody>
-                       <?php
-include('../connect/connection.php');
+$strSQL = "SELECT * FROM student WHERE id_std='" . $_GET['id'] . "'";
+      $count = 1;
 
-$strSQL = "SELECT * FROM student  where class_room= 'ม.2/1'  ";
-
-$count = 1;
 ?>
                     <?php
 if ($result = $db->query($strSQL)) {
-    while ($objResult = $result->fetch_object()) {
+    while ($objectResult = $result->fetch_object()) {
         ?>
-        
-        
-                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
-         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td>
-            
-    <td>  
+     <table class="table table-hover">
+                    <tbody>
+                      <p>
+                      <div align="center"> 
+                  <img src="../dist/img/user1.png" width=150 height=150 >
+                  </div>
+                         <p>
+                        <tr>
+                            <th align="right" scope="row" >&nbsp;</th>
+                            <th width="20%"> ชื่อ - นามสกุล </th>
+                            <td>   <input type="text" name="fullname" class="form-control" value="<?php echo $objectResult->fullname; ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวประชาชน</th>
+                               <td>   <input type="text" name="id_card" class="form-control" value="<?php echo $objectResult->id_card; ?>">
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th> เลขประจำตัวนักเรียน</th>
+                              <td>   <input type="text" name="id_std_card" class="form-control" value="<?php echo $objectResult->id_std_card; ?>">
+                            </td>
 
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ห้องเรียน</th>
 
-       <a href="../function/edit_profile2.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-primary btn-xs">
-                       แก้ไขประวัติ</a>
+                              <td>   <input type="text" name="class_room" class="form-control" value="<?php echo $objectResult->class_room; ?>">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ว.ด.ป. เกิด</th>
+                                 <td>   <input type="text" name="birthday" class="form-control" value="<?php echo $objectResult->birthday; ?>">
+                            </td>
+         
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>สถานะนักเรียน</th>
+                     <td>   <input type="text" name="types" class="form-control" value="<?php echo $objectResult->types; ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ประเภทนักเรียน</th>
+               <td>   <input type="text" name="status" class="form-control" value="<?php echo $objectResult->status; ?>">
+                            </td>
+                 
+                        </tr>
+                         <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ครูประจำชั้น</th>
+
+                                  <td>   <input type="text" name="teacher" class="form-control" value="<?php echo $objectResult->teacher; ?>">
+                <input type="hidden" name="id_std" value="<?php echo $objectResult->id_std; ?>" />
+                            </td>
+                         
+                        </tr>
                 
-      <a href="../function/delete_std2.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-danger btn-xs">
-                       ลบข้อมูล</a>
 
-        <a href="../teacher/add_std_behavior.php?id=<?php echo $objResult->id_std; ?>"
-                          class="btn btn-warning btn-xs">
-                        ทำผิดกฎระเบียบ</a>
+  
+     </p>
+   </p>
 
+ </tbody>
+</table>
 
-     
-                    </td>
-                    </tr>
+   <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
 
-                    <?php
-
+            </div>
+             <?php
     }
 }
 ?>
-
-                </table>
-            </div>
-
-
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
-
-    </section>
-    <!-- /.content -->
+</section>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
