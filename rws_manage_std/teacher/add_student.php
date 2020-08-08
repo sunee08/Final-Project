@@ -6,7 +6,7 @@ include('../connect/connection.php');
 
 if($_SESSION['id']==""){
 
-echo "Please Login!";
+        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
 exit(); 
 } 
 /*if($_SESSION['status']!="Staff")

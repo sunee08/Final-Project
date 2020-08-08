@@ -6,7 +6,7 @@ include('../connect/connection.php');
 
 if($_SESSION['id']==""){
 
-echo "Please Login!";
+        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
 exit(); 
 } 
 /*if($_SESSION['status']!="Staff")
@@ -316,7 +316,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                   </div>
                   </div>
                   <div class="form-group">
-                  <input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" >
+                  <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" >
                   <div class="input-group-append">
                   </div>
                   </div>
@@ -355,7 +355,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
 </style>
             <!-- /.box-header -->
                   <div class="box-body">
-                <table id="example2" class="table table-hover">
+                <table id="example1" class="table table-hover">
                   <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="2%" class="text-left">ลำดับ</th>

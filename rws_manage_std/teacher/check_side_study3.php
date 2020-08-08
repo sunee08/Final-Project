@@ -19,12 +19,12 @@ $sql = "INSERT INTO add_behavior(id_behavior,id_std,id_teacher,std_name,date_tim
 
 if ($rs = $db->query($sql)) {
     $db->close();
-     echo '<script> window.location="show.php?id=' . $id_std . '"</script> ';
+     echo '<script> window.location="show3.php?id=' . $id_std . '"</script> ';
 
 } else {
     echo $db->error;
     $db->close();
 
     echo "<script>alert('Try Again')</script>";
-    echo "<script>window.open('add_std_behavior.php','_self')</script>";
+    echo "<script>window.open('add_std_behavior3.php','_self')</script>";
 }

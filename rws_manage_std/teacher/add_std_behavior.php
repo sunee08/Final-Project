@@ -3,10 +3,12 @@
       <?php
 session_start();
 include('../connect/connection.php');
+include 'function.php';
+
 
 if($_SESSION['id']==""){
 
-echo "Please Login!";
+        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
 exit(); 
 } 
 /*if($_SESSION['status']!="Staff")
@@ -62,6 +64,11 @@ mysql_db_query($dbname,"SET NAMES UTF8");
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -159,23 +166,22 @@ mysql_db_query($dbname,"SET NAMES UTF8");
         </li>
 
 <li class=" active treeview">
-
           <a href="#">
-            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+          <i class="fa fa-folder"></i>  <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-<li class=" active ">
-
+          <li class=" active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-            <li class=" active "><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                   <li class="active ">
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -187,7 +193,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-              <ul class="treeview-menu">
+             <ul class="treeview-menu">
               <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
               <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
               <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
@@ -196,6 +202,8 @@ mysql_db_query($dbname,"SET NAMES UTF8");
             </li>
           </ul>
         </li>
+
+
 
          <!-- 
          <li class=" treeview">
@@ -373,10 +381,10 @@ if ($result = $db->query($strSQL)) {
            <thead class="thead-light">
                 <tr >
                       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
-                      <th style="font-size: 14px; color:white;" width="15%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
                       <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
-                       <th style="font-size: 14px; color:white;" width="10%"class="text-left">หัวข้อย่อย</th>
-                          <th style="font-size: 14px; color:white;" width="10%" class="text-left">จัดการ</th>
+                       <th style="font-size: 14px; color:white;" width="20%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="5%" class="text-left">จัดการ</th>
                    
                 </tr>
                 </thead>
@@ -427,15 +435,20 @@ if ($result = $db->query($strSQL)) {
      
             </table>
                    <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-default pull-left" onclick="myFunction1()" >ยกเลิก</button>
                 <button type="submit" class="btn btn-success">บันทึก</button>
 
               </div>
             </div>
 </div>
 </div>
-</form>
-                         
+</form>             <script>
+function myFunction1() {
+  document.getElementById("add").reset();
+}
+
+</script> 
+                            
                         </span>
                     
                   </div>
@@ -456,7 +469,7 @@ if ($result = $db->query($strSQL)) {
                         <span class="username">
                            <div class="col-xs-12">
 
-          <form id="add" name="add" method="post" action="check_side_study.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
+          <form id="ad" name="ad" method="post" action="check_side_study.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
        
       <!-- /.row (main row) -->
@@ -464,10 +477,11 @@ if ($result = $db->query($strSQL)) {
             <table id="example2" class="table  table-hover">
                   <thead class="thead-light">
                 <tr>
-              <th style="font-size: 14px; color:white;" width="10%" class="text-left">ลำดับ</th>
-             <th style="font-size: 14px; color:white;" width="20%" class="text-left">ด้านพฤติกรรม</th>
-                      <th style="font-size: 14px; color:white;" width="20%" class="text-left">หัวข้อหลัก</th>
-                         <th style="font-size: 14px; color:white;" width="20%" class="text-left">จัดการ</th>
+            <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
+                      <th style="font-size: 14px; color:white;" width="20%" class="text-left" >หัวข้อหลัก</th>
+                       <th style="font-size: 14px; color:white;" width="20%"class="text-left">หัวข้อย่อย</th>
+                          <th style="font-size: 14px; color:white;" width="5%" class="text-left">จัดการ</th>
         
                 </tr>
                 </thead>
@@ -486,8 +500,9 @@ if ($result = $db->query($strSQL)) {
         ?>
         
                    <td class="text-left" style="font-size: 14px;"> <?php echo $count++; ?></td>
-                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
-                    <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                       <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
+                <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
                   
                     
 
@@ -518,15 +533,21 @@ if ($result = $db->query($strSQL)) {
     
                 </table>
                    <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-default pull-left" onclick="myFunction()" >ยกเลิก</button>
                 <button type="submit" class="btn btn-success">บันทึก</button>
 
             </div>
 </div>
 </div>
+</form>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
-              
+             <script>
+function myFunction() {
+  document.getElementById("ad").reset();
+}
+
+</script> 
        
            
          </span>
@@ -773,6 +794,9 @@ $count = 1;
     </section>
     <!-- /.content -->
  
+
+
+
 
  <section class="content">
       <div class="row">

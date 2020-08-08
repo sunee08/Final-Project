@@ -3,10 +3,11 @@
       <?php
 session_start();
 include('../connect/connection.php');
+include 'function.php';
 
 if($_SESSION['id']==""){
 
-echo "Please Login!";
+        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
 exit(); 
 } 
 /*if($_SESSION['status']!="Staff")
@@ -62,6 +63,11 @@ mysql_db_query($dbname,"SET NAMES UTF8");
   <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -160,22 +166,23 @@ mysql_db_query($dbname,"SET NAMES UTF8");
           </a>
         </li>
 
- <li class="active ">
+<li class=" active treeview">
           <a href="#">
-            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+          <i class="fa fa-folder"></i>  <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+          <li class=" active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                   <li class="active ">
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -187,7 +194,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-              <ul class="treeview-menu">
+             <ul class="treeview-menu">
               <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
               <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
               <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
@@ -259,13 +266,14 @@ mysql_db_query($dbname,"SET NAMES UTF8");
     <section class="content-header">
       <h1>
         
-       รายการที่นักเรียนทำผิดกฎระเบียบ
+       แสดงผลนักเรียนทำผิดกฎระเบียบ
 
       </h1>
      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">แสดงผล</li>
-         <li class="active">รายการที่นักเรียนทำผิดระเบียบ</li>
+               <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
+        <li class="active">รายชื่อนักเรียนทั้งหมด</li>
+           <li class="active">มัธยมต้น</li>
+    <li class="active">ม.1</li>
       </ol>
     </section>
    
@@ -384,7 +392,9 @@ if ($result = $db->query($strSQL)) {
 
 
    <div class="modal-footer">
-                           <a href="index.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">กลับไปยังหน้าหลัก</button></a>
+                          
+
+                            <a href="add_std_behavior.php?id=<?php echo $objectResult->id_std; ?>" class="btn btn-success pull-left">กลับไปยังหน้าหลัก</a> 
             </div>
        
       <!-- /.row (main row) -->

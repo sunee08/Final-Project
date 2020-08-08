@@ -1,7 +1,6 @@
 <?php
 session_start();
-require 'connect/db.php';
-
+include('connect/connection.php');
 if(isset($_POST['username']) && isset($_POST['password'])){
 
 
@@ -12,7 +11,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
 
 
-    if($result_cus = $con->query($sql_cus)){
+    if($result_cus = $db->query($sql_cus)){
         if($result_cus->num_rows > 0){
             while($row = $result_cus->fetch_object()){
                 $_SESSION['id'] = $row->id_teacher;
@@ -32,10 +31,10 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                     
                     
                     }
-                    $con->close();
+                    $db->close();
                     }else{
-                    echo $con->error;
-                    $con->close();
+                    echo $db->error;
+                    $db->close();
                     }
                     }else{
                     header("Location: ../index.php");

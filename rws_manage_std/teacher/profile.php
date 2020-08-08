@@ -6,7 +6,7 @@ include('../connect/connection.php');
 
 if($_SESSION['id']==""){
 
-echo "Please Login!";
+        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
 exit(); 
 } 
 /*if($_SESSION['status']!="Staff")
@@ -253,7 +253,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
   </aside>
 
 
-  <!-- Content Wrapper. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -265,18 +265,15 @@ mysql_db_query($dbname,"SET NAMES UTF8");
         <li class="active">ข้อมูลผู้ดูแลระบบ</li>
       </ol>
     </section>
-      <form  class="p-5 bg-white" enctype="multipart/form-data" method="post"
-             action="check_edit_profile.php" >
-
 
        <?php
 include('../connect/connection.php');
 $strSQL = "SELECT * FROM teacher WHERE id_teacher = '" . $_SESSION['id'] . "'";    
       $objQuery = mysql_query($strSQL);
-          $objResult = mysql_fetch_array($objQuery);
+          $objectResult = mysql_fetch_array($objQuery);
           ?>     
 
-        
+
 
     <!-- Main content -->
     <section class="content">
@@ -285,51 +282,110 @@ $strSQL = "SELECT * FROM teacher WHERE id_teacher = '" . $_SESSION['id'] . "'";
      <div class="col-xs-12">
 
           <!-- Profile Image -->
+     <form  class="p-5 bg-white" enctype="multipart/form-data" method="post"
+             action="check_edit1.php" >
+
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user4-128x128.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user1.png" alt="User profile picture">
 
-              <h3 class="profile-username text-center">แก้ไขประวัติส่วนตัว</h3>
+ 
+     
+        
+                
+           
+              <p>
+                <h4>ประวัติ</h4>
+              </p>
 
-
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b>ชื่อ-นามสกุล</b>  <input type="text" class="form-control" name="fullname" value="<?php echo $objResult["fullname"];?>"></a>
-                </li>
-                <li class="list-group-item">
-                  <b> ชื่อผู้ใช้</b> <input type="text" class="form-control" name="username" value=" <?php echo $objResult["username"]; ?>"></a>
-                </li>
-                <li class="list-group-item">
-                  <b>เพศ</b><input type="text" class="form-control" name="gender" value=" <?php echo $objResult["gender"]; ?>"></a>
-                </li>
-                 <li class="list-group-item">
-                  <b>อีเมล์</b> <input type="text" class="form-control" name="email" value=" <?php echo $objResult["email"]; ?>"></a>
-                </li>
-                 <li class="list-group-item">
-                  <b>เบอร์โทรศัพท์</b> <input type="text" class="form-control" name="tel" value=" <?php echo $objResult["tel"]; ?>"></a>
-                </li>
-                <li class="list-group-item">
-                  <b>เปลี่ยนรหัสผ่าน</b> <input type="password" class="form-control" name="password" value=" <?php echo $objResult["password"]; ?>"></a>
-                </li>
-
-               <input type="hidden" class="form-control" name="id_teacher" value=" <?php echo $objResult["id_teacher"]; ?>">
+              <!-- <a href="booking.php" style="color:red">ค้นหาที่ฝึกงาน</a> -->
 
 
-             
+ <div class="row form-group">
+                <div class="col-md-6 mb-4 mb-md-0">
+        <label class="text-black" for="fname">ชื่อ-นามสกุล</label>
+<input type="text" name="fullname" class="form-control" value="<?php echo $objectResult["fullname"]; ?>"disabled>
 
-              </ul>
+                </div>
+                <div class="col-md-6">
+                  <label class="text-black" for="name">ชื่อผู้ใช้ระบบ</label>
+<input type="text" name="username" class="form-control" value="<?php echo $objectResult["username"]; ?>"disabled>           </div>
 
-           <button type="submit" class="btn btn-success"><i     class="glyphicon glyphicon-ok"></i>
-                                                                        Edit</button>
+
+              </div>
+
+
+
+              <div class="row form-group">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label class="text-black" for="fname">เพศ </label>
+                 <input type="text" name="gender" class="form-control" value="<?php echo $objectResult["gender"]; ?>"disabled>
+                </div>
+
+
+
+                <!-- <div class="col-md-6">
+                  <label class="text-black" for="lname">ประเภทงาน</label>
+                  <input type="text" id="lname" class="form-control" required autofocus>
+                </div> -->
+                <div class="col-md-6">
+                  <label class="text-black" >อีเมล์</label>
+              <input type="text" name="email" class="form-control" value="<?php echo $objectResult["email"]; ?>"disabled>
+
+                </div>
+
+  
+
+              </div>
+
+             <div class="row form-group">
+                <div class="col-md-6 mb-4 mb-md-0">
+                   <label class="text-black" >เบอร์โทรศัพท์</label>
+                  <input type="text" name="tel" class="form-control" value="<?php echo $objectResult["tel"]; ?>" disabled>
+                </div>
+
+
+
+
+                <!-- <div class="col-md-6">
+                  <label class="text-black" for="lname">ประเภทงาน</label>
+                  <input type="text" id="lname" class="form-control" required autofocus>
+                </div> -->
+     <div class="col-md-6">
+           <label class="text-black" >ตำแหน่ง</label>
+               <input type="text" name="status" class="form-control" value="<?php echo $objectResult["status"]; ?>" disabled>
+
+                </div>
+
+</div>
+  
+
+          
+  <div class="modal-footer">
+                 <a href="../function/edit_users1.php?id=<?php echo $objectResult["id_teacher"]; ?>" class="btn btn-primary btn-xl">
+                       แก้ไขประวัติ</a>
+
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
 
-         
+  
+
         
 
+
+
+
+
+<br>
+
+            </form>
+          </div>
+                    
+
     </section>
+
+        
+
+
 
   </div>
   <!-- /.content-wrapper -->
