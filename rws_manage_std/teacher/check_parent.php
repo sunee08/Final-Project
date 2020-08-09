@@ -7,14 +7,12 @@ require '../connect/connection.php';
 
 
     $id_add_behavior = $_POST['id_add_behavior'];
-    $penalty = $_POST['penalty'];
-    $detail_penalty  = $_POST['detail_penalty'];
-$reason  = $_POST['reason'];
+
+$parent  = $_POST['parent'];
 
 
-    $sql = "UPDATE  add_behavior SET id_add_behavior = '$id_add_behavior', penalty = '$penalty'
- ,detail_penalty  = '$detail_penalty',
- reason='$reason'
+    $sql = "UPDATE  add_behavior SET id_add_behavior = '$id_add_behavior',
+ parent='$parent'
 
 WHERE id_add_behavior = '$id_add_behavior'";
 

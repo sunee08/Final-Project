@@ -355,7 +355,7 @@ $i++;
 ?>
             </table>
                    <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+             <button type="button" class="btn btn-default pull-left" onclick="myFunction1()" >ยกเลิก</button>
                 <button type="submit" class="btn btn-success">บันทึก</button>
 
               </div>
@@ -365,7 +365,12 @@ $i++;
 </form>
             </div>
 
+  <script>
+function myFunction1() {
+  document.getElementById("add").reset();
+}
 
+</script> 
             <!-- /.box-body -->
       
           <!-- /.box -->

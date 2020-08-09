@@ -346,7 +346,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
           <!-- /.modal-dialog -->
         </div>
 
-
+</form>
     
        
       <div class="row">
@@ -410,22 +410,169 @@ if ($result = $db->query($strSQL)) {
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
                     
 
-    <td>
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
+
+  <td class="text-left" style="font-size: 14px;" >
+
+
+           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-default1<?php echo $i; ?>">
+  <i class="fa fa-edit"></i>       </button>
 
                       </center>
 
 
                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
+                        data-target="#view<?php echo $i; ?>">
                         <i class="fa fa-eye"></i></button>
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
+                 
+ <a href="../function/delete_side_behavior.php?id=<?php echo $objResult->id_behavior; ?>"
+                          class="btn btn-danger btn-xs" onclick="return confirm('ยืนยันการลบข้อมูล?')">
+                        ลบ</a>
 
+
+   <div class="modal fade" id="modal-default1<?php echo $i; ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <form class="form-horizontal" method="post" action="check_edit_behavior1.php">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> แก้ไขกฏระเบียบ  </h4>
+              </div>
+              <div class="modal-body">
+           
+
+
+              <div class="user-details">
+                <div class="form-group">
+                    <label>หัวข้อหลัก</label>
+<p>
+   <input type="text" name="topic" class="form-control select2" value="<?php echo $objResult->topic; ?>">
+                                      <div class="input-group-append" >
+
+                  </div>
+                <br>
+
+                <div class="form-group">
+                                      <label>หัวข้อย่อย</label>
+                                      <p>
+
+          <input type="text" name="detail"  class="form-control select2 " value="<?php echo $objResult->detail; ?>">
+                   <div class="input-group-append"  >
+                   
+                  </div>
+         
+     <br>
+                 <div class="form-group">
+                                      <label>ประเภท</label>
+                                          <p>
+
+          <input type="text" name="types_behavior" class="form-control  " value="<?php echo $objResult->types_behavior; ?>"  >
+             <div class="input-group-append" >
+          <p>
+          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
+                   
+                  </div>
+               <br>
+
+
+                 <div class="form-group">
+                                      <label>เปอรเซนต์</label>
+                                      <p>
+          <input type="text" name="percent" class="form-control select2" value="<?php echo $objResult->percent; ?>"  >
+   <div class="input-group-append" >     
+                   
+               
+                </div>
+
+                <input type="hidden" name="id_behavior" class="form-control select2" value="<?php echo $objResult->id_behavior; ?>" >
+
+
+              </div>
+
+                    
+
+              </div>
+                           <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+   <div class="modal fade" id="view<?php echo $i; ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <form class="form-horizontal">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> ดูข้อมูลกฏระเบียบ  </h4>
+              </div>
+              <div class="modal-body">
+           
+
+
+              <div class="user-details">
+                <div class="form-group">
+                    <label>หัวข้อหลัก</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->topic; ?>
+<p>
+
+
+                  </div>
+                <br>
+
+                <div class="form-group">
+                                      <label>หัวข้อย่อย</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->detail; ?>
+                                      <p>
+
+
+                   
+                  </div>
+         
+     <br>
+                 <div class="form-group">
+                                      <label>ประเภท</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->types_behavior; ?>
+                                          <p>
+
+    
+ 
+          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
+                   
+                  </div>
+               <br>
+
+
+                 <div class="form-group">
+                                      <label>เปอรเซนต์</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->percent; ?>
+                                      <p>
+
+                   
+               
+                </div>
+
+              
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+</form>
+    
 
                     </td>
                     </tr>
@@ -436,12 +583,15 @@ $i++;
 }
 ?>
 
-                </table>
+            </table>
+                 
             </div>
 </div>
 </div>
+</form>
                          
                         </span>
+                    
                     
                   </div>
                   <!-- /.user-block -->
@@ -512,23 +662,168 @@ if ($result = $db->query($strSQL)) {
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?></td>
                     
 
-    <td>
+  
+  <td class="text-left" style="font-size: 14px;" >
 
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal"
-                        data-target="#editsub<?php echo $i; ?>">
-                        <i class="fa fa-edit" title="Edit"></i> </button>
+
+           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-default2<?php echo $i; ?>">
+  <i class="fa fa-edit"></i>       </button>
 
                       </center>
 
 
                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                        data-target="#show<?php echo $i; ?>">
+                        data-target="#view1<?php echo $i; ?>">
                         <i class="fa fa-eye"></i></button>
 
-                      <a href="delete_member.php?id=<?php echo $objResult->member_id; ?>" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash" title="Delete"></i></a>
+                 
+ <a href="../function/delete_side_study.php?id=<?php echo $objResult->id_behavior; ?>"
+                          class="btn btn-danger btn-xs" onclick="return confirm('ยืนยันการลบข้อมูล?')">
+                        ลบ</a>
 
 
+   <div class="modal fade" id="modal-default2<?php echo $i; ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <form class="form-horizontal" method="post" action="check_edit_study1.php">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> แก้ไขกฏระเบียบ  </h4>
+              </div>
+              <div class="modal-body">
+           
+
+
+              <div class="user-details">
+                <div class="form-group">
+                    <label>หัวข้อหลัก</label>
+<p>
+   <input type="text" name="topic" class="form-control select2" value="<?php echo $objResult->topic; ?>">
+                                      <div class="input-group-append" >
+
+                  </div>
+                <br>
+
+                <div class="form-group">
+                                      <label>หัวข้อย่อย</label>
+                                      <p>
+
+          <input type="text" name="detail"  class="form-control select2 " value="<?php echo $objResult->detail; ?>">
+                   <div class="input-group-append"  >
+                   
+                  </div>
+         
+     <br>
+                 <div class="form-group">
+                                      <label>ประเภท</label>
+                                          <p>
+
+          <input type="text" name="types_behavior" class="form-control  " value="<?php echo $objResult->types_behavior; ?>"  >
+             <div class="input-group-append" >
+          <p>
+          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
+                   
+                  </div>
+               <br>
+
+
+                 <div class="form-group">
+                                      <label>เปอรเซนต์</label>
+                                      <p>
+          <input type="text" name="percent" class="form-control select2" value="<?php echo $objResult->percent; ?>"  >
+   <div class="input-group-append" >     
+                   
+               
+                </div>
+
+                <input type="hidden" name="id_behavior" class="form-control select2" value="<?php echo $objResult->id_behavior; ?>" >
+
+
+              </div>
+
+                    
+
+              </div>
+                           <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+   <div class="modal fade" id="view1<?php echo $i; ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <form class="form-horizontal">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> ดูข้อมูลกฏระเบียบ  </h4>
+              </div>
+              <div class="modal-body">
+           
+
+
+              <div class="user-details">
+                <div class="form-group">
+                    <label>หัวข้อหลัก</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->topic; ?>
+<p>
+
+
+                  </div>
+                <br>
+
+                <div class="form-group">
+                                      <label>หัวข้อย่อย</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->detail; ?>
+                                      <p>
+
+
+                   
+                  </div>
+         
+     <br>
+                 <div class="form-group">
+                                      <label>ประเภท</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->types_behavior; ?>
+                                          <p>
+
+    
+ 
+          *ประเภท ด้านการพฤติกรรม หรือ ด้านการเรียน
+                   
+                  </div>
+               <br>
+
+
+                 <div class="form-group">
+                                      <label>เปอรเซนต์</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $objResult->percent; ?>
+                                      <p>
+
+                   
+               
+                </div>
+
+              
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+</form>
+    
                     </td>
                     </tr>
 

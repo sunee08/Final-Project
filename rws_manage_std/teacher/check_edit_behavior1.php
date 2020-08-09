@@ -6,17 +6,20 @@ if (empty($submit)) {
 require '../connect/connection.php';
 
 
-    $id_add_behavior = $_POST['id_add_behavior'];
-    $penalty = $_POST['penalty'];
-    $detail_penalty  = $_POST['detail_penalty'];
-$reason  = $_POST['reason'];
+ $topic = $_POST['topic'];
+$detail = $_POST['detail'];
+$id_behavior = $_POST['id_behavior'];
+
+$types_behavior = $_POST['types_behavior'];
+$percent = $_POST['percent'];
 
 
-    $sql = "UPDATE  add_behavior SET id_add_behavior = '$id_add_behavior', penalty = '$penalty'
- ,detail_penalty  = '$detail_penalty',
- reason='$reason'
+    $sql = "UPDATE  behavior SET id_behavior = '$id_behavior', detail = '$detail'
+ ,topic  = '$topic',
+ types_behavior='$types_behavior',
+ percent='$percent'
 
-WHERE id_add_behavior = '$id_add_behavior'";
+WHERE id_behavior = '$id_behavior'";
 
     //ตรงนี้ if ,while สังเกตดีๆน่ะ ต้องมา ใช้ ของตัวเอง ระบบของตัวเองใช้ ยังไง ก็ ใช้ ตามนั้น
 
@@ -26,7 +29,7 @@ WHERE id_add_behavior = '$id_add_behavior'";
 if ($rs = $db->query($sql)) {
     $db->close();
   
-            echo "<script>alert('ยืนยันบทลงโทษ');window.location = \"result.php\";</script>";
+            echo "<script>alert('แก้ไขข้อมูลสำเร็จ');window.location = \"add_behavior.php\";</script>";
 
 } 
 }else {

@@ -386,120 +386,13 @@ echo ' <p> ใบลา  </p>';
       <div class="row">
         <div class="col-md-6">
           <!-- AREA CHART -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-             <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-             <div class="card-body">
-                <h3 align="center"></h3>
-            
-
-   <?php
-
-              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
-mysqli_query($con, "SET NAMES 'utf8' ");
-
-            $query = "     
-        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
- LEFT JOIN student ON student.id_std = add_behavior.id_std
-     WHERE add_behavior.id_std
-     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
-
-            ";
-            $result = mysqli_query($con, $query);
-            $resultchart = mysqli_query($con, $query);
-            //for chart
-            $date_time = array();
-            $percent = array();
-            while($rs = mysqli_fetch_array($resultchart)){
-            $date_time[] = "\"".$rs['date_time']."\"";
-            $percent[] = "\"".number_format($rs['percent'])."\"";
-            }
-            $date_time = implode(",", $date_time);
-            $percent = implode(",", $percent);
-            
-            ?>
-                    
-
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-     
-            <p align="center">
-                <!--devbanban.com-->
-                <canvas id="myChart" width="800px" height="400px"></canvas>
-                <script>
-                var ctx = document.getElementById("myChart").getContext('2d');
-                var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                labels: [<?php echo $date_time;?>
-                
-                ],
-                datasets: [{
-                label: 'รายงานรายได้ แยกตามเดือน ',
-                data: [<?php echo $percent;?>
-                ],
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-                }]
-                },
-                options: {
-                scales: {
-                yAxes: [{
-                ticks: {
-                beginAtZero:true
-                }
-                }]
-                }
-                }
-                });
-                </script>
-
-
-
-                         
-
-      
-      <!-- /.content -->
-</div>
-
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-
-
+       
           <!-- DONUT CHART -->
           <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">สถิติของการซื้อใบลา</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+         
             </div>
           <div class="card-body">
                 <h3 align="center"></h3>
@@ -589,22 +482,119 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
 
-        </div>
-        <!-- /.col (LEFT) -->
+
+
+         </div>        <!-- /.col (LEFT) -->
          <div class="col-md-6">
           <!-- AREA CHART -->
           <!-- AREA CHART -->
-          <div class="box box-primary">
+            <div class="box box-primary">
+            <div class="box-header with-border">
+             <h3 class="box-title">สถิติของผิดกฏระเบียบแต่ละเดือน</h3>
+
+              
+            </div>
+             <div class="card-body">
+                <h3 align="center"></h3>
+            
+
+   <?php
+
+              $con= mysqli_connect("localhost","root","","rws_manage_std") or die("Error: " . mysqli_error($con));
+mysqli_query($con, "SET NAMES 'utf8' ");
+
+            $query = "     
+        SELECT SUM(behavior.percent) AS percent, DATE_FORMAT(add_behavior.date_time, '%M') AS date_time FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+ LEFT JOIN student ON student.id_std = add_behavior.id_std
+     WHERE add_behavior.id_std
+     GROUP BY DATE_FORMAT(add_behavior.date_time, '%M%')DESC
+
+            ";
+            $result = mysqli_query($con, $query);
+            $resultchart = mysqli_query($con, $query);
+            //for chart
+            $date_time = array();
+            $percent = array();
+            while($rs = mysqli_fetch_array($resultchart)){
+            $date_time[] = "\"".$rs['date_time']."\"";
+            $percent[] = "\"".number_format($rs['percent'])."\"";
+            }
+            $date_time = implode(",", $date_time);
+            $percent = implode(",", $percent);
+            
+            ?>
+                    
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+     
+            <p align="center">
+                <!--devbanban.com-->
+                <canvas id="myChart" width="800px" height="400px"></canvas>
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: [<?php echo $date_time;?>
+                
+                ],
+                datasets: [{
+                label: 'รายงานรายได้ แยกตามเดือน ',
+                data: [<?php echo $percent;?>
+                ],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero:true
+                }
+                }]
+                }
+                }
+                });
+                </script>
+
+
+
+                         
+
+      
+      <!-- /.content -->
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          <!-- /.box -->
+        </div>
+      </div>
+       <div class="col-xs-12">
+        <!-- DONUT CHART -->
+            <div class="box box-primary">
             <div class="box-header with-border">
              <h3 class="box-title">รายการผิดกฏระเบียบ</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+             
             </div>
              <div class="card-body">
                 <h3 align="center"></h3>
@@ -642,7 +632,10 @@ mysqli_query($con, "SET NAMES 'utf8' ");
 
             <p align="center">
                 <!--devbanban.com-->
-                <canvas id="myChart1" width="800px" height="400px"></canvas>
+                <canvas id="myChart1" style="height: 200px;"></canvas>
+
+
+
                 <script>
                 var ctx = document.getElementById("myChart1").getContext('2d');
                 var myChart1 = new Chart(ctx, {
@@ -697,30 +690,8 @@ mysqli_query($con, "SET NAMES 'utf8' ");
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-          <!-- BAR CHART -->
-          <div class="box box-success">
-            <div class="box-header with-border">
-              <h3 class="box-title">Bar Chart</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <canvas id="barChart" style="height:230px"></canvas>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
 
         </div>
-        <!-- /.col (RIGHT) -->
-      </div>
-      <!-- /.row -->
 
     </section>
    

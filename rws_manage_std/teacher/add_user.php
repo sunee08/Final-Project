@@ -292,19 +292,19 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                 <form id="add" name="add" method="post" action="check_add_teacher.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
               <div class="user-details">
                 <div class="form-group">
-                 <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" >
+                 <input type="text" class="form-control" id="fullname" name="fullname" placeholder="ชื่อ นามสกุล" required >
                   <div class="input-group-append">
                   </div>
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="username"
-                    name="username" >
+                    name="username" required >
                   <div class="input-group-append">
                   </div>
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password"
-                    id="password" >
+                    id="password" required >
                   <div class="input-group-append">
                   </div>
                 </div>
@@ -316,7 +316,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                   </div>
                   </div>
                   <div class="form-group">
-                  <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" >
+                  <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" id="tel"name="tel" required>
                   <div class="input-group-append">
                   </div>
                   </div>
