@@ -939,7 +939,7 @@ $query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS dat
           
 
   <div class="box-body">
-    <table id="example2" class="table  table-hover" class="center">
+    <table id="example3" class="table  table-hover" class="center">
           <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
@@ -1078,7 +1078,9 @@ if ($result = $db->query($strSQL)) {
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
+    $('#example2').DataTable()
+    $('#example3').DataTable()
+    $('#example4').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,

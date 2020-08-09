@@ -268,14 +268,41 @@ mysql_db_query($dbname,"SET NAMES UTF8");
     <section class="content-header">
       <h1>
         รายชื่อนักเรียน มัธยมศึกษาปีที่ 1
-       <small><b> <a href="../class study/m1_1.php" >(ม.1/1)</a></b></small>
+
+     <small><b> <a href="../class study/m1_1.php" >(ม.1/1)</a></b></small>
         <a href="../class study/m1_2.php"><small>(ม.1/2)</small></a>
         <a href="../class study/m1_3.php"><small>(ม.1/3)</small></a>
           <a href="../class study/m1_4.php"><small>(ม.1/4)</small></a>
             <a href="../class study/m1_5.php"><small>(ม.1/5)</small></a>
               <a href="../class study/m1_6.php"><small>(ม.1/6)</small></a>
                 <a href="../class study/m1_7.php"><small>(ม.1/7)</small></a>
-      </h1>
+                   <p>
+                          
+
+</h1>
+
+
+<p>
+       
+<h4>
+ <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std,teacher
+                        FROM student
+                         where class_room= 'ม.1/1'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo ' รายชื่อนักเรียนทั้งหมด   ( ' . $row . ' คน )  '; 
+?> <?php
+$strSQL = "SELECT * FROM student  where class_room= 'ม.1/1'  ";
+  $objQuery = mysql_query($strSQL);
+  $objResult = mysql_fetch_array($objQuery);
+?> ครูประจำชั้น
+<?php echo $objResult['teacher']; ?>
+  </h4>
+               
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">รายชื่อนักเรียนทั้งหมด</li>

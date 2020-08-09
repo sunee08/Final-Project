@@ -278,6 +278,26 @@ mysql_db_query($dbname,"SET NAMES UTF8");
               <a href="../class study/m3_6.php"><small>(ม.3/6)</small></a>
                 <a href="../class study/m3_7.php"><small>(ม.3/7)</small></a>
       </h1>
+         <p>
+       
+<h4>
+ <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std,teacher
+                        FROM student
+                         where class_room= 'ม.3/4'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo ' รายชื่อนักเรียนทั้งหมด   ( ' . $row . ' คน )  '; 
+?> <?php
+$strSQL = "SELECT * FROM student  where class_room= 'ม.3/4'  ";
+  $objQuery = mysql_query($strSQL);
+  $objResult = mysql_fetch_array($objQuery);
+?> ครูประจำชั้น
+<?php echo $objResult['teacher']; ?>
+  </h4>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">รายชื่อนักเรียนทั้งหมด</li>
@@ -308,11 +328,11 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                 <table id="example1" class="table  table-hover">
           <thead class="thead-light">
                 <tr>
-                  <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
-                  <th style="font-size: 14px; color:white;" width="6%" class="text-left">รหัสนักเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">ชื่อ - นามสกุล</th>
+                 <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
+                  <th style="font-size: 14px; color:white;" width="5%" class="text-left">รหัสนักเรียน</th>
+                  <th style="font-size: 14px; color:white;" width="15%" class="text-left">ชื่อ - นามสกุล</th>
                   <th style="font-size: 14px; color:white;" width="6%" class="text-left">ห้องเรียน</th>
-                  <th style="font-size: 14px; color:white;" width="14%" class="text-left">จัดการ</th>
+                  <th style="font-size: 14px; color:white;" width="10%" class="text-left">การจัดการ</th>
                 </tr>
                 </thead>
                 <tbody>

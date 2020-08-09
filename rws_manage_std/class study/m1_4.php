@@ -276,6 +276,28 @@ mysql_db_query($dbname,"SET NAMES UTF8");
               <a href="../class study/m1_6.php"><small>(ม.1/6)</small></a>
                 <a href="../class study/m1_7.php"><small>(ม.1/7)</small></a>
       </h1>
+<p>
+       
+<h4>
+ <?php
+$con = mysqli_connect('localhost', 'root', '', 'rws_manage_std');
+$con->set_charset("utf8");
+$query = "SELECT id_std,teacher
+                        FROM student
+                         where class_room= 'ม.1/4'
+                        ORDER BY id_std";
+$query_num = mysqli_query($con, $query);
+$row = mysqli_num_rows($query_num);
+echo ' รายชื่อนักเรียนทั้งหมด   ( ' . $row . ' คน )  '; 
+?> <?php
+$strSQL = "SELECT * FROM student  where class_room= 'ม.1/4'  ";
+  $objQuery = mysql_query($strSQL);
+  $objResult = mysql_fetch_array($objQuery);
+?> ครูประจำชั้น
+<?php echo $objResult['teacher']; ?>
+  </h4>
+
+
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
         <li class="active">รายชื่อนักเรียนทั้งหมด</li>

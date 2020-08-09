@@ -9,12 +9,12 @@ require '../connect/connection.php';
     $id_add_behavior = $_POST['id_add_behavior'];
     $penalty = $_POST['penalty'];
     $detail_penalty  = $_POST['detail_penalty'];
-    $time  = $_POST['time'];
+
 
 
     $sql = "UPDATE  add_behavior SET id_add_behavior = '$id_add_behavior', penalty = '$penalty'
- ,detail_penalty  = '$detail_penalty',
- time  = '$time'
+ ,detail_penalty  = '$detail_penalty'
+
 WHERE id_add_behavior = '$id_add_behavior'";
 
     //ตรงนี้ if ,while สังเกตดีๆน่ะ ต้องมา ใช้ ของตัวเอง ระบบของตัวเองใช้ ยังไง ก็ ใช้ ตามนั้น
@@ -24,7 +24,9 @@ WHERE id_add_behavior = '$id_add_behavior'";
 
 if ($rs = $db->query($sql)) {
     $db->close();
-    header("Location: penalty.php?success=1");
+  
+            echo "<script>alert('ยืนยันบทลงโทษ');window.location = \"result.php\";</script>";
+
 } 
 }else {
     echo $db->error;

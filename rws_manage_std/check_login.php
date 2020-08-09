@@ -16,6 +16,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
             while($row = $result_cus->fetch_object()){
                 $_SESSION['id'] = $row->id_teacher;
                 $_SESSION['name'] = $row->fullname;
+                $_SESSION['teacher'] = $row->teacher;
+
                 $_SESSION['status'] = "ครูฝ่ายปกครอง";    
                     }
                 $result_cus->free();

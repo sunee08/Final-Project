@@ -332,19 +332,22 @@ if ($result = $db->query($strSQL)) {
         ?>
 
 
-
-         <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->id_std_card; ?></td>         <td class="text-left" style="font-size: 15px;"><?php echo $objResult->fullname; ?></td>
 
          <td class="text-left" style="font-size: 15px;"><?php echo $objResult->class_room; ?></td> 
-               <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?>/100</td> 
+               <td class="text-left" style="font-size: 15px;"><?php echo number_format($objResult->percent); ?>/<font color='red'>100</font>
 
 
            
          </td> 
 <td>
-    <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-warning btn-sm">
-                      รายละเอียดและเพิ่มบทลงโทษ</a>
+    <a href="../teacher/penalty.php?id=<?php echo $objResult->id_std; ?>" class="btn btn-warning btn-xs">
+                      เพิ่มบทลงโทษ</a>
+                       <a href="../function/delete_behavior.php?id=<?php echo $objResult->id_std; ?>"
+                          class="btn btn-danger btn-xs" onclick="return confirm('Are You sure Delete?')">
+                        ลบ</a>
+
 </td>
       </tr>
   

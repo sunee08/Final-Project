@@ -4,29 +4,6 @@
 session_start();
 include('../connect/connection.php');
 
-if($_SESSION['id']==""){
-
-        echo "<script>alert('กรุณาล๊อกอินเพื่อเข้าสู่ระบบ');window.location = \"../index.php\";</script>";
-exit(); 
-} 
-/*if($_SESSION['status']!="Staff")
-{
-echo "Welcome staff!";
-exit();
-}*/
-
-
-
-
-
-
-  mysql_connect($servername, $username, $password)or die("Can't connect DB") ;
-mysql_select_db($dbname) or die ("Can't connect DB"); 
-mysql_db_query($dbname,"SET NAMES UTF8");
-
-  $strSQL = "SELECT * FROM teacher WHERE id_teacher = '".$_SESSION['id']."' ";
-  $objQuery = mysql_query($strSQL);
-  $objResult = mysql_fetch_array($objQuery);
 
   
 ?>
@@ -132,8 +109,8 @@ mysql_db_query($dbname,"SET NAMES UTF8");
           <img src="../dist/img/user2.jpg"  class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p> <?php echo $objResult['fullname']; ?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $objResult['status']; ?></a>
+         <p> <?php echo $_SESSION['name']; ?></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $_SESSION['status']; ?></a>
         </div>
       </div>
       <!-- search form -->
@@ -312,18 +289,11 @@ mysql_db_query($dbname,"SET NAMES UTF8");
 
  <?php
 
-$strSQL =
-
-
-
 $strSQL = "SELECT DISTINCT (student.fullname) AS fullname ,SUM(behavior.percent) AS percent, student.fullname,student.id_std_card,student.class_room,student.id_std FROM student
-
   LEFT JOIN add_behavior ON student.id_std = add_behavior.id_std
   LEFT JOIN behavior ON behavior.id_behavior = add_behavior.id_behavior
    WHERE add_behavior.id_std
- 
        GROUP BY (student.id_std)  ";
-
       $count = 1;
         ?> 
 
@@ -648,7 +618,8 @@ if ($result = $db->query($strSQL)) {
 <script>
   $(function () {
     $('#example1').DataTable()
-       $('#example2').DataTable()
+        $('#example2').DataTable()
+
     $('#example3').DataTable({
       'paging'      : true,
       'lengthChange': false,

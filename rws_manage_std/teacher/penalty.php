@@ -3,6 +3,8 @@
       <?php
 session_start();
 include('../connect/connection.php');
+include 'function.php';
+
 
 if($_SESSION['id']==""){
 
@@ -30,7 +32,6 @@ mysql_db_query($dbname,"SET NAMES UTF8");
 
   
 ?>
-
 
 
 
@@ -67,6 +68,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
   <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Select2 -->
   <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -142,7 +144,6 @@ mysql_db_query($dbname,"SET NAMES UTF8");
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนู</li>
        
-
    <li>
              <a href="add_user.php">
             <i class="fa fa-users"></i>
@@ -164,22 +165,23 @@ mysql_db_query($dbname,"SET NAMES UTF8");
           </a>
         </li>
 
-      <li class="treeview">
+<li class=" active treeview">
           <a href="#">
-            <i class="fa fa-folder"></i> <span>รายชื่อนักเรียนทั้งหมด</span>
+          <i class="fa fa-folder"></i>  <span>รายชื่อนักเรียนทั้งหมด</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+          <li class=" active treeview">
               <a href="#"><i class="fa fa-circle-o"></i> มัธยมต้น
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-              <li><a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
+                   <li class="active ">
+<a href="../class study/m1_1.php"><i class="fa fa-circle-o"></i> ม.1</a></li>
               <li><a href="../class study/m2_1.php"><i class="fa fa-circle-o"></i> ม.2</a></li>
               <li><a href="../class study/m3_1.php"><i class="fa fa-circle-o"></i> ม.3</a></li>
 
@@ -191,7 +193,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-              <ul class="treeview-menu">
+             <ul class="treeview-menu">
               <li><a href="../class study/m4_1.php"><i class="fa fa-circle-o"></i> ม.4</a></li>
               <li><a href="../class study/m5_1.php"><i class="fa fa-circle-o"></i> ม.5</a></li>
               <li><a href="../class study/m6_1.php"><i class="fa fa-circle-o"></i> ม.6</a></li>
@@ -200,6 +202,8 @@ mysql_db_query($dbname,"SET NAMES UTF8");
             </li>
           </ul>
         </li>
+
+
 
          <!-- 
          <li class=" treeview">
@@ -239,7 +243,7 @@ mysql_db_query($dbname,"SET NAMES UTF8");
 
     
 
-     <li class="active ">
+        <li>
           <a href="result.php">
             <i class="fa fa-dashboard"></i> <span>แสดงผล</span>
           </a>
@@ -256,24 +260,23 @@ mysql_db_query($dbname,"SET NAMES UTF8");
     <!-- /.sidebar -->
   </aside>
 
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        
-        แสดงผลรายการที่ทำผิดกฎระเบียบและเพิ่มบทลงโทษ
+        เลือกรายการที่นักเรียนทำผิด
       </h1>
-        <ol class="breadcrumb">
+      <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-        <li class="active">แสดงผล</li>     
-           <li class="active">แสดงผลรายการที่ทำผิดกฎระเบียบและเพิ่มบทลงโทษ</li>
+        <li class="active">รายชื่อนักเรียนทั้งหมด</li>
+           <li class="active">มัธยมต้น</li>
+    <li class="active">ม.1</li>
 
       </ol>
     </section>
    
- <section class="content">
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -329,17 +332,46 @@ if ($result = $db->query($strSQL)) {
                             <th>ประเภทนักเรียน</th>
                             <td><?php echo $objectResult->status; ?></td>
                         </tr>
+                          <tr>
+                            <th align="right" scope="row">&nbsp;</th>
+                            <th>ครูประจำชั้น</th>
+                            <td><?php echo $objectResult->teacher; ?></td>
+                        </tr>
                     </tbody>
                 </table>       
- 
+    <div class="modal-footer">
+                       <a href="result.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
 
+
+              
+            </div>
+   <?php
+
+            $my_id = $_GET['id'];
+  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
+ LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
+     WHERE add_behavior.id_std = '$my_id' ";
+
+                    $query_result=mysqli_query($db,$query);
+                     while ($row=mysqli_fetch_assoc($query_result)) {
+                      $sum= $row['total'];
+                     }
+                    ?>
+                     
+    
+                       
+                  
+                 
+                     <div align="center"> 
+                <?php echo status_01_file_2($sum); ?>
+                  </div>
 
       <div class="row">
    
               <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab" >แสดงผลบทลงโทษโดยรวม</a></li>
+       <li class="active"><a href="#activity" data-toggle="tab" >แสดงผลบทลงโทษโดยรวม</a></li>
               <li><a href="#timeline" data-toggle="tab">แสดงผลบทลงโทษบำเพ็ญประโยชน์</a></li>
                 <li><a href="#time" data-toggle="tab">แสดงผลบทลงโทษตักเตือน</a></li>
                   <li><a href="#behavior" data-toggle="tab">แสดงผลบทลงโทษเชิญผู้ปกครอง</a></li>
@@ -360,40 +392,15 @@ if ($result = $db->query($strSQL)) {
 }
 </style>
 
-          <div class="modal-footer">
-                           <a href="result.php"> <button type="button" class="btn btn-success pull-left" data-dismiss="modal">ย้อนกลับ</button></a>
-            </div>
-
-
-                      <?php
-
-            $my_id = $_GET['id'];
-  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent, behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id' ";
-
-                    $query_result=mysqli_query($db,$query);
-                     while ($row=mysqli_fetch_assoc($query_result)) {
-                      $sum= $row['total'];
-                     }
-                    ?>
-                     
-    
-                       
-                  
-                 
-                     <div align="center"> 
-                <?php echo status_01_file_2($sum); ?>
-                  </div>
- 
-
+       
       <!-- /.row (main row) -->
-
+   <form id="add" name="add" method="post" action="check_side_behavior.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
   <div class="box-body">
        <table id="example1" class="table  table-hover">
            <thead class="thead-light">
                 <tr >
-                      <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="3%" class="text-left">ลำดับ</th>
+                      <th style="font-size: 14px; color:white;" width="8%" class="text-left">วันที่</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
                        <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
@@ -401,15 +408,15 @@ if ($result = $db->query($strSQL)) {
                        <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
 
                        <th style="font-size: 14px; color:white;" width="10%"class="text-left">การจัดการ</th>
-                   
+
                 </tr>
                 </thead>
-                                <tbody>
-               <?php
+                <tbody>
+                   <?php
 
               $my_id = $_GET['id'];
 
-$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.id_add_behavior,behavior.id_behavior,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.penalty FROM behavior
+$strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.id_add_behavior,behavior.id_behavior,add_behavior.id_behavior,add_behavior.detail_penalty,add_behavior.penalty,add_behavior.date_time,add_behavior.time FROM behavior
 
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
   LEFT JOIN student ON add_behavior.id_std = student.id_std
@@ -426,13 +433,14 @@ $count = 1;
             ?>
         
                      <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                   <td class="text-left" style="font-size: 14px;"><?php echo $objResult->date_time; ?>  <p><?php echo $objResult->time; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->penalty; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail_penalty; ?>   </td>
 
-     <td class="text-left" style="font-size: 14px;" >
+   <td class="text-left" style="font-size: 14px;" >
 
 
 
@@ -568,48 +576,21 @@ $count = 1;
 
 
                          </td>
+                    </tr>
 
-                 
-                 </tr>
-
-
-            <?php
-            $i++;
-
-              }
-               }
-                   ?>
-                   
-      
-                   <tr>
                     <?php
-         
-  $query = "SELECT behavior.*, SUM(percent) AS total, behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior FROM behavior
- LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id'   ";
 
-                    $query_result=mysqli_query($db,$query);
-                     while ($row=mysqli_fetch_assoc($query_result)) {
-                      $sum= $row['total'];
-                     }
-                    ?>
-                      <td colspan="5" class="text-center btn-default"  style="font-size: 15px;"> รวม</td>
-
-                      <td class="text-center " style="font-size: 15px;" ><?php echo number_format($sum); ?>%</td>
-                       
-                     </tr>
-                  
-
-
-
+    }
+}
+?>
      
             </table>
-                 
+                  
             </div>
 </div>
 </div>
-</form>
-                         
+</form>        
+                            
                         </span>
                     
                   </div>
@@ -624,43 +605,42 @@ $count = 1;
                     <!-- /.col -->
                   </div>
     
-                           <div class="tab-pane" id="time">
+              <div class="tab-pane" id="timeline">
                 <!-- The timeline -->
-                 
+           
                         <span class="username">
                            <div class="col-xs-12">
 
+          <form id="ad" name="ad" method="post" action="check_side_study.php" enctype="multipart/form-data" onsubmit="return checkForm()"  > 
 
-
+       
       <!-- /.row (main row) -->
 <div class="box-body">
-            <table id="example1" class="table  table-hover" >
-                <thead class="thead-light">
-       <tr>
-       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+            <table id="example2" class="table  table-hover">
+                  <thead class="thead-light">
+                <tr>
+      <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
                        <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
                        <th style="font-size: 14px; color:white;" width="14%"class="text-left">ประเภทบทลงโทษ</th>
                        <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
-
-                   
-                     </tr>
-                  </thead>
-                  <tbody align="center">
-      <?php
+                </tr>
+                </thead>
+                <tbody>
+                    <?php
               $my_id = $_GET['id'];
 $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.date_time,add_behavior.time,add_behavior.penalty,add_behavior.detail_penalty FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id' and penalty='ตักเตือน'";
+     WHERE add_behavior.id_std = '$my_id' and penalty='บำเพ็ญประโยชน์'";
       $count = 1;
         ?>
         <?php
      if($result = $db->query($strSQL)){
              while($objResult = $result->fetch_object()){
             ?>
-            <tr>
-                   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+        
+                 <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
@@ -678,20 +658,25 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                    
 
                   
-                         
- <?php
-}
-}
-?>
-                </tbody>
-              </table>
-              
+
+
+
+    
+                </table>
+                   <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" onclick="myFunction()" >ยกเลิก</button>
+                <button type="submit" class="btn btn-success">บันทึก</button>
+
+            </div>
 </div>
 </div>
+</form>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
-
-           </span>
+           
+       
+           
+         </span>
                     
                   </div>
                   <!-- /.user-block -->
@@ -705,35 +690,34 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                     <!-- /.col -->
                   </div>
     
-                           <div class="tab-pane" id="timeline">
+              <div class="tab-pane" id="time">
                 <!-- The timeline -->
                  
                         <span class="username">
                            <div class="col-xs-12">
 
 
-
+    
       <!-- /.row (main row) -->
 <div class="box-body">
-            <table id="example1" class="table  table-hover" >
+            <table id="example3" class="table  table-hover" >
                 <thead class="thead-light">
                   <tr>
-       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                 <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
                        <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
                        <th style="font-size: 14px; color:white;" width="14%"class="text-left">ประเภทบทลงโทษ</th>
                        <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
-
-                   
                      </tr>
                   </thead>
+                  
                   <tbody align="center">
-      <?php
+     <?php
               $my_id = $_GET['id'];
 $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.date_time,add_behavior.time,add_behavior.penalty,add_behavior.detail_penalty FROM behavior
  LEFT JOIN add_behavior ON behavior.id_behavior = add_behavior.id_behavior
-     WHERE add_behavior.id_std = '$my_id' and penalty='บำเพ็ญประโยชน์'";
+     WHERE add_behavior.id_std = '$my_id' and penalty='ตักเตือน'";
       $count = 1;
         ?>
         <?php
@@ -741,12 +725,13 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
              while($objResult = $result->fetch_object()){
             ?>
             <tr>
-                   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+                  <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->penalty; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail_penalty; ?>
+               
                
                  
             </tr>
@@ -758,9 +743,12 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                    ?>
                    
 
-               
-
-
+                 
+                         
+ <?php
+}
+}
+?>
                 </tbody>
               </table>
               
@@ -772,9 +760,8 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
          </span>
                     
                   </div>
-                
-
-                <div class="row margin-bottom">
+                  <!-- /.user-block -->
+                  <div class="row margin-bottom">
                     <div class="col-sm-6">
                       <div class="row">
                         <!-- /.col -->
@@ -784,26 +771,25 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                     <!-- /.col -->
                   </div>
     
-                           <div class="tab-pane" id="behavior">
+              <div class="tab-pane" id="behavior">
                 <!-- The timeline -->
                  
-                     
-                           <div class="col-xs-12">
-
-            <table id="example1" class="table  table-hover" >
+                        <span class="username">
+ 
+      <div class="box-body">
+            <table id="example4" class="table  table-hover" >
                 <thead class="thead-light">
-                 <tr>
-       <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
+                  <tr>
+   <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
                       <th style="font-size: 14px; color:white;" width="10%" class="text-left">ด้านพฤติกรรม</th>
                       <th style="font-size: 14px; color:white;" width="15%" class="text-left" >หัวข้อหลัก</th>
                        <th style="font-size: 14px; color:white;" width="8%"class="text-left">หัวข้อย่อย</th>
                        <th style="font-size: 14px; color:white;" width="14%"class="text-left">ประเภทบทลงโทษ</th>
                        <th style="font-size: 14px; color:white;" width="20%"class="text-left">รายละเอียดบทลงโทษ</th>
-
-                   
                      </tr>
                   </thead>
-                  <tbody align="center">
+                  
+                  <tbody >
       <?php
               $my_id = $_GET['id'];
 $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,behavior.types_behavior,add_behavior.id_std,add_behavior.id_behavior,add_behavior.date_time,add_behavior.time,add_behavior.penalty,add_behavior.detail_penalty FROM behavior
@@ -815,14 +801,17 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
      if($result = $db->query($strSQL)){
              while($objResult = $result->fetch_object()){
             ?>
-            <tr>
-                   <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
+            <tr>   
+          <td class="text-left" style="font-size: 15px;"> <?php echo $count++; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->types_behavior; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->topic; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail; ?>   </td>
                     <td class="text-left" style="font-size: 14px;"><?php echo $objResult->penalty; ?></td>
                 <td class="text-left" style="font-size: 14px;"><?php echo $objResult->detail_penalty; ?>
                
+            
+
+
                  
             </tr>
 
@@ -835,7 +824,7 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
                    ?>
                    
 
-
+                 
 
 
 
@@ -847,9 +836,12 @@ $strSQL = "SELECT behavior.*,behavior.topic,behavior.percent,behavior.detail,beh
               
     </section>
     <!-- /.content -->
-         
-    <!-- /.content -->
-    <section class="content">
+ 
+
+
+
+
+ <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -886,6 +878,7 @@ if ($result = $db->query($strSQL)) {
     }
 }
 ?>
+
 
 
 <div class="container">
@@ -990,7 +983,7 @@ $query = "SELECT SUM(behavior.status) AS status, (add_behavior.date_time) AS dat
           
 
   <div class="box-body">
-    <table id="example2" class="table  table-hover" class="center">
+    <table id="example5" class="table  table-hover" class="center">
           <thead class="thead-light">
                 <tr >
              <th style="font-size: 14px; color:white;" width="5%" class="text-left">ลำดับ</th>
@@ -1063,6 +1056,7 @@ if ($result = $db->query($strSQL)) {
       <!-- /.row (main row) -->
 
     </section>
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -1073,6 +1067,7 @@ if ($result = $db->query($strSQL)) {
     reserved.</center>
   </footer>
 
+ 
  
  
   <!-- /.control-sidebar -->
@@ -1127,7 +1122,12 @@ if ($result = $db->query($strSQL)) {
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
+    $('#example2').DataTable()
+    $('#example3').DataTable()
+       $('#example4').DataTable()
+        $('#example5').DataTable()
+          $('#example6').DataTable()
+    $('#example7').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
